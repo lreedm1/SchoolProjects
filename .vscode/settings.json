@@ -1,0 +1,18 @@
+{
+    "java.format.settings.url": "eclipse-formatter.xml",
+    "[java]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "java.project.sourcePaths": [
+        "Walking Sim",
+        "Walking Dude",
+        "Vending  Machine",
+        "Javadoc References"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Javadoc References/p02core.jar"
+    ]
+}
