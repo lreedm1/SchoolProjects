@@ -1,118 +1,178 @@
-// TODO Add File header here
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Exceptional Vending Machine
+// Course:   CS 300 Fall 2022
+//
+// Author:   Reed Lokken
+// Email:    rlokken@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Aarav Gupta
+// Partner Email: Agupta297@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons: NONE        
+// Online Sources: Github Copilot | Javadocs https://cs300-www.cs.wisc.edu/wp/wp-content/uploads/2020/12/fall2022/p4/doc/allclasses-index.html
+///////////////////////////////////////////////////////////////////////////////
 
-// TODO import relevant exceptions here
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.zip.DataFormatException;
+import java.util.Scanner;
 
 /**
- * This class implements testers to check the correctness of the methods implemented in p04
+ * This class implements testers to check the correctness of the methods
+ * implemented in p04
  * Exceptional Vending Machine
  *
  */
 public class ExceptionalVendingMachineTester {
-    // TODO complete the implementation of all the public static tester methods defined below
-  
-    // It is recommended but NOT required to add additional tester methods to check the correctness
-    // of loadItems and saveVendingMachineSumary defined in the ExceptionalVendingMachine class.
-  
+    // TODO complete the implementation of all the public static tester methods
+    // defined below
+
+    // It is recommended but NOT required to add additional tester methods to check
+    // the correctness
+    // of loadItems and saveVendingMachineSumary defined in the
+    // ExceptionalVendingMachine class.
+
     /**
-     * Checks the correctness of the constructor of the class Item when passed invalid inputs
+     * Checks the correctness of the constructor of the class Item when passed
+     * invalid inputs
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testItemConstructorNotValidInput() {
-      return false;
+        return false;
     }
-  
+
     /**
-     * Checks the correctness of the constructor of the class Item, Item.getDescription(),
-     * Item.getExpirationDate(), Item.setDescription(), and Item.toString() when passed valid inputs
+     * Checks the correctness of the constructor of the class Item,
+     * Item.getDescription(),
+     * Item.getExpirationDate(), Item.setDescription(), and Item.toString() when
+     * passed valid inputs
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testItemConstructorGettersSetters() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
+
     /**
-     * Checks the correctness of the Item.equals() method. You should consider at least the following
-     * four scenarios. (1) Create an item with valid description and expiration date, comparing it to
-     * itself should return true. (2) Two items having the same description but different expiration
-     * dates should be equal. (3) Passing a null reference to the Item.equals() method should return
-     * false. (4) An item MUST NOT be equal to an object NOT instance of the class Item, for instance
+     * Checks the correctness of the Item.equals() method. You should consider at
+     * least the following
+     * four scenarios. (1) Create an item with valid description and expiration
+     * date, comparing it to
+     * itself should return true. (2) Two items having the same description but
+     * different expiration
+     * dates should be equal. (3) Passing a null reference to the Item.equals()
+     * method should return
+     * false. (4) An item MUST NOT be equal to an object NOT instance of the class
+     * Item, for instance
      * a string object.
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testItemEquals() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
-  
+
     /**
-     * Checks the correctness of the constructor of the ExceptionalVendingMachine when passed invalid
+     * Checks the correctness of the constructor of the ExceptionalVendingMachine
+     * when passed invalid
      * input
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testExceptionalVendingMachineConstructor() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
+
     /**
-     * Checks the correctness of the following methods defined in the ExceptionalVendingMachine class
+     * Checks the correctness of the following methods defined in the
+     * ExceptionalVendingMachine class
      * when an exception is expected to be thrown:
      * 
-     * addItem(), containsItem(), getIndexNextItem(), getItemAtIndex(), getItemOccurrences(),
+     * addItem(), containsItem(), getIndexNextItem(), getItemAtIndex(),
+     * getItemOccurrences(),
      * getItemOccurrencesByExpirationDate(), removeNextItem().
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testExceptionalVendingMachineAddContainsRemoveGetters() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
+
     /**
-     * Checks the correctness of isEmpty(), size(), and isFull() methods defined in the
+     * Checks the correctness of isEmpty(), size(), and isFull() methods defined in
+     * the
      * ExceptionalVendingMachine class
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testEmptySizeFullExceptionalVendingMachine() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
+
     /**
-     * Checks the correctness of loadOneItem method with respect to its specification. Consider at
-     * least the four following scenarios. (1) Successful scenario for loading one item with a valid
-     * string representation to a non-full vending machine. (2) Unsuccessful scenario for passing null
-     * or a blank string (for instance one space or empty string) to the loadOneItem() method call, an
-     * IllegalArgumentEXception is expected to be thrown. (3) Unsuccessful scenario for passing a
-     * badly formatted string to the loadOneItem method. A DataFormatException is expected to be
-     * thrown. (4) Unsuccessful scenario for trying to load an item with a valid representation to a
+     * Checks the correctness of loadOneItem method with respect to its
+     * specification. Consider at
+     * least the four following scenarios. (1) Successful scenario for loading one
+     * item with a valid
+     * string representation to a non-full vending machine. (2) Unsuccessful
+     * scenario for passing null
+     * or a blank string (for instance one space or empty string) to the
+     * loadOneItem() method call, an
+     * IllegalArgumentEXception is expected to be thrown. (3) Unsuccessful scenario
+     * for passing a
+     * badly formatted string to the loadOneItem method. A DataFormatException is
+     * expected to be
+     * thrown. (4) Unsuccessful scenario for trying to load an item with a valid
+     * representation to a
      * full vending machine. An IllegalStateException is expected to be thrown.
      * 
-     * @return true if the test verifies a correct functionality and false if any bug is detected
+     * @return true if the test verifies a correct functionality and false if any
+     *         bug is detected
      */
     public static boolean testLoadOneItem() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
+
     /**
      * Invokes all the public tester methods implemented in this class
      * 
-     * @return true if all testers pass with no errors, and false if any of the tester fails.
+     * @return true if all testers pass with no errors, and false if any of the
+     *         tester fails.
      */
     public static boolean runAllTests() {
-      return false; // default return statement added to resolve compiler errors
+        return false; // default return statement added to resolve compiler errors
     }
-  
+
     /**
      * Main method for the tester class
      * 
      * @param args list of input arguments if any
      */
     public static void main(String[] args) {
-  
+
     }
-  
-  }
-  
+
+}
