@@ -51,10 +51,6 @@ public class ExceptionalVendingMachine {
      *                                  negative
      */
     public ExceptionalVendingMachine(int capacity) {
-        // TODO complete the implementation of this method with respect to the details
-        // of its javadoc
-        // comments
-
         items = new Item[capacity];
         size = 0; // optional since 0 is the default value for primitive type int
     }

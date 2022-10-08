@@ -10,7 +10,7 @@
 //////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
 //
 // Partner Name: Aarav Gupta
-// Partner Email: Agupta297@wisc.edu
+// Partner Email: agupta297@wisc.edu
 // Partner Lecturer's Name: Hobbes LeGault
 // 
 // VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.security.KeyStore.CallbackHandlerProtection;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.zip.DataFormatException;
@@ -40,10 +41,8 @@ import java.util.Scanner;
  *
  */
 public class ExceptionalVendingMachineTester {
-    // TODO complete the implementation of all the public static tester methods
-    // defined below
-
-    // It is recommended but NOT required to add additional tester methods to check
+    // TODO It is recommended but NOT required to add additional tester methods to
+    // check
     // the correctness
     // of loadItems and saveVendingMachineSumary defined in the
     // ExceptionalVendingMachine class.
@@ -56,7 +55,28 @@ public class ExceptionalVendingMachineTester {
      *         bug is detected
      */
     public static boolean testItemConstructorNotValidInput() {
-        return false;
+        String illegalDescriptions[] = { null, "", " " };
+        int illegalExpirationDates[] = { -1, -2, -3 };
+        Object illegalDescriptions[] = Object[];
+        \
+
+        // pass in a des
+
+        for (int capacity : capacities) {
+            try {
+                Item tester = new Item(description, expirationDate);
+                System.out.println("ExceptionalVendingMachine constructed " + tester + "when passed the invalid input "
+                        + capacity);
+                return false;
+            } catch (IllegalArgumentException e) {
+                ; // do nothing this exception was expected
+            } catch (Exception e) {
+                System.out.println("ExceptionalVendingMachine threw the unexpected exception " + e
+                        + " when passed an illegal input");
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -163,6 +183,16 @@ public class ExceptionalVendingMachineTester {
      *         tester fails.
      */
     public static boolean runAllTests() {
+        boolean allTestsPassed = true;
+
+        System.out.println("testItemConstructorNotValidInput: " + testItemConstructorNotValidInput());
+        System.out.println("testItemConstructorGettersSetters: " + testItemConstructorGettersSetters());
+        System.out.println("testItemEquals: " + testItemEquals());
+        System.out.println("testExceptionalVendingMachineConstructor: " + testExceptionalVendingMachineConstructor());
+        System.out.println("testExceptionalVendingMachineAddContainsRemoveGetters: "
+                + testExceptionalVendingMachineAddContainsRemoveGetters());
+        System.out.println("testEmptySizeFullExceptionalVendingMachine: " + testEmptySizeFullExceptionalVendingMachine());
+        System.out.println("testLoadOneItem: " + testLoadOneItem());
         return false; // default return statement added to resolve compiler errors
     }
 
@@ -172,7 +202,7 @@ public class ExceptionalVendingMachineTester {
      * @param args list of input arguments if any
      */
     public static void main(String[] args) {
-
+        System.out.println("runAllTests: " + runAllTests());
     }
 
 }
