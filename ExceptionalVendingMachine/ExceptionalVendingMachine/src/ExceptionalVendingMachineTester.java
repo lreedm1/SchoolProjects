@@ -48,12 +48,6 @@ public class ExceptionalVendingMachineTester {
 	// ExceptionalVendingMachine class.
 
 	/**
-	 * Returns the primitive type of the given object
-	 * 
-	 * @return
-	 */
-
-	/**
 	 * Checks the correctness of the constructor of the class Item when passed
 	 * invalid inputs
 	 * 
@@ -161,8 +155,8 @@ public class ExceptionalVendingMachineTester {
 	 *         bug is detected
 	 */
 	public static boolean testItemEquals() {
-		String descriptions[] = { "Chocolate", null };
-		Integer expirationDates[] = { 15, 4, 1 };
+		String[] descriptions = { "Chocolate", null };
+		Integer[] expirationDates = { 15, 4, 1 };
 	
 		Object[][] combinationCount = 
 			new Object[descriptions.length * expirationDates.length][2];
@@ -174,6 +168,9 @@ public class ExceptionalVendingMachineTester {
 			}
 		}
 
+		// check that two items with the same description but not expiration date and
+		// passing a null reference to the Item.equals() method returns false
+		// and vice versa
 		for (Object item1 : combinationCount) {
 			for (Object item2 : combinationCount) {
 				String description1 = (String) ((Object[]) item1)[0];
@@ -181,29 +178,48 @@ public class ExceptionalVendingMachineTester {
 				String description2 = (String) ((Object[]) item2)[0];
 				int expirationDate2 = (int) ((Object[]) item2)[1];
 
+
 				Item tester1 = new Item(description1, expirationDate1);
 				Item tester2 = new Item(description2, expirationDate2);
 
 				if (tester1.equals(tester2)) {
 					if (description1 == null || description2 == null) {
-						System.out.println("Item.equals() returned true when passed at least one null description");
+						System.out.println(
+							"Item.equals() returned true when passed at least one null description");
 						return false;
 					}
 					if (!description1.equals(description2)) {
-						System.out.println("Item.equals() returned true when passed two items with different descriptions");
-						return false;
-					}
-					if (expirationDate1 != expirationDate2) {
-						System.out.println("Item.equals() returned true when passed two items with different expiration dates");
+						System.out.println(
+							"Item.equals() returned true when passed two items with different descriptions");
 						return false;
 					}
 				} else {
 					if (description1 != null && description2 != null && description1.equals(description2)
 							&& expirationDate1 == expirationDate2) {
-						System.out.println("Item.equals() returned false when passed two items with the same descriptions and expiration dates");
+						System.out.println(
+							"Item.equals() returned false when passed two items with the same descriptions and expiration dates");
+						return false;
+					}
+					if (expirationDate1 != expirationDate2) {
+						System.out.println(
+							"Item.equals() returned false when passed two items with different expiration dates");
 						return false;
 					}
 				}
+			}
+		}
+		// check that passing an object not instance of the class Item returns false
+		
+		for (Object item : combinationCount) {
+			String description = (String) ((Object[]) item)[0];
+			int expirationDate = (int) ((Object[]) item)[1];
+			Item tester = new Item(description, expirationDate);
+			try {
+				if (tester.equals(new Object[] { tester })) 
+					System.out.println("Item.equals() returned true when passed an object");
+					return false;
+			} catch (Exception e) {
+				System.out.println("Item.equals() threw an exception when passed a string object");
 			}
 		}
 		return true;
@@ -218,7 +234,22 @@ public class ExceptionalVendingMachineTester {
 	 *         bug is detected
 	 */
 	public static boolean testExceptionalVendingMachineConstructor() {
-		return false; // default return statement added to resolve compiler errors
+		int[] illegalCapacities = new int[] {-1, 0};
+		for (int capacity : illegalCapacities) {	
+			try {
+				ExceptionalVendingMachine tester = new ExceptionalVendingMachine(capacity);
+				System.out.println("ExceptionalVendingMachine constructor did not throw" + 
+					"IllegalArgumentException when passed the invalid input " + capacity);
+				return false;
+			} catch (IllegalArgumentException e) {
+				// do nothing
+			} catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine constructor threw exception " + e.getClass().getName() +
+					"when passed the invalid input " + capacity);
+				return false;
+			}
+		}
+	return true;
 	}
 
 	/**
