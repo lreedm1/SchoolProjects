@@ -82,12 +82,9 @@ public class Item {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		String item = other.toString();
-		System.out.println(item);
-		//return(other instanceof Item && description.contentEquals(other.description));
-		return(other instanceof Item && item.contentEquals(description));
-
+		return (other instanceof Item && item.contentEquals(description)&&!other.toString().contentEquals(Integer.toString(expirationDate)));
 	}
+
 
 }
  
