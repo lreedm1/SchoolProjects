@@ -41,168 +41,209 @@ import java.util.Scanner;
  *
  */
 public class ExceptionalVendingMachineTester {
-    // TODO It is recommended but NOT required to add additional tester methods to
-    // check
-    // the correctness
-    // of loadItems and saveVendingMachineSumary defined in the
-    // ExceptionalVendingMachine class.
+		// TODO It is recommended but NOT required to add additional tester methods to
+		// check
+		// the correctness
+		// of loadItems and saveVendingMachineSumary defined in the
+		// ExceptionalVendingMachine class.
 
-    /**
-     * Checks the correctness of the constructor of the class Item when passed
-     * invalid inputs
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testItemConstructorNotValidInput() {
-        String illegalDescriptions[] = { null, "", " " };
-        int illegalExpirationDates[] = { -1, -2, -3 };
-        Object illegalDescriptions[] = Object[];
-        \
 
-        // pass in a des
+		/**
+		* Creates a 2d array of objects with each combination of inputs in the format {description,integer}
+		* 
+		* @return every combination of inputs 
+		**/
+		private Object[] zipInputs(String[] descriptions, Integer[] items)  throws illegalInputs{
+			Object[] combinations = Object[];
+			Object[] tempCombination = Object[];
+			
+			for (i = 0; i < descriptions.length; i++) {
+				tempCombination = Object[];
+				for (j = 0; j < items.length; j++) {
 
-        for (int capacity : capacities) {
-            try {
-                Item tester = new Item(description, expirationDate);
-                System.out.println("ExceptionalVendingMachine constructed " + tester + "when passed the invalid input "
-                        + capacity);
-                return false;
-            } catch (IllegalArgumentException e) {
-                ; // do nothing this exception was expected
-            } catch (Exception e) {
-                System.out.println("ExceptionalVendingMachine threw the unexpected exception " + e
-                        + " when passed an illegal input");
-                return false;
-            }
-        }
-        return true;
-    }
+				}
+			}
+		}
+		/**
+		 * Checks the correctness of the constructor of the class Item when passed
+		 * invalid inputs
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testItemConstructorNotValidInput() {
 
-    /**
-     * Checks the correctness of the constructor of the class Item,
-     * Item.getDescription(),
-     * Item.getExpirationDate(), Item.setDescription(), and Item.toString() when
-     * passed valid inputs
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testItemConstructorGettersSetters() {
-        return false; // default return statement added to resolve compiler errors
-    }
+				String illegalDescriptions[] = { null, "", " " };
+				Integer illegalExpirationDates[] = { -1, -2, -3 };
 
-    /**
-     * Checks the correctness of the Item.equals() method. You should consider at
-     * least the following
-     * four scenarios. (1) Create an item with valid description and expiration
-     * date, comparing it to
-     * itself should return true. (2) Two items having the same description but
-     * different expiration
-     * dates should be equal. (3) Passing a null reference to the Item.equals()
-     * method should return
-     * false. (4) An item MUST NOT be equal to an object NOT instance of the class
-     * Item, for instance
-     * a string object.
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testItemEquals() {
-        return false; // default return statement added to resolve compiler errors
-    }
+				for (int i=0;i<illegalDescriptions.length;i++) {
+						try {
+								Item tester = new Item(illegalDescriptions[i],illegalExpirationDates[i]);
+								System.out.println("ExceptionalVendingMachine constructed " + tester + "when passed the invalid input "
+												+ illegalDescriptions[i]+": "+illegalExpirationDates[i]);
+								return false;
+						} catch (IllegalArgumentException e) {
+								; // do nothing this exception was expected
+						} catch (Exception e) {
+								System.out.println("ExceptionalVendingMachine threw the unexpected exception " + e
+												+ " when passed an illegal input");
+								return false;
+						}
+				}
+				return true;
+		}
 
-    /**
-     * Checks the correctness of the constructor of the ExceptionalVendingMachine
-     * when passed invalid
-     * input
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testExceptionalVendingMachineConstructor() {
-        return false; // default return statement added to resolve compiler errors
-    }
+		/**
+		 * Checks the correctness of the constructor of the class Item,
+		 * Item.getDescription(),
+		 * Item.getExpirationDate(), Item.setDescription(), and Item.toString() when
+		 * passed valid inputs
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testItemConstructorGettersSetters() {
+				// .getDescription()
 
-    /**
-     * Checks the correctness of the following methods defined in the
-     * ExceptionalVendingMachine class
-     * when an exception is expected to be thrown:
-     * 
-     * addItem(), containsItem(), getIndexNextItem(), getItemAtIndex(),
-     * getItemOccurrences(),
-     * getItemOccurrencesByExpirationDate(), removeNextItem().
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testExceptionalVendingMachineAddContainsRemoveGetters() {
-        return false; // default return statement added to resolve compiler errors
-    }
 
-    /**
-     * Checks the correctness of isEmpty(), size(), and isFull() methods defined in
-     * the
-     * ExceptionalVendingMachine class
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testEmptySizeFullExceptionalVendingMachine() {
-        return false; // default return statement added to resolve compiler errors
-    }
+				// .getExpirationDate
 
-    /**
-     * Checks the correctness of loadOneItem method with respect to its
-     * specification. Consider at
-     * least the four following scenarios. (1) Successful scenario for loading one
-     * item with a valid
-     * string representation to a non-full vending machine. (2) Unsuccessful
-     * scenario for passing null
-     * or a blank string (for instance one space or empty string) to the
-     * loadOneItem() method call, an
-     * IllegalArgumentEXception is expected to be thrown. (3) Unsuccessful scenario
-     * for passing a
-     * badly formatted string to the loadOneItem method. A DataFormatException is
-     * expected to be
-     * thrown. (4) Unsuccessful scenario for trying to load an item with a valid
-     * representation to a
-     * full vending machine. An IllegalStateException is expected to be thrown.
-     * 
-     * @return true if the test verifies a correct functionality and false if any
-     *         bug is detected
-     */
-    public static boolean testLoadOneItem() {
-        return false; // default return statement added to resolve compiler errors
-    }
+				// .setDes
+		}
 
-    /**
-     * Invokes all the public tester methods implemented in this class
-     * 
-     * @return true if all testers pass with no errors, and false if any of the
-     *         tester fails.
-     */
-    public static boolean runAllTests() {
-        boolean allTestsPassed = true;
+		/**
+		 * Checks the correctness of the Item.equals() method. You should consider at
+		 * least the following
+		 * four scenarios. (1) Create an item with valid description and expiration
+		 * date, comparing it to
+		 * itself should return true. (2) Two items having the same description but
+		 * different expiration
+		 * dates should be equal. (3) Passing a null reference to the Item.equals()
+		 * method should return
+		 * false. (4) An item MUST NOT be equal to an object NOT instance of the class
+		 * Item, for instance
+		 * a string object.
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testItemEquals() {
+			String illegalDescriptions[] = { "Chocolate", "Chocolate", null };
+			Integer illegalExpirationDates[] = { 15, 4, 1 };
 
-        System.out.println("testItemConstructorNotValidInput: " + testItemConstructorNotValidInput());
-        System.out.println("testItemConstructorGettersSetters: " + testItemConstructorGettersSetters());
-        System.out.println("testItemEquals: " + testItemEquals());
-        System.out.println("testExceptionalVendingMachineConstructor: " + testExceptionalVendingMachineConstructor());
-        System.out.println("testExceptionalVendingMachineAddContainsRemoveGetters: "
-                + testExceptionalVendingMachineAddContainsRemoveGetters());
-        System.out.println("testEmptySizeFullExceptionalVendingMachine: " + testEmptySizeFullExceptionalVendingMachine());
-        System.out.println("testLoadOneItem: " + testLoadOneItem());
-        return false; // default return statement added to resolve compiler errors
-    }
+			//for (int i=0;i<illegalDescriptions.length;i++) {
+					try {
+							Item tester = new Item(illegalDescriptions[0],illegalExpirationDates[0]);
+							Item tester2 = new Item(illegalDescriptions[1],illegalExpirationDates[1]);
+							Item tester3 = new Item(illegalDescriptions[2],illegalExpirationDates[2]);
+							if(!illegalDescriptions[0].equals(illegalDescriptions[0]))return false;
+							if(!tester1.equals(tester2))return false;
+							if(!tester3.equals(null))return false;
+							System.out.println("ExceptionalVendingMachine constructed " + tester + "when passed the invalid input "
+											+ illegalDescriptions[i]+": "+illegalExpirationDates[i]);
+							return false;
+					} catch (IllegalArgumentException e) {
+							; // do nothing this exception was expected
+					} catch (Exception e) {
+							System.out.println("ExceptionalVendingMachine threw the unexpected exception " + e
+											+ " when passed an illegal input");
+							return false;
+					}
+		//  }
+			return true;
+		}
 
-    /**
-     * Main method for the tester class
-     * 
-     * @param args list of input arguments if any
-     */
-    public static void main(String[] args) {
-        System.out.println("runAllTests: " + runAllTests());
-    }
+		/**
+		 * Checks the correctness of the constructor of the ExceptionalVendingMachine
+		 * when passed invalid
+		 * input
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testExceptionalVendingMachineConstructor() {
+				return false; // default return statement added to resolve compiler errors
+		}
+
+		/**
+		 * Checks the correctness of the following methods defined in the
+		 * ExceptionalVendingMachine class
+		 * when an exception is expected to be thrown:
+		 * 
+		 * addItem(), containsItem(), getIndexNextItem(), getItemAtIndex(),
+		 * getItemOccurrences(),
+		 * getItemOccurrencesByExpirationDate(), removeNextItem().
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testExceptionalVendingMachineAddContainsRemoveGetters() {
+				return false; // default return statement added to resolve compiler errors
+		}
+
+		/**
+		 * Checks the correctness of isEmpty(), size(), and isFull() methods defined in
+		 * the
+		 * ExceptionalVendingMachine class
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testEmptySizeFullExceptionalVendingMachine() {
+				return false; // default return statement added to resolve compiler errors
+		}
+
+		/**
+		 * Checks the correctness of loadOneItem method with respect to its
+		 * specification. Consider at
+		 * least the four following scenarios. (1) Successful scenario for loading one
+		 * item with a valid
+		 * string representation to a non-full vending machine. (2) Unsuccessful
+		 * scenario for passing null
+		 * or a blank string (for instance one space or empty string) to the
+		 * loadOneItem() method call, an
+		 * IllegalArgumentEXception is expected to be thrown. (3) Unsuccessful scenario
+		 * for passing a
+		 * badly formatted string to the loadOneItem method. A DataFormatException is
+		 * expected to be
+		 * thrown. (4) Unsuccessful scenario for trying to load an item with a valid
+		 * representation to a
+		 * full vending machine. An IllegalStateException is expected to be thrown.
+		 * 
+		 * @return true if the test verifies a correct functionality and false if any
+		 *         bug is detected
+		 */
+		public static boolean testLoadOneItem() {
+				return false; // default return statement added to resolve compiler errors
+		}
+
+		/**
+		 * Invokes all the public tester methods implemented in this class
+		 * 
+		 * @return true if all testers pass with no errors, and false if any of the
+		 *         tester fails.
+		 */
+		public static boolean runAllTests() {
+				boolean allTestsPassed = true;
+
+				System.out.println("testItemConstructorNotValidInput: " + testItemConstructorNotValidInput());
+				System.out.println("testItemConstructorGettersSetters: " + testItemConstructorGettersSetters());
+				System.out.println("testItemEquals: " + testItemEquals());
+				System.out.println("testExceptionalVendingMachineConstructor: " + testExceptionalVendingMachineConstructor());
+				System.out.println("testExceptionalVendingMachineAddContainsRemoveGetters: "
+								+ testExceptionalVendingMachineAddContainsRemoveGetters());
+				System.out.println("testEmptySizeFullExceptionalVendingMachine: " + testEmptySizeFullExceptionalVendingMachine());
+				System.out.println("testLoadOneItem: " + testLoadOneItem());
+				return false; // default return statement added to resolve compiler errors
+		}
+
+		/**
+		 * Main method for the tester class
+		 * 
+		 * @param args list of input arguments if any
+		 */
+		public static void main(String[] args) {
+				System.out.println("runAllTests: " + runAllTests());
+		}
 
 }
