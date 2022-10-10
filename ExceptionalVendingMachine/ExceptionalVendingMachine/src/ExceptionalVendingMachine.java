@@ -335,10 +335,10 @@ public class ExceptionalVendingMachine {
 			throw new IllegalArgumentException("String is null or blank");
 		}
 		String[] arrOfStr = itemRepresentation.split(":", 2);
-		String description = arrOfStr[0];
+		String description = arrOfStr[0].strip();
 		
 		try {
-		int expirationDate = Integer.parseInt(arrOfStr[1].trim());
+		int expirationDate = Integer.parseInt(arrOfStr[1].strip());
 		if (arrOfStr[0].strip().equals("") || arrOfStr[1].strip().equals("") || expirationDate < 0) {
 			throw new DataFormatException("Error: Incorrect Format of String itemRepresentation");
 		}
