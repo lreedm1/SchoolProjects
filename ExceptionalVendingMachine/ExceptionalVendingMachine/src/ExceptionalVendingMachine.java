@@ -25,8 +25,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // Add import statement to relevant exceptions and FilePrinter or FileWriter
-import java.io.File;  
-import java.io.PrintWriter;  
+import java.io.File;
+import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.security.KeyStore.CallbackHandlerProtection;
@@ -34,7 +34,6 @@ import java.util.NoSuchElementException;
 import java.util.zip.DataFormatException;
 import java.util.Scanner;
 import java.io.IOException;
-
 
 /**
  * This class models a vending machine. When requested, the item with the
@@ -266,7 +265,6 @@ public class ExceptionalVendingMachine {
 		// get the index of the next item to dispense by this vending machine
 		int index = getIndexNextItem(description); // exceptions throws by this method call should
 													// propagate
-
 		// save a copy of the item to dispense
 		Item itemToDispense = items[index];
 
@@ -332,10 +330,16 @@ public class ExceptionalVendingMachine {
 	 *                                  vending machine is full
 	 */
 	public void loadOneItem(String itemRepresentation) throws DataFormatException {
+		if (itemRepresentation == null) {
+			throw new IllegalArgumentException("String didn't split");
+		}
+		if (itemRepresentation.strip() == "") {
+			throw new DataFormatException("String is blank");
+		}
 		String[] arrOfStr = itemRepresentation.split(":", 2);
 		String description = arrOfStr[0];
 		int expirationDate = Integer.parseInt(arrOfStr[1].trim());
-		if (arrOfStr[0].strip().equals("") || arrOfStr[1].strip().equals("") && expirationDate < 0) {
+		if (arrOfStr[0].strip().equals("") || arrOfStr[1].strip().equals("") || expirationDate < 0) {
 			throw new DataFormatException("Error: Incorrect Format of String itemRepresentation");
 		}
 		addItem(description, expirationDate); // throws the IllegalArgumentException as well as IllegalState Exception
@@ -359,23 +363,21 @@ public class ExceptionalVendingMachine {
 		Scanner scnr = new Scanner(file);
 		int count = 0;
 		try {
-        while(scnr.hasNextLine()){
-        	if(isFull()==true) {
-        		System.out.println("Vending machine FULL. No more items can be loaded.");
-        		break;
-        	}
-            String line = scnr.nextLine();
+			while (scnr.hasNextLine()) {
+				if (isFull() == true) {
+					System.out.println("Vending machine FULL. No more items can be loaded.");
+					break;
+				}
+				String line = scnr.nextLine();
 				loadOneItem(line);
 
-
-            count++;
-        }
-        scnr.close();
+				count++;
+			}
+			scnr.close();
+		} catch (DataFormatException e) {
+			; // this was expected
 		}
-        catch (DataFormatException e) {
-			; //this was expected
-        }   
-        return count;
+		return count;
 
 		// TODO Complete the implementation of this method with respect to the details
 		// provided above
@@ -395,14 +397,13 @@ public class ExceptionalVendingMachine {
 	 * @param file file object where the vending machine summary will be saved
 	 */
 	public void saveVendingMachineSummary(File file) {
-		       try {
-            FileWriter writer = new FileWriter(file);
-            writer.write(getItemsSummary());
-            writer.close();
-        }
-        catch (IOException e) {
-        	; // this was expected 
-        }
+		try {
+			FileWriter writer = new FileWriter(file);
+			writer.write(getItemsSummary());
+			writer.close();
+		} catch (IOException e) {
+			; // this was expected
+		}
 	}
 
 }
