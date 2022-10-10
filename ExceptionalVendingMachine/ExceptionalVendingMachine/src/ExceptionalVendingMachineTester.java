@@ -245,7 +245,7 @@ public class ExceptionalVendingMachineTester {
 				// do nothing
 			} catch (Exception e) {
 				System.out.println("ExceptionalVendingMachine constructor threw exception " + e.getClass().getName() +
-					"when passed the invalid input " + capacity);
+					" when passed the invalid input " + capacity);
 				return false;
 			}
 		}
@@ -277,7 +277,30 @@ public class ExceptionalVendingMachineTester {
 	 *         bug is detected
 	 */
 	public static boolean testEmptySizeFullExceptionalVendingMachine() {
-		return false; // default return statement added to resolve compiler errors
+		//tests the size(), isEmpty(), and isFull methods
+		{
+			//default size test
+			ExceptionalVendingMachine o = new ExceptionalVendingMachine(3);
+			
+			if (o.size() != 0 && o.isEmpty()!=true &&o.isFull()==true) {
+				System.out.println(
+						"Your Vending Machine does not have the default size set to 0");
+				return false;
+			}
+			//after adding items to the vending machine test
+			o.addItem("Chocolate", 0);
+			o.addItem("Vanilla", 1);
+			o.addItem("Peanuts", 7);
+			if(o.size()!=3 || o.isEmpty()==true|| o.isFull()!=true ) {
+			System.out.println(
+						"Your Vending Machine did not have the right size after adding items");
+				return false;
+			}
+			
+		}
+		//tests the isEmpty() method
+		
+		return true;
 	}
 
 	/**
