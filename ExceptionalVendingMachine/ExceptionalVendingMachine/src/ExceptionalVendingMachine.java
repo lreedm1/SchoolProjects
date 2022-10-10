@@ -265,6 +265,7 @@ public class ExceptionalVendingMachine {
 		// get the index of the next item to dispense by this vending machine
 		int index = getIndexNextItem(description); // exceptions throws by this method call should
 													// propagate
+
 		// save a copy of the item to dispense
 		Item itemToDispense = items[index];
 
@@ -330,19 +331,21 @@ public class ExceptionalVendingMachine {
 	 *                                  vending machine is full
 	 */
 	public void loadOneItem(String itemRepresentation) throws DataFormatException {
-		if (itemRepresentation == null) {
-			throw new IllegalArgumentException("String didn't split");
-		}
-		if (itemRepresentation.strip() == "") {
-			throw new DataFormatException("String is blank");
+		if (itemRepresentation == null || itemRepresentation.strip() == "") {
+			throw new IllegalArgumentException("String is null or blank");
 		}
 		String[] arrOfStr = itemRepresentation.split(":", 2);
 		String description = arrOfStr[0];
+		
+		try {
 		int expirationDate = Integer.parseInt(arrOfStr[1].trim());
 		if (arrOfStr[0].strip().equals("") || arrOfStr[1].strip().equals("") || expirationDate < 0) {
 			throw new DataFormatException("Error: Incorrect Format of String itemRepresentation");
 		}
 		addItem(description, expirationDate); // throws the IllegalArgumentException as well as IllegalState Exception
+		}catch(NumberFormatException ex){
+			throw new DataFormatException("Error: Incorrect Format of String itemRepresentation");
+		}
 	}
 
 	/**
@@ -362,21 +365,26 @@ public class ExceptionalVendingMachine {
 	public int loadItems(File file) throws FileNotFoundException {
 		Scanner scnr = new Scanner(file);
 		int count = 0;
-		try {
+		
 			while (scnr.hasNextLine()) {
 				if (isFull() == true) {
 					System.out.println("Vending machine FULL. No more items can be loaded.");
 					break;
 				}
+				try {
 				String line = scnr.nextLine();
 				loadOneItem(line);
 
 				count++;
+			}catch (IllegalArgumentException e) {
+				scnr.hasNextLine();
+			}catch (IllegalStateException e) {
+				scnr.hasNextLine();
+			}catch (DataFormatException e) {
+				scnr.hasNextLine();
 			}
-			scnr.close();
-		} catch (DataFormatException e) {
-			; // this was expected
 		}
+		scnr.close();
 		return count;
 
 		// TODO Complete the implementation of this method with respect to the details

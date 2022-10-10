@@ -922,7 +922,7 @@ public class ExceptionalVendingMachineTester {
 			ExceptionalVendingMachine o = new ExceptionalVendingMachine(8);
 			try {
 				o.loadOneItem(" ");
-			} catch (DataFormatException e) {
+			} catch (IllegalArgumentException e) {
 				// expected
 			} catch (Exception e) {
 				System.out.println(
