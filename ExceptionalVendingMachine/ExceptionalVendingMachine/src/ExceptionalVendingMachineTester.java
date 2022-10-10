@@ -269,7 +269,8 @@ public class ExceptionalVendingMachineTester {
 			try {
 				tester.addItem(description, expirationDate);
 				System.out.println("ExceptionalVendingMachine.addItem() did not throw"
-						+ "IllegalArgumentException when passed the invalid input " + description + " " + expirationDate);
+						+ "IllegalArgumentException when passed the invalid input " + description + " "
+						+ expirationDate);
 				return false;
 			} catch (IllegalArgumentException e) {
 				// do nothing
@@ -279,14 +280,15 @@ public class ExceptionalVendingMachineTester {
 				return false;
 			}
 
-			// test addItem() throws an exception when presented the invlid description "  "
+			// test addItem() throws an exception when presented the invlid description " "
 			tester = new ExceptionalVendingMachine(1);
 			description = "";
 			expirationDate = 2022;
 			try {
 				tester.addItem(description, expirationDate);
 				System.out.println("ExceptionalVendingMachine.addItem() did not throw"
-						+ "IllegalArgumentException when passed the invalid input " + description + " " + expirationDate);
+						+ "IllegalArgumentException when passed the invalid input " + description + " "
+						+ expirationDate);
 				return false;
 			} catch (IllegalArgumentException e) {
 				// do nothing
@@ -296,14 +298,16 @@ public class ExceptionalVendingMachineTester {
 				return false;
 			}
 
-			// test addItem() throws an exception when presented the invlid expirationDate -1
+			// test addItem() throws an exception when presented the invlid expirationDate
+			// -1
 			tester = new ExceptionalVendingMachine(1);
 			description = null;
 			expirationDate = -1;
 			try {
 				tester.addItem(description, expirationDate);
 				System.out.println("ExceptionalVendingMachine.addItem() did not throw"
-						+ "IllegalArgumentException when passed the invalid input " + description + " " + expirationDate);
+						+ "IllegalArgumentException when passed the invalid input " + description + " "
+						+ expirationDate);
 				return false;
 			} catch (IllegalArgumentException e) {
 				// do nothing
@@ -324,8 +328,9 @@ public class ExceptionalVendingMachineTester {
 			try {
 				tester.addItem(description, expirationDate);
 				if (!tester.containsItem(description)) {
-					System.out.println("ExceptionalVendingMachine.containsItem() returned false when passed the valid input "
-							+ description + " and the vending machine contains the item");
+					System.out.println(
+							"ExceptionalVendingMachine.containsItem() returned false when passed the valid input "
+									+ description + " and the vending machine contains the item");
 					return false;
 				}
 			} catch (Exception e) {
@@ -343,8 +348,9 @@ public class ExceptionalVendingMachineTester {
 
 			try {
 				if (tester.containsItem(description)) {
-					System.out.println("ExceptionalVendingMachine.containsItem() returned true when passed the valid input "
-							+ description + " and the vending machine does not contain the item");
+					System.out.println(
+							"ExceptionalVendingMachine.containsItem() returned true when passed the valid input "
+									+ description + " and the vending machine does not contain the item");
 					return false;
 				}
 			} catch (Exception e) {
@@ -353,9 +359,10 @@ public class ExceptionalVendingMachineTester {
 				return false;
 			}
 		}
-		 
+
 		{
-			// test containsItem() throws an exception when presented the invlid description null
+			// test containsItem() throws an exception when presented the invlid description
+			// null
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = null;
 			try {
@@ -371,7 +378,8 @@ public class ExceptionalVendingMachineTester {
 				return false;
 			}
 
-			// test containsItem() throws an exception when presented the invlid description "  "
+			// test containsItem() throws an exception when presented the invlid description
+			// " "
 			tester = new ExceptionalVendingMachine(1);
 			description = " ";
 			try {
@@ -390,7 +398,8 @@ public class ExceptionalVendingMachineTester {
 
 		// getIndexNextItem() method tester
 		{
-			// test getIndexNextItem() returns the correct index when presented a valid input
+			// test getIndexNextItem() returns the correct index when presented a valid
+			// input
 			// and the vending machine contains the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
@@ -398,20 +407,22 @@ public class ExceptionalVendingMachineTester {
 			try {
 				tester.addItem(description, expirationDate);
 				if (tester.getIndexNextItem(description) != 0) {
-					System.out.println("ExceptionalVendingMachine.getIndexNextItem() returned " + tester.getIndexNextItem(description)
-							+ " when passed the valid input " + description + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.getIndexNextItem() returned "
+							+ tester.getIndexNextItem(description) + " when passed the valid input " + description
+							+ " and the vending machine contains the item");
 					return false;
 				}
 
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 
 		{
-			// test getIndexNextItem() throws NoSuchElementException when presented a valid input
+			// test getIndexNextItem() throws NoSuchElementException when presented a valid
+			// input
 			// and the vending machine does not contain the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
@@ -424,14 +435,15 @@ public class ExceptionalVendingMachineTester {
 			} catch (NoSuchElementException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 
 		{
-			// test getindexNextItem() throws IllegalArgumentException when presented the invlid description null
+			// test getindexNextItem() throws IllegalArgumentException when presented the
+			// invlid description null
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = null;
 			try {
@@ -442,14 +454,15 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the invalid input " + description);
+				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the invalid input " + description);
 				return false;
 			}
 		}
 
 		{
-			// test getIndexNextItem() throws IllegalArgumentException when presented the invlid description "  "
+			// test getIndexNextItem() throws IllegalArgumentException when presented the
+			// invlid description " "
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = " ";
 			try {
@@ -460,73 +473,16 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the invalid input " + description);
-				return false;
-			}
-		}
-		// getItemAtIndex() method tester
-		{
-			// test getItemAtIndex() returns the correct item when presented a valid input
-			// and the vending machine contains the item
-			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
-			String description = "Coke";
-			int expirationDate = 2022;
-			Item item = new Item(description, expirationDate);
-			try {
-				tester.addItem(description, expirationDate);
-				if (!tester.getItemAtIndex(0).equals(item)) {
-					System.out.println("ExceptionalVendingMachine.getItemAtIndex() returned " + tester.getItemAtIndex(0)
-							+ " when passed the valid input " + 0 + " and the vending machine contains the item");
-					return false;
-				}
-
-			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemAtIndex() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + 0);
-				return false;
-			}
-		}
-		{ 
-			// test getItemAtIndex() throws IndexOutOfBoundsException when presented an invalid
-			// index that is less than 0
-			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
-			try {
-				tester.getItemAtIndex(-1);
-				System.out.println("ExceptionalVendingMachine.getItemAtIndex() did not throw"
-						+ "IndexOutOfBoundsException when passed the valid input " + 0
-						+ " and the vending machine does not contain the item");
-				return false;
-			} catch (IndexOutOfBoundsException e) {
-				// do nothing
-			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemAtIndex() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + 0);
-				return false;
-			}
-		}
-		{
-			// test getItemAtIndex() throws IndexOutOfBoundsException when presented an invalid
-			// index that is greater than the size of the array
-			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
-			try {
-				tester.getItemAtIndex(1);
-				System.out.println("ExceptionalVendingMachine.getItemAtIndex() did not throw"
-						+ "IndexOutOfBoundsException when passed the valid input " + 0
-						+ " and the vending machine does not contain the item");
-				return false;
-			} catch (IndexOutOfBoundsException e) {
-				// do nothing
-			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemAtIndex() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + 0);
+				System.out.println("ExceptionalVendingMachine.getIndexNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the invalid input " + description);
 				return false;
 			}
 		}
 
 		// getItemOccurences() method tester
 		{
-			// test getItemOccurences() returns the correct number of a single occurence when presented
+			// test getItemOccurences() returns the correct number of a single occurence
+			// when presented
 			// a valid input and the vending machine contains the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
@@ -534,21 +490,24 @@ public class ExceptionalVendingMachineTester {
 			try {
 				tester.addItem(description, expirationDate);
 				if (tester.getItemOccurrences(description) != 1) {
-					System.out.println("ExceptionalVendingMachine.getItemOccurences() returned " + tester.getItemOccurrences(description)
-							+ " when passed the valid input " + description + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.getItemOccurences() returned "
+							+ tester.getItemOccurrences(description) + " when passed the valid input " + description
+							+ " and the vending machine contains the item");
 					return false;
 				}
 
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
+
 		{
-			// test getItemOccurences() returns the correct number of multiple occurences when presented
+			// test getItemOccurences() returns the correct number of multiple occurences
+			// when presented
 			// a valid input and the vending machine contains the item
-			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
+			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(4);
 			String description = "Coke";
 			int expirationDate = 2022;
 			try {
@@ -556,40 +515,42 @@ public class ExceptionalVendingMachineTester {
 				tester.addItem(description, expirationDate);
 				tester.addItem(description, expirationDate);
 				if (tester.getItemOccurrences(description) != 3) {
-					System.out.println("ExceptionalVendingMachine.getItemOccurences() returned " + tester.getItemOccurrences(description)
-							+ " when passed the valid input " + description + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.getItemOccurences() returned "
+							+ tester.getItemOccurrences(description) + " when passed the valid input " + description
+							+ " and the vending machine contains the item");
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurences() returns 0 when presented a valid input and the vending machine
+			// test getItemOccurences() returns 0 when presented a valid input and the
+			// vending machine
 			// does not contain the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
-			int expirationDate = 2022;
 			try {
 				if (tester.getItemOccurrences(description) != 0) {
-					System.out.println("ExceptionalVendingMachine.getItemOccurences() returned " + tester.getItemOccurrences(description)
-							+ " when passed the valid input " + description + " and the vending machine does not contain the item");
+					System.out.println("ExceptionalVendingMachine.getItemOccurences() returned "
+							+ tester.getItemOccurrences(description) + " when passed the valid input " + description
+							+ " and the vending machine does not contain the item");
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurences() throws IllegalArgumentException when presented an invalid
+			// test getItemOccurences() throws IllegalArgumentException when presented an
+			// invalid
 			// input that is null
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = null;
-			int expirationDate = 2022;
 			try {
 				tester.getItemOccurrences(description);
 				System.out.println("ExceptionalVendingMachine.getItemOccurences() did not throw"
@@ -599,17 +560,17 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurences() throws IllegalArgumentException when presented an invalid
+			// test getItemOccurences() throws IllegalArgumentException when presented an
+			// invalid
 			// input that is an empty string
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "";
-			int expirationDate = 2022;
 			try {
 				tester.getItemOccurrences(description);
 				System.out.println("ExceptionalVendingMachine.getItemOccurences() did not throw"
@@ -619,14 +580,15 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.getItemOccurences() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		// getItemOccurrencesByExpirationDate() method tester
 		{
-			// test getItemOccurrencesByExpirationDate() returns the correct number of a single occurence when presented
+			// test getItemOccurrencesByExpirationDate() returns the correct number of a
+			// single occurence when presented
 			// a valid input and the vending machine contains the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
@@ -634,21 +596,24 @@ public class ExceptionalVendingMachineTester {
 			try {
 				tester.addItem(description, expirationDate);
 				if (tester.getItemOccurrencesByExpirationDate(description, expirationDate) != 1) {
-					System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() returned " + tester.getItemOccurrencesByExpirationDate(description, expirationDate)
-							+ " when passed the valid input " + expirationDate + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() returned "
+							+ tester.getItemOccurrencesByExpirationDate(description, expirationDate)
+							+ " when passed the valid input " + expirationDate
+							+ " and the vending machine contains the item");
 					return false;
 				}
 
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + expirationDate);
+				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + expirationDate);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurrencesByExpirationDate() returns the correct number of multiple occurences when presented
+			// test getItemOccurrencesByExpirationDate() returns the correct number of
+			// multiple occurences when presented
 			// a valid input and the vending machine contains the item
-			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
+			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(4);
 			String description = "Coke";
 			int expirationDate = 2022;
 			try {
@@ -656,36 +621,42 @@ public class ExceptionalVendingMachineTester {
 				tester.addItem(description, expirationDate);
 				tester.addItem(description, expirationDate);
 				if (tester.getItemOccurrencesByExpirationDate(description, expirationDate) != 3) {
-					System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() returned " + tester.getItemOccurrencesByExpirationDate(description, expirationDate)
-							+ " when passed the valid input " + expirationDate + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() returned "
+							+ tester.getItemOccurrencesByExpirationDate(description, expirationDate)
+							+ " when passed the valid input " + expirationDate
+							+ " and the vending machine contains the item");
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + expirationDate);
+				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + expirationDate);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurrencesByExpirationDate() returns 0 when presented a valid input and the vending machine
+			// test getItemOccurrencesByExpirationDate() returns 0 when presented a valid
+			// input and the vending machine
 			// does not contain the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
 			int expirationDate = 2022;
 			try {
 				if (tester.getItemOccurrencesByExpirationDate(description, expirationDate) != 0) {
-					System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() returned " + tester.getItemOccurrencesByExpirationDate(description, expirationDate)
-							+ " when passed the valid input " + expirationDate + " and the vending machine does not contain the item");
+					System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() returned "
+							+ tester.getItemOccurrencesByExpirationDate(description, expirationDate)
+							+ " when passed the valid input " + expirationDate
+							+ " and the vending machine does not contain the item");
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + expirationDate);
+				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + expirationDate);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurrencesByExpirationDate() throws IllegalArgumentException when presented an invalid
+			// test getItemOccurrencesByExpirationDate() throws IllegalArgumentException
+			// when presented an invalid
 			// input that is null
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = null;
@@ -699,13 +670,14 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + expirationDate);
+				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + expirationDate);
 				return false;
 			}
 		}
 		{
-			//  test getItemOccurrencesByExpirationDate() throws IllegalArgumentException when presented an invalid
+			// test getItemOccurrencesByExpirationDate() throws IllegalArgumentException
+			// when presented an invalid
 			// input that is less than 0
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
@@ -719,13 +691,14 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + expirationDate);
+				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + expirationDate);
 				return false;
 			}
 		}
 		{
-			// test getItemOccurrencesByExpirationDate() throws IllegalArgumentException when presented an invalid
+			// test getItemOccurrencesByExpirationDate() throws IllegalArgumentException
+			// when presented an invalid
 			// input that is blank
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "";
@@ -739,15 +712,16 @@ public class ExceptionalVendingMachineTester {
 			} catch (IllegalArgumentException e) {
 				// do nothing
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + expirationDate);
+				System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + expirationDate);
 				return false;
 			}
 		}
 
 		// removeNextItem() method tester
 		{
-			// test removeNextItem() returns the item when presented a valid input and the vending machine contains the item
+			// test removeNextItem() returns the item when presented a valid input and the
+			// vending machine contains the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
 			int expirationDate = 2022;
@@ -755,20 +729,22 @@ public class ExceptionalVendingMachineTester {
 			try {
 				tester.addItem(description, expirationDate);
 				if (!tester.removeNextItem(description).equals(item)) {
-					System.out.println("ExceptionalVendingMachine.removeNextItem() returned " + tester.removeNextItem(description)
-							+ " when passed the valid input " + description + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.removeNextItem() returned "
+							+ tester.removeNextItem(description) + " when passed the valid input " + description
+							+ " and the vending machine contains the item");
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test removeNextItem() returns the item with the earliest expiration date when presented 
+			// test removeNextItem() returns the item with the earliest expiration date when
+			// presented
 			// a valid input and the vending machine contains the item
-			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
+			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(5);
 			String description = "Coke";
 			int expirationDate = 2022;
 			int expirationDate2 = 2021;
@@ -777,34 +753,40 @@ public class ExceptionalVendingMachineTester {
 				tester.addItem(description, expirationDate);
 				tester.addItem(description, expirationDate2);
 				if (!tester.removeNextItem(description).equals(item)) {
-					System.out.println("ExceptionalVendingMachine.removeNextItem() returned " + tester.removeNextItem(description)
-							+ " when passed the valid input " + description + " and the vending machine contains the item");
+					System.out.println("ExceptionalVendingMachine.removeNextItem() returned "
+							+ tester.removeNextItem(description) + " when passed the valid input " + description
+							+ " and the vending machine contains the item");
 					return false;
 				}
 			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test removeNextItem() returns null when presented a valid input and the vending machine does not contain the item
+			// test removeNextItem() returns null when presented a valid input and the
+			// vending machine does not contain the item
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "Coke";
 			try {
 				if (tester.removeNextItem(description) != null) {
-					System.out.println("ExceptionalVendingMachine.removeNextItem() returned " + tester.removeNextItem(description)
-							+ " when passed the valid input " + description + " and the vending machine does not contain the item");
+					System.out.println("ExceptionalVendingMachine.removeNextItem() returned "
+							+ tester.removeNextItem(description) + " when passed the valid input " + description
+							+ " and the vending machine does not contain the item");
 					return false;
 				}
-			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+			} catch (NoSuchElementException e) {
+				//expected
+			}catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test removeNextItem() throws IllegalArgumentException when presented an invalid input that is null
+			// test removeNextItem() throws IllegalArgumentException when presented an
+			// invalid input that is null
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = null;
 			try {
@@ -815,14 +797,15 @@ public class ExceptionalVendingMachineTester {
 				return false;
 			} catch (IllegalArgumentException e) {
 				// do nothing
-			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+			}catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 			}
 		}
 		{
-			// test removeNextItem() throws IllegalArgumentException when presented an invalid input that is blank
+			// test removeNextItem() throws IllegalArgumentException when presented an
+			// invalid input that is blank
 			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
 			String description = "";
 			try {
@@ -833,11 +816,80 @@ public class ExceptionalVendingMachineTester {
 				return false;
 			} catch (IllegalArgumentException e) {
 				// do nothing
-			} catch (Exception e) {
-				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception " + e.getClass().getName()
-						+ " when passed the valid input " + description);
+			}catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine.removeNextItem() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + description);
 				return false;
 
+			}
+		}
+
+		{
+			// test getItemAtIndex() returns the correct item when presented a valid input
+			// and the vending machine contains the item
+			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(4);
+			String description = "Chocolate";
+			int expirationDate = 2;
+			Item item = new Item(description, expirationDate);
+			try {
+				tester.addItem(description, expirationDate);
+				if (!tester.getItemAtIndex(0).toString().equals("Chocolate: 2")) {
+					System.out.println("ExceptionalVendingMachine.getItemAtIndex() returned " + tester.getItemAtIndex(0)
+							+ " when passed the valid input " + 0 + " and the vending machine contains the item");
+					return false;
+				}
+			} catch (IndexOutOfBoundsException e) {
+				// do nothing
+			} catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine.getItemAtIndex() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + 0);
+				return false;
+			}
+		}
+		{
+			// test getItemAtIndex() throws IndexOutOfBoundsException when presented an
+			// invalid
+			// index that is less than 0
+			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(4);
+			String description = "Vanilla";
+			int expirationDate = 2;
+			// Item item = new Item(description, expirationDate);
+			try {
+				tester.addItem(description, expirationDate);
+				tester.getItemAtIndex(-1);
+				System.out.println("ExceptionalVendingMachine.getItemAtIndex() did not throw"
+						+ "IndexOutOfBoundsException when passed the valid input " + 0
+						+ " and the vending machine does not contain the item");
+			} catch (IndexOutOfBoundsException e) {
+				// do nothing
+			} catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine.getItemAtIndex() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + 0);
+				return false;
+			}
+		}
+
+		{
+			// test getItemAtIndex() throws IndexOutOfBoundsException when presented an
+			// invalid
+			// index that is greater than the size of the array
+			ExceptionalVendingMachine tester = new ExceptionalVendingMachine(1);
+			String description = "Milk";
+			int expirationDate = 2;
+			// Item item = new Item(description, expirationDate);
+			try {
+				tester.addItem(description, expirationDate);
+				tester.getItemAtIndex(1);
+				System.out.println("ExceptionalVendingMachine.getItemAtIndex() did not throw"
+						+ "IndexOutOfBoundsException when passed the valid input " + 0
+						+ " and the vending machine does not contain the item");
+				return false;
+			} catch (IndexOutOfBoundsException e) {
+				// do nothing
+			} catch (Exception e) {
+				System.out.println("ExceptionalVendingMachine.getItemAtIndex() threw exception "
+						+ e.getClass().getName() + " when passed the valid input " + 0);
+				return false;
 			}
 		}
 		return true;

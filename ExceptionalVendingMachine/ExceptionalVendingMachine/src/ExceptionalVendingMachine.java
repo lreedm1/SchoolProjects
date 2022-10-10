@@ -26,10 +26,8 @@
 
 // Add import statement to relevant exceptions and FilePrinter or FileWriter
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.security.KeyStore.CallbackHandlerProtection;
 import java.util.NoSuchElementException;
 import java.util.zip.DataFormatException;
 import java.util.Scanner;
@@ -126,7 +124,7 @@ public class ExceptionalVendingMachine {
 	 *                                   machine
 	 */
 	public String getItemAtIndex(int index) throws IndexOutOfBoundsException {
-		if (index < 0 || index >= items.length) {
+		if (index < 0 || index > items.length) {
 			throw new IndexOutOfBoundsException("Error: The index provided does not exist");
 		}
 		return items[index].toString();
