@@ -23,6 +23,7 @@
 // Persons: NONE        
 // Online Sources: Github Copilot | Javadocs https://cs300-www.cs.wisc.edu/wp/wp-content/uploads/2020/12/fall2022/p4/doc/allclasses-index.html
 ///////////////////////////////////////////////////////////////////////////////
+
 public class Item {
 	private String description;
 	private int expirationDate;
@@ -36,11 +37,10 @@ public class Item {
 	public Item(String description, int expirationDate) throws IllegalArgumentException {
 		this.description = description;
 		this.expirationDate = expirationDate;
-		if (expirationDate < 0 || description.equals(null) || description.strip().equals("")) { //incase string is just continuous spaces
+		if (expirationDate < 0 || description.equals(null) || description.strip().equals("")) {
 			throw new IllegalArgumentException("Error: Your description or expirationDate input is Invalid");
 		}
 	}
-    
 	/**
 	 * gets the description of this item
 	 * @return returns the description of this item
@@ -62,7 +62,7 @@ public class Item {
 	 */
 	public void setDescription(String description) throws IllegalArgumentException {
     	if(description.equals("")||description.equals(null)) {
-    	    throw new IllegalArgumentException("Error: message description is either null or blank");
+    		throw new IllegalArgumentException("Error: message description is either null or blank");
     	}
     	else {
     		this.description=description;
@@ -82,9 +82,14 @@ public class Item {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		return (other instanceof Item && item.contentEquals(description)&&!other.toString().contentEquals(Integer.toString(expirationDate)));
+		String item = other.toString();
+		String date = Integer.toString(expirationDate);
+		//return(other instanceof Item && description.contentEquals(other.description));
+//		if(other instanceof Item && item.contentEquals(description)) {
+//			return(!item.contentEquals(date));
+//		}
+//		return false;
+		return (other instanceof Item && item.contentEquals(description)&&!item.contentEquals(date));
 	}
 
-
 }
- 
