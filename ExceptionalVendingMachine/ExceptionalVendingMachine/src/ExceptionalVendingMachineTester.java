@@ -40,11 +40,6 @@ import java.util.Scanner;
 *
 */
 public class ExceptionalVendingMachineTester {
-  // TODO It is recommended but NOT required to add additional tester methods to
-  // check
-  // the correctness
-  // of loadItems and saveVendingMachineSumary defined in the
-  // ExceptionalVendingMachine class.
   
   /**
   * Checks the correctness of the constructor of the class Item when passed

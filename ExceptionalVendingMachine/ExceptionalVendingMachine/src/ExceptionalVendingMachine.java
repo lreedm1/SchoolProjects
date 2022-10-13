@@ -302,8 +302,6 @@ public class ExceptionalVendingMachine {
     return summary.trim(); // return the items' summary
   }
   
-  // TODO Implement the methods loadOneItem, loadItems, and saveItems
-  
   /**
   * Parse an item's string representation and add the corresponding item to this
   * vending machine
@@ -384,9 +382,6 @@ public class ExceptionalVendingMachine {
     }
     scnr.close();
     return count;
-    
-    // TODO Complete the implementation of this method with respect to the details
-    // provided above
     
     // Create and use a java.util.Scanner object to open and read the file
     // This method MUST call the loadOneItem(String) method to operate while parsing
