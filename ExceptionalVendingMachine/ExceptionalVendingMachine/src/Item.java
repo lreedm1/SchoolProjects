@@ -13,7 +13,7 @@
 // Partner Email: Agupta297@wisc.edu
 // Partner Lecturer's Name: Hobbes LeGault
 // 
-// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT \ EACH TRUE STATEMENT:
 //   X Write-up states that pair programming is allowed for this assignment.
 //   X We have both read and understand the course Pair Programming Policy.
 //   X We have registered our team prior to the team registration deadline.
