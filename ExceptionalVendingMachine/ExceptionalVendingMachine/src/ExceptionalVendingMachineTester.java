@@ -599,7 +599,8 @@ public class ExceptionalVendingMachineTester {
         }
         
       } catch (Exception e) {
-        System.out.println("ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
+        System.out.println(
+          "ExceptionalVendingMachine.getItemOccurrencesByExpirationDate() threw exception "
         + e.getClass().getName() + " when passed the valid input " + expirationDate);
         return false;
       }
@@ -829,7 +830,8 @@ public class ExceptionalVendingMachineTester {
       try {
         tester.addItem(description, expirationDate);
         if (!tester.getItemAtIndex(0).toString().equals("Chocolate: 2")) {
-          System.out.println("ExceptionalVendingMachine.getItemAtIndex() returned " + tester.getItemAtIndex(0)
+          System.out.println("ExceptionalVendingMachine.getItemAtIndex() returned "
+           + tester.getItemAtIndex(0)
           + " when passed the valid input " + 0 + " and the vending machine contains the item");
           return false;
         }

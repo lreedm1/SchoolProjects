@@ -327,20 +327,22 @@ public class ExceptionalVendingMachine {
   *                                  vending machine is full
   */
   public void loadOneItem(String itemRepresentation) throws DataFormatException {
-    if (itemRepresentation == null || itemRepresentation.strip() == "") {
+    // check if the item representation is null or blank
+    if (itemRepresentation == null || itemRepresentation.strip().length() == 0) {
       throw new IllegalArgumentException("String is null or blank");
     }
-    String[] arrOfStr = itemRepresentation.split(":", 2);
-    String description = arrOfStr[0].strip();
-    
+    // check if the item representation is correctly formatted
     try {
-      int expirationDate = Integer.parseInt(arrOfStr[1].strip());
-      if (arrOfStr[0].strip().equals("") || arrOfStr[1].strip().equals("") || expirationDate < 0) {
+      String[] arrOfStr = itemRepresentation.split(":", 2);
+      String description = arrOfStr[0].strip();
+      int expirationDate = Integer.parseInt(arrOfStr[1].strip());  
+      if (arrOfStr[0].strip().length() == 0 || expirationDate < 0) {
         throw new DataFormatException("Error: Incorrect Format of String itemRepresentation");
       }
+      
       addItem(description, expirationDate); // throws the IllegalArgumentException as well as IllegalState Exception
-    }catch(NumberFormatException ex){
-      throw new DataFormatException("Error: Incorrect Format of String itemRepresentation");
+    }catch(NumberFormatException e){
+      throw new DataFormatException("Error: Incorrect Format of String itemRepresentation with error message: " + e.getMessage());
     }
   }
   
@@ -362,16 +364,15 @@ public class ExceptionalVendingMachine {
     Scanner scnr = new Scanner(file);
     int count = 0;
     
+    // read the file line by line and load the corresponding items to the vending machine
     while (scnr.hasNextLine()) {
-      if (isFull() == true) {
-        System.out.println("Vending machine FULL. No more items can be loaded.");
-        break;
-      }
+      if (isFull() == true) break;
       try {
         String line = scnr.nextLine();
         loadOneItem(line);
-        
         count++;
+
+      // skip the line if it is blank or badly formatted
       }catch (IllegalArgumentException e) {
         scnr.hasNextLine();
       }catch (IllegalStateException e) {
