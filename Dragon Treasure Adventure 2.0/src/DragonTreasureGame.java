@@ -35,7 +35,7 @@ import java.util.Scanner;
  * @author Michelle
  *
  */
-public class DragonTreasureGame {
+public class DragonTreasureGame extends PApplet{
   
   private static ArrayList<Room> roomList; //list of rooms in the cave
   private static Dragon dragon; //instance of the dragon
@@ -310,9 +310,21 @@ public class DragonTreasureGame {
     if(currentGameState == GameState.WIN)
       System.out.println("[WIN] Hooray! You found the dragon's treasure! :)");
   }
-  
-  
+  @Override
+  public void settings(){
+    this.size(800,600);
+  }
+  @Override
+  public void setUp(){
+    this.getSurface().setTitle("Dragon Treasure Adventure"); // sets the title of the window
+this.imageMode(PApplet.CORNER); //Images are drawn using the x,y-coordinate as the top-left corner
+this.rectMode(PApplet.CORNERS); //When drawing rectangles interprets args as top-left corner and bottom-right corner respectively
+this.focused = true; // window will be active upon running program
+this.textAlign(CENTER); // sets the text alignment to center
+this.textSize(20); //sets the font size for the text
+  }
   public static void main(String[] args) {
+    PApplet.main("DragonTreasureGame");
     setup(new File("roominfo.txt"), new File("map.txt"));
     gamePlayLoop();
     printResults();
