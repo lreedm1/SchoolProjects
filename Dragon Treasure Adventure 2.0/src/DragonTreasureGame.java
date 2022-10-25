@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -28,10 +27,25 @@ public class DragonTreasureGame extends PApplet {
 		PImage img = this.loadImage("images/1.jpg");
 		 Room r = new Room(1, "test room", img);
 		 roomList.add(r);
+		 PImage img2 = this.loadImage("images/2.jpg");
+		 StartRoom s = new StartRoom(2, img2);
+		 roomList.add(s);
+
 	}
 	
 	public void draw() {
 		roomList.get(0).draw();
+		roomList.get(1).draw();
 	}
 }
 
+
+// TODOS
+//  	DragonTreasureGame 
+// DONE	Room - Aarav
+// DONE	TreasureRoom - Reed 
+// DONE Character - Reed
+// DONE	Dragon - Aarav
+// DONE	Player - Reed
+// DONE PortalRoom - Reed
+// DONE	StartRoom - Aarav
