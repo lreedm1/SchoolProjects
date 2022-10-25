@@ -3,6 +3,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class DragonTreasureGame extends PApplet {
+	private ArrayList<Character> characters = new ArrayList<Character>();
 	private boolean isDragonTurn = false;
 	private int gameState= 0;
 	private ArrayList<Room>roomList;
