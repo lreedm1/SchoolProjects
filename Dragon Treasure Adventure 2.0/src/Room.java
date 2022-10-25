@@ -64,4 +64,5 @@ public class Room {
 		processing.text(this.toString(), 300, 525);
 		
 	}
+
 }

@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/reed/Library/Mobile Documents/com~apple~CloudDocs/SchoolProjects/Dragon Treasure Adventure 2.0/lib/core.jar"
+    ]
+}
