@@ -10,6 +10,7 @@ public class Room {
 	private PImage image; // stores the image that corresponds to the background of a room
 
 	public Room(int ID, String description, processing.core.PImage image) {
+		adjRooms = new ArrayList<Room>();
 		this.ID = ID;
 		this.description = description;
 		this.image = image;

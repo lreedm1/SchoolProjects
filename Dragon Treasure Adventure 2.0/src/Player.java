@@ -83,7 +83,7 @@ public class Player extends Character implements Moveable{
     /**
      * Gives the player the key
      */
-    public void obainKey() {
+    public void obtainKey() {
         hasKey = true;
     }
 
