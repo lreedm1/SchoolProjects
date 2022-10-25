@@ -3,6 +3,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class DragonTreasureGame extends PApplet {
+	private boolean isDragonTurn = false;
+	private int gameState= 0;
 	private ArrayList<Room>roomList;
 	public static void main(String[] args) {
 		PApplet.main("DragonTreasureGame");
@@ -32,11 +34,15 @@ public class DragonTreasureGame extends PApplet {
 		 roomList.add(s);
 
 	}
-	
+	@Override
+	public void keyPressed(){
+
+	}
 	public void draw() {
 		roomList.get(0).draw();
 		roomList.get(1).draw();
 	}
+
 }
 
 
