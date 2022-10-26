@@ -1,3 +1,29 @@
+
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Exceptional Vending Machine
+// Course:   CS 300 Fall 2022
+//
+// Author:   Aarav Gupta
+// Email:    agupta297@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Reed Lokken
+// Partner Email: rlokken@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons: NONE        
+// Online Sources: Github Copilot 
+///////////////////////////////////////////////////////////////////////////////
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -5,14 +31,26 @@ import java.util.Scanner;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class models the Dragon Treasure Game and extends the PApplet class
+ * provided to us in the java docs. In addition, it creates a user interactive
+ * 800 by 600 pixel screen
+ */
 public class DragonTreasureGame extends PApplet {
-	private ArrayList<Character> characters;
-	private File roomInfo;
-	private File mapInfo;
-	private boolean isDragonTurn = false;
-	private int gameState = 0;
-	private ArrayList<Room> roomList;
+	private ArrayList<Character> characters; // List of the characters being added to the game
+	private File roomInfo; // information about the types of rooms
+	private File mapInfo; // information about how many rooms are there and which ones are adjacent to
+							// each other
+	private boolean isDragonTurn = false; // boolean indicating when its the dragon's turn
+	private int gameState = 0; // gameState (0 means the game is continuing, 1, means the player won, and 2
+								// means the player lost)
+	private ArrayList<Room> roomList; // List of the rooms the characters can move betweeen
 
+	/**
+	 * Generates the game using the PApplet Library
+	 * 
+	 * @param args executes the game
+	 */
 	public static void main(String[] args) {
 		PApplet.main("DragonTreasureGame");
 	}
@@ -144,12 +182,21 @@ public class DragonTreasureGame extends PApplet {
 		characters.add(new Dragon(getRoomByID(9)));
 	}
 
-	@Override
+	/**
+	 * sets the screen size to 800 pixels by 600 pixels
+	 * 
+	 * @override settings() in PApplet
+	 */
 	public void settings() {
 		this.size(800, 600);
 	}
 
-	@Override
+	/**
+	 * sets up the screen, initializes arraylists, and loads information using the
+	 * text files as well as the loadCharacters method
+	 * 
+	 * @override setup() in PApplet
+	 */
 	public void setup() {
 		this.getSurface().setTitle("Dragon Treasure Adventure"); // sets the title of the window
 		this.imageMode(PApplet.CORNER); // Images are drawn using the x,y-coordinate as the top-left corner
@@ -158,13 +205,13 @@ public class DragonTreasureGame extends PApplet {
 		this.focused = true; // window will be active upon running program
 		this.textAlign(CENTER); // sets the text alignment to center
 		this.textSize(20); // sets the font size for the text
-		roomInfo = new File("src/roominfo.txt");
-		mapInfo = new File("src/map.txt");
+		roomInfo = new File("roominfo.txt");
+		mapInfo = new File("map.txt");
 		roomList = new ArrayList<Room>();
 		characters = new ArrayList<>();
-		PImage treasureBackground = loadImage("images/treasure.jpg");
+		PImage treasureBackground = loadImage("images/treasure.jpg"); //HAVE TO ADD SRC/ FOR TESTING PURPOSES
 		TreasureRoom.setTreasureBackground(treasureBackground);
-		PImage portalImage = loadImage("images/portal.png");
+		PImage portalImage = loadImage("images/portal.png"); // HAVE TO ADD SRC/ FOR TESTING PURPOSES
 		PortalRoom.setPortalImage(portalImage);
 		Room.setProcessing(this);
 		loadRoomInfo();
@@ -172,7 +219,14 @@ public class DragonTreasureGame extends PApplet {
 		loadCharacters();
 	}
 
-	@Override
+	/**
+	 * When keypressed is true, a player can switch between rooms given that the key
+	 * being pressed is a valid entry, if not the program redirects him/her to try a
+	 * different key. Only numbers from 1-9 are accepted for the purposes of this
+	 * program
+	 * 
+	 * @override keyPressed() in PApplet
+	 */
 	public void keyPressed() {
 		Player player = null;
 		for (Character character : characters) {
@@ -289,10 +343,3 @@ public class DragonTreasureGame extends PApplet {
 		}
 	}
 }
-// TODO fix dragon method
-// TODO verify that the dragon logic works
-
-// TODO add comments to every method
-// TODO add comments to every major algorithmic step
-// TODO add a file header to each file
-// TODO add a class header to each class including a class description and data fields
