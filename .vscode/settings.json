@@ -7,9 +7,9 @@
     },
     "java.project.sourcePaths": [
         "Walking Sim",
-        "Walking Dude",
         "Vending  Machine",
-        "Javadoc References"
+        "Javadoc References",
+        "Dragon Treasure Adventure 2.0/src"
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
