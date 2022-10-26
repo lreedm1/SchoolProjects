@@ -53,8 +53,13 @@ public class Room {
 	}
 
 	@Override
+	// Returns a string in the form of "<ID>: <description>\n Adjacent Rooms: <r1's ID> <r2's ID>" list of adjacent room IDs continues for all rooms adjacent to this Room.
 	public String toString() {
-		return ID + ": " + description + "\n Adjacent Rooms: "+ adjRooms ;
+		String result = this.ID + ": " + this.description + "\n" + "Adjacent Rooms: ";
+		for (Room r : adjRooms) {
+			result += r.getID() + " ";
+		}
+		return result;
 	}
 
 	public void draw() {

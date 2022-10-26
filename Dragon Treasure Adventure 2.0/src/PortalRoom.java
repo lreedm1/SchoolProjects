@@ -49,7 +49,6 @@ public class PortalRoom extends Room {
 	 * Sets the image of the portal
 	 */
 	public void draw() {
-		super.draw();
 		processing.image(portalImage, 325,225);
 	}
 	

@@ -8,7 +8,7 @@ public class Dragon extends Character implements Moveable{
     
     
     public Dragon(Room currentRoom) throws IllegalArgumentException{
-        super(currentRoom, "Dragon");
+        super(currentRoom, "DRAGON");
         randGen= new Random();
         if(!(currentRoom instanceof TreasureRoom)){
             throw new IllegalArgumentException("currentRoom is not a TreasureRoom");

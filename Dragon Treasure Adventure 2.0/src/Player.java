@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player extends Character implements Moveable{
     private boolean hasKey = false;
@@ -8,7 +9,7 @@ public class Player extends Character implements Moveable{
      * @param currentRoom the room the player is currently in
      */
     public Player(Room currentRoom) {
-        super(currentRoom, "Player");
+        super(currentRoom, "PLAYER");
     }
 
     /**
@@ -17,7 +18,7 @@ public class Player extends Character implements Moveable{
      * @return true if the player can move to the destination, false otherwise
      */
     public boolean canMoveTo(Room destination) {
-        if (destination instanceof PortalRoom) {
+        if ( this.getCurrentRoom().equals(destination) || !this.getAdjacentRooms().contains(destination) || (destination instanceof TreasureRoom && !this.hasKey()) ) {
             return false;
         }
         return true;
@@ -30,6 +31,10 @@ public class Player extends Character implements Moveable{
      */
     public boolean changeRoom(Room destination) {
         if (canMoveTo(destination)) {
+            if (destination instanceof PortalRoom) {
+                //destination = ((PortalRoom) destination).getTeleportLocation();
+                teleport();
+            }
             this.setCurrentRoom(destination);
             return true;
         }
@@ -52,10 +57,8 @@ public class Player extends Character implements Moveable{
      * @return true if the dragon is nearby, false otherwise
      */
     public boolean isDragonNearby(Dragon dragon) {
-        if (dragon.getAdjacentRooms().contains(this.getCurrentRoom())) {
-            return true;
-        }
-        return false;
+        ArrayList<Room> adjacentRooms = dragon.getAdjacentRooms();
+        return adjacentRooms.contains(this.getCurrentRoom());
     }
 
     /**
@@ -63,8 +66,10 @@ public class Player extends Character implements Moveable{
      * @return true if the treasure room is nearby, false otherwise
      */
     public boolean isTreasureNearby() {
-        if (this.getCurrentRoom() instanceof TreasureRoom) {
-            return true;
+        for (Room room : this.getAdjacentRooms()) {
+            if (room instanceof TreasureRoom) {
+                return true;
+            }
         }
         return false;
     }
@@ -74,8 +79,10 @@ public class Player extends Character implements Moveable{
      * @return true if a portal room is nearby, false otherwise
      */
     public boolean isPortalNearby() {
-        if (this.getCurrentRoom() instanceof PortalRoom) {
-            return true;
+        for (Room room : this.getAdjacentRooms()) {
+            if (room instanceof PortalRoom) {
+                return true;
+            }
         }
         return false;
     }
@@ -95,6 +102,7 @@ public class Player extends Character implements Moveable{
         if (this.getCurrentRoom() instanceof PortalRoom) {
             PortalRoom portalRoom = (PortalRoom) this.getCurrentRoom();
             this.setCurrentRoom(portalRoom.getTeleportLocation());
+            System.out.println(PortalRoom.getTeleportMessage());
         }
     }
 }
