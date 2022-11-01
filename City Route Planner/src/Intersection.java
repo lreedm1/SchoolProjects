@@ -66,9 +66,13 @@ public class Intersection {
 	 * @override overrides the default eqauls() method in the Object class
 	 */
 	public boolean equals(Object o) {
-		Intersection otherItem = (Intersection) o;
-		
-		return o instanceof Intersection && this.x == otherItem.getX() && this.y == otherItem.getY();
+    if (o instanceof Intersection) {
+			Intersection otherItem = (Intersection) o;
+			if (otherItem.getX()== x && otherItem.getY() == y) {
+				return true;
+			}
+		}
+		return false;
 	}
 	/**
 	 * Creates a new Intersection instance which is one step directly above this Intersection
