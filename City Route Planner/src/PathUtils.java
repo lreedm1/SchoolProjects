@@ -1,3 +1,29 @@
+
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Exceptional Vending Machine
+// Course:   CS 300 Fall 2022
+//
+// Author:   Aarav Gupta
+// Email:    agupta297@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Reed Lokken
+// Partner Email: rlokken@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons: NONE        
+// Online Sources: Github Copilot 
+///////////////////////////////////////////////////////////////////////////////
 import java.util.ArrayList;
 
 public class PathUtils {
@@ -5,84 +31,84 @@ public class PathUtils {
 	 * 
 	 */
 	public PathUtils() {
-
 	}
 
 	/**
-	 * 
-	 * @param start
-	 * @param end
-	 * @return
+	 * counts the number of paths from the start intersection to the end intersection
+	 * @param start the starting intersection
+	 * @param end the ending intersection
+	 * @return the number of paths from the start intersection to the end intersection
 	 */
 	public static int countPaths(Intersection start, Intersection end) {
-		int count = 0;
 		if (start.equals(end)) {
-			return count;
-		} else {
-
+			return 1;
 		}
+		
+		int count = 0;
+		count += countNorthernPaths(start, end);
+		count += countEasternPaths(start, end);
 		return count;
+		}
+		
+
+	private static int countNorthernPaths(Intersection start, Intersection end) {
+		if (start.getY() < end.getY()) {
+			return 0;
+		}
+		int northernPaths = countPaths(start.goNorth(), end);
+		return northernPaths;
+	}
+
+	private static int countEasternPaths(Intersection start, Intersection end) {
+		if (start.getX() < end.getX()) {
+			return 0;
+		}
+		int easternPaths = countPaths(start.goEast(), end);
+		return easternPaths;
 	}
 
 	/**
+	 * find all paths from the start point to the end point
+	 * moving only north or east
 	 * 
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public static ArrayList<Path> findAllPaths(Intersection start, Intersection end) {
-		Path list = new Path();
-		ArrayList<Path> result = new ArrayList<Path>();
-		int xPos = start.getX(); // x position
-		int yPos = start.getY(); // y position
-		int i; // Loop index
-		Intersection curr = new Intersection(xPos, yPos);
-		if (start.equals(end)) {
-			xPos = start.getX();
-			yPos = start.getY();
-			for (i = 0; i < result.size(); ++i) {
-				System.out.println(result.get(i).toString());
-			}
-		} else {
-			// if path needs to go north
-			if (yPos < end.getY()) {
-				for (i = yPos; i < end.getY(); ++i) {
-					xPos = start.goNorth().getX();
-					yPos = start.goNorth().getY();
-					list.addHead(curr);
-					findAllPaths(curr, end);
-				}
-			}
-			// if path needs to go south
-			if (yPos > end.getY()) {
-				for (i = yPos; i > end.getY(); --i) {
-					xPos = start.goSouth().getX();
-					yPos = start.goSouth().getY();
-					list.addTail(curr);
-					findAllPaths(curr, end);
+		ArrayList<Path> tempPaths = new ArrayList<Path>();
 
-				}
-			}
-			// if path needs to go east
-			if (xPos < end.getX()) {
-				for (i = xPos; i > end.getX(); ++i) {
-					xPos = start.goEast().getX();
-					yPos = start.goEast().getY();
-					list.addHead(curr);
-					findAllPaths(curr, end);
-				}
-			}
-			// if path needs to go west
-			if (xPos > end.getX()) {
-				for (i = xPos; i > end.getX(); --i) {
-					xPos = start.goWest().getX();
-					yPos = start.goWest().getY();
-					list.addTail(curr);
-					findAllPaths(curr, end);
-				}
-			}
-			result.add(list);
+		if (start.equals(end)) {
+			Path newPath = new Path();
+			newPath.addHead(end);
+			tempPaths.add(newPath);
+			return tempPaths;
 		}
-		return result;
+
+		addNorthernPaths(start, end, tempPaths);
+		addEasternPaths(start, end, tempPaths);
+
+		addHeads(start, tempPaths);
+		return tempPaths;
+	}
+
+	private static void addHeads(Intersection start, ArrayList<Path> paths) {
+		for (Path path : paths) {
+			path.addHead(start);
+		}
+	}
+
+	private static void addNorthernPaths(Intersection start, Intersection end, ArrayList<Path> paths) {
+		if (start.getY() < end.getY()) {
+			return;
+		}
+		paths.addAll(findAllPaths(start.goNorth(), end));
+	}
+
+	private static void addEasternPaths(Intersection start, Intersection end, ArrayList<Path> paths) {
+		if (start.getX() < end.getX()) {
+			return;
+		}
+		paths.addAll(findAllPaths(start.goEast(), end));
 	}
 }

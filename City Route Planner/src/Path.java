@@ -1,13 +1,41 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Exceptional Vending Machine
+// Course:   CS 300 Fall 2022
+//
+// Author:   Aarav Gupta
+// Email:    agupta297@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Reed Lokken
+// Partner Email: rlokken@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons: NONE        
+// Online Sources: Github Copilot 
+///////////////////////////////////////////////////////////////////////////////
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
 public class Path {
-	private ArrayList<Intersection>intersections;
+	private ArrayList<Intersection> intersections;
+
 	/**
 	 * Initializes this Path to start as empty
 	 */
 	public Path() {
 		intersections = new ArrayList<Intersection>();
 	}
+
 	/**
 	 * gets the number of intersections in this Path
 	 * 
@@ -16,73 +44,99 @@ public class Path {
 	public int length() {
 		return intersections.size();
 	}
+
 	/**
 	 * gets the first intersection in the ArrayList intersections
 	 * 
 	 * @return returns the first intersection in the ArrayList intersections
 	 * @throws throws NoSuchElementException if intersections is empty
 	 */
-	public Intersection getHead() throws NoSuchElementException{
-		if(length()<=0) {
-			throw new NoSuchElementException("Error: Path is empty");
+	public Intersection getHead() throws NoSuchElementException {
+		if (length() > 0) {
+			return intersections.get(0);
 		}
-		return intersections.get(0);
+		throw new NoSuchElementException("Error: Path is empty");
+
 	}
+
 	/**
 	 * gets the last intersection in the ArrayList intersections
 	 * 
 	 * @return returns the last intersection in the ArrayList intersections
 	 * @throws throws NoSuchElementException if intersections is empty
 	 */
-	public Intersection getTail() {
-		if(length()<=0) {
-			throw new NoSuchElementException("Error: Path is empty");
+	public Intersection getTail() throws NoSuchElementException {
+		if (length() > 0) {
+			return intersections.get(length() - 1);
 		}
-		return intersections.get(length()-1);
+		throw new NoSuchElementException("Error: Path is empty");
 	}
+
 	/**
 	 * Adds the given Intersection to the end of this Path if it is a valid addition
 	 * 
 	 * @param toAdd the interseciton that needs to be added to intersections
-	 * @throw throw an IllegalArgumentException if the intersection that is being added is invalid
+	 * @throw throw an IllegalArgumentException if the intersection that is being
+	 *        added is invalid
 	 */
-	public void addTail(Intersection toAdd) throws IllegalArgumentException{
-		if(toAdd.equals(toAdd.goEast())||toAdd.equals(toAdd.goNorth())||length()==0) {
+	public void addTail(Intersection toAdd) throws IllegalArgumentException {
+		if (length() == 0) {
 			intersections.add(toAdd);
+			return;
 		}
-		else {
-			throw new IllegalArgumentException("Error: The Intersection you are trying to add is invalid");
+
+		boolean isEast = getTail().goEast().equals(toAdd);
+		boolean isNorth = getTail().goNorth().equals(toAdd);
+
+		if (isEast || isNorth) {
+			intersections.add(toAdd);
+		} else {
+			throw new IllegalArgumentException("Error: Intersection is not valid");
 		}
 	}
+
 	/**
-	 * Adds the given Intersection to the front of this Path if it is a valid addition
+	 * Adds the given Intersection to the front of this Path if it is a valid
+	 * addition
 	 * 
 	 * @param toAdd the interseciton that needs to be added to intersections
-	 * @throw throw an IllegalArgumentException if the intersection that is being added is invalid
+	 * @throw throw an IllegalArgumentException if the intersection that is being
+	 *        added is invalid
 	 */
 	public void addHead(Intersection toAdd) {
-		if(toAdd.equals(toAdd.goSouth())||toAdd.equals(toAdd.goWest())||length()==0) {
+		if (length() == 0) {
 			intersections.add(toAdd);
+			return;
 		}
-		else {
-			throw new IllegalArgumentException("Error: The Intersection you are trying to add is invalid");
+
+		boolean isWest = getHead().goWest().equals(toAdd);
+		boolean isSouth = getHead().goSouth().equals(toAdd);
+
+		if (isWest || isSouth) {
+			intersections.add(toAdd);
+		} else {
+			throw new IllegalArgumentException("Error: Intersection is not valid");
 		}
 	}
+
 	/**
-	 * returns a string that is formatted using the coordinates followed by this Path
+	 * returns a string that is formatted using the coordinates followed by this
+	 * Path
 	 * 
 	 * @override overrides the toString() method in the Object class
 	 */
 	public String toString() {
-		String result = "";
-		if(length()==0) {
+		if (length() == 0) {
 			return "Empty";
 		}
-		else {
-		for(int i =0; i< length(); i++) {
-			result+= intersections.get(i) + ("->");
+
+		String result = "";
+		result += intersections.get(0);
+
+		for (int i = 1; i < length(); i++) {
+			result += "->" + intersections.get(i);
 		}
 		return result;
-		}
+
 	}
 }
