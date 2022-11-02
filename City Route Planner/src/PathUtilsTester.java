@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:    Exceptional Vending Machine
@@ -25,64 +23,225 @@ import java.util.Scanner;
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class PathUtilsTester {
 	/**
 	 * 
 	 * @return
 	 */
 	public PathUtilsTester() {
-
 	}
 
 	/**
+	 * Tests the case of countPaths() when there are no valid Paths. For example,
+	 * when the start position is Intersection(1, 1) and the ending position is
+	 * Intersection(0, 1), there should be no valid Paths, so countPaths() should
+	 * return 0.
 	 * 
 	 * @return
 	 */
 	public static boolean testCountPathsNoPath() {
-		return false;
+		try {
+			Intersection start = new Intersection(1, 1);
+			Intersection end = new Intersection(0, 1);
+			int count = PathUtils.countPaths(start, end);
+			if (count != 0) {
+				System.out.println("FAILED - testCountPathsNoPath() expected 0, but got " + count);
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("FAILED - testCountPathsNoPath() threw the unexpected exception '" + e + "'");
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
+	 * Tests the case of countPaths() when there is a single valid Path. For
+	 * example, when the start position is Intersection(1, 1) and the ending
+	 * position is Intersection(1, 2), there should be a single Path, so
+	 * countPaths() should return 1.
 	 * 
 	 * @return
 	 */
 	public static boolean testCountPathsOnePath() {
-		return false;
+		try {
+			Intersection start = new Intersection(1, 1);
+			Intersection end = new Intersection(1, 2);
+			int count = PathUtils.countPaths(start, end);
+			if (count != 1) {
+				System.out.println("FAILED - testCountPathsOnePath() failed: expected 1, but got " + count);
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("FAILED - testCountPathsOnePath() failed: unexpected exception '" + e + "'");
+			return false;
+		}
+		return true;
 	}
 
 	/**
+	 * Tests the case of countPaths() when there are multiple possible paths. For
+	 * example, when the start position is Intersection(0, 0) and the ending
+	 * position is Intersection(1, 2), there should be three possible Paths, so
+	 * countPaths() should return 3.
 	 * 
 	 * @return
 	 */
 	public static boolean testCountPathsRecursive() {
-		return false;
+		try {
+			Intersection start = new Intersection(0, 0);
+			Intersection end = new Intersection(1, 2);
+			int count = PathUtils.countPaths(start, end);
+			if (count != 3) {
+				System.out.println("FAILED - testCountPathsRecursive() failed: expected 3, but got " + count);
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("FAILED - testCountPathsRecursive() failed: unexpected exception '" + e + "'");
+			return false;
+		}
+		return true;
 	}
 
 	/**
+	 * Tests the case of findAllPaths() when there are no valid Paths. For example,
+	 * when the start position is Intersection(1, 1) and the ending position is
+	 * Intersection(0, 1), there should be no valid Paths, so findAllPaths() should
+	 * return an empty ArrayList.
 	 * 
 	 * @return
 	 */
 	public static boolean testFindAllPathsNoPath() {
-		return false;
+		try {
+			Intersection start = new Intersection(1, 1);
+			Intersection end = new Intersection(0, 1);
+			ArrayList<Path> paths = PathUtils.findAllPaths(start, end);
+			if (paths.size() != 0) {
+				System.out.println("FAILED - testFindAllPathsNoPath() failed: expected 0, but got " + paths.size());
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("FAILED - testFindAllPathsNoPath() failed: unexpected exception '" + e + "'");
+			return false;
+		}
+		return true;
 	}
 
 	/**
+	 * Tests the case of findAllPaths() when there is a single valid Path. For
+	 * example, when the start position is Intersection(1, 1) and the ending
+	 * position is Intersection(1, 2), there should be a single Path. For each of
+	 * your cases, ensure that there is only a single path, and that the Path
+	 * exactly matches what you expect to see.
 	 * 
 	 * @return
 	 */
 	public static boolean testFindAllPathsOnePath() {
-		return false;
+		try {
+			Intersection start = new Intersection(1, 1);
+			Intersection end = new Intersection(1, 2);
+			ArrayList<Path> paths = PathUtils.findAllPaths(start, end);
+			if (paths.size() != 1) {
+				System.out.println("FAILED - testFindAllPathsOnePath() failed: expected 1, but got " + paths.size());
+				return false;
+			}
+
+		} catch (Exception e) {
+			System.out.println("FAILED - testFindAllPathsOnePath() failed: unexpected exception '" + e + "'");
+			return false;
+		}
+		return true;
 	}
 
 	/**
+	 * Tests the case of findAllPaths() when there are multiple possible paths. For
+	 * example, when the start position is Intersection(0, 0) and the ending
+	 * position is Intersection(1, 2), there should be three possible Paths. For
+	 * each of your cases, ensure that there is both the correct number of Paths,
+	 * and that the returned Paths exactly match what you expect to see.
+	 * Remember: The order the Paths appear in the output of findAllPaths() will not
+	 * necessarily match your own implementation.
 	 * 
 	 * @return
 	 */
 	public static boolean testFindAllPathsRecursive() {
-		return false;
+		try {
+			Intersection start = new Intersection(0, 0);
+			Intersection end = new Intersection(1, 2);
+			ArrayList<Path> paths = PathUtils.findAllPaths(start, end);
+			if (paths.size() != 3) {
+				System.out.println("FAILED - testFindAllPathsRecursive() failed: expected 3, but got " + paths.size());
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("FAILED - testFindAllPathsRecursive() failed: unexpected exception" + e);
+			return false;
+		}
+		return true;
+	}
+
+	private static void runAllTests() {
+		boolean testsPassed = true;
+		boolean testResult = true;
+
+		System.out.println("-------------------------");
+		System.out.println("Testing countPaths()...");
+
+		testResult = testCountPathsNoPath();
+		if (testResult) {
+			System.out.println("PASSED - testCountPathsNoPath()");
+		} else {
+			testsPassed = false;
+		}
+
+		testResult = testCountPathsOnePath();
+		if (testResult) {
+			System.out.println("PASSED - testCountPathsOnePath()");
+		} else {
+			testsPassed = false;
+		}
+
+		testResult = testCountPathsRecursive();
+		if (testResult) {
+			System.out.println("PASSED - testCountPathsRecursive()");
+		} else {
+			testsPassed = false;
+		}
+
+		testResult = testFindAllPathsNoPath();
+		if (testResult) {
+			System.out.println("PASSED - testFindAllPathsNoPath()");
+		} else {
+			testsPassed = false;
+		}
+
+		testResult = testFindAllPathsOnePath();
+		if (testResult) {
+			System.out.println("PASSED - testFindAllPathsOnePath()");
+		} else {
+			testsPassed = false;
+		}
+
+		testResult = testFindAllPathsRecursive();
+		if (testResult) {
+			System.out.println("PASSED - testFindAllPathsRecursive()");
+		} else {
+			testsPassed = false;
+		}
+
+		if (testsPassed) {
+			System.out.println("----------- ALL TESTS PASSED -----------");
+		} else {
+			System.out.println("----------- SOME TESTS FAILED ----------");
+		}
 	}
 
 	public static void main(String[] args) {
+		//runAllTests();
 		try (Scanner keyboard = new Scanner(System.in)) {
 			int startX, startY, endX, endY;
 			String input = "Y";
@@ -110,11 +269,13 @@ public class PathUtilsTester {
 						&& !input.equalsIgnoreCase("N"));
 			}
 		}
+
 	}
 }
 
 // TODO:
-// 1. Implement the PathUtilsTester class
-// 2. Write clas headers for all methods
-// 3. Write javadoc comments for all methods
-// 4. Implement the @param and @return tags for all methods
+// 1. Change indentation to 2 spaces
+// 2. Add all class headers
+// 3. Add in-line comments to explain major algorithmic steps
+// 4. Change file headers to reflec the name of this project
+// 5. Add all method headers
