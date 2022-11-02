@@ -1,7 +1,7 @@
 
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
-// Title:    Exceptional Vending Machine
+// Title:   City Route Planner
 // Course:   CS 300 Fall 2022
 //
 // Author:   Aarav Gupta
@@ -27,6 +27,10 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * This class models a path from one intersection to another and contains a list
+ * of intersections
+ */
 public class Path {
   private ArrayList<Intersection> intersections;
 
@@ -76,15 +80,16 @@ public class Path {
    * Adds the given Intersection to the end of this Path if it is a valid addition
    * 
    * @param toAdd the interseciton that needs to be added to intersections
-   * @throw throw an IllegalArgumentException if the intersection that is being
+   * @throw throws an IllegalArgumentException if the intersection that is being
    *        added is invalid
    */
   public void addTail(Intersection toAdd) throws IllegalArgumentException {
     if (length() == 0) {
       intersections.add(toAdd);
+      //checks if the intersection is valid
     } else if (getTail().goEast().equals(toAdd) || getTail().goNorth().equals(toAdd)) {
       intersections.add(toAdd);
-    } else {
+    } else {//if the intersection is invalid
       throw new IllegalArgumentException("Error: The Intersection you are trying to add is invalid");
     }
   }
@@ -94,15 +99,16 @@ public class Path {
    * addition
    * 
    * @param toAdd the interseciton that needs to be added to intersections
-   * @throw throw an IllegalArgumentException if the intersection that is being
+   * @throw throws an IllegalArgumentException if the intersection that is being
    *        added is invalid
    */
   public void addHead(Intersection toAdd) throws IllegalArgumentException {
     if (length() == 0) {
       intersections.add(0, toAdd);
+      // checks if the intersection is valid
     } else if (intersections.get(0).goWest().equals(toAdd) || intersections.get(0).goSouth().equals(toAdd)) {
       intersections.add(0, toAdd);
-    } else {
+    } else {//if the intersection is invalid
       throw new IllegalArgumentException("Error: The Intersection you are trying to add is invalid");
     }
   }
