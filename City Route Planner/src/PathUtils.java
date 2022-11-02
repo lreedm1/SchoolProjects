@@ -1,4 +1,3 @@
-
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:    Exceptional Vending Machine
@@ -41,7 +40,7 @@ public class PathUtils {
 	 */
 	public static int countPaths(Intersection start, Intersection end) {
 		if (start.equals(end)) {
-			return 0;
+      return 1;
 		}
     int count =0;
 		count += countNorthernPaths(start, end);
