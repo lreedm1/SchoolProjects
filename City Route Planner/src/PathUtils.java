@@ -41,29 +41,27 @@ public class PathUtils {
 	 */
 	public static int countPaths(Intersection start, Intersection end) {
 		if (start.equals(end)) {
-			return 1;
+			return 0;
 		}
-		
-		int count = 0;
+    int count =0;
 		count += countNorthernPaths(start, end);
 		count += countEasternPaths(start, end);
 		return count;
 		}
 		
-
 	private static int countNorthernPaths(Intersection start, Intersection end) {
+    int northernPaths =0;
 		if (start.getY() < end.getY()) {
-			return 0;
+      northernPaths = countPaths(start.goNorth(), end);
 		}
-		int northernPaths = countPaths(start.goNorth(), end);
 		return northernPaths;
 	}
 
 	private static int countEasternPaths(Intersection start, Intersection end) {
+    int easternPaths =0;
 		if (start.getX() < end.getX()) {
-			return 0;
+      easternPaths = countPaths(start.goEast(), end);
 		}
-		int easternPaths = countPaths(start.goEast(), end);
 		return easternPaths;
 	}
 
@@ -77,10 +75,9 @@ public class PathUtils {
 	 */
 	public static ArrayList<Path> findAllPaths(Intersection start, Intersection end) {
 		ArrayList<Path> tempPaths = new ArrayList<Path>();
-
 		if (start.equals(end)) {
 			Path newPath = new Path();
-			newPath.addHead(end);
+			newPath.addTail(end);
 			tempPaths.add(newPath);
 			return tempPaths;
 		}
