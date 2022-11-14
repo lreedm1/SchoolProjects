@@ -19,7 +19,7 @@
 //   X We have both read and understand the course Pair Programming Policy.
 //   X We have registered our team prior to the team registration deadline.
 //
-///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP /////////////////////////
 //
 // Persons: NONE        
 // Online Sources: Github Copilot 
