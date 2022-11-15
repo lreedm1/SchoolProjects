@@ -141,34 +141,89 @@ public class QuizzerTester {
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testRemoveLast(){
-    return false;
+    try{
+      ListQuizzer quizzer = new ListQuizzer();
+      quizzer.removeLast();
+      System.out.println("FAILED - testRemoveLast() - no exception thrown");
+      return false;
+    } catch (NoSuchElementException e){
+      System.out.println("PASSED - testRemoveLast() - NoSuchElementException thrown");
+      return true;
+    } catch (Exception e){
+      System.out.println("FAILED - testRemoveLast() - unexpected exception thrown");
+      return false;
+    }
   }
   /**
    * Tester for ListQuizzer.removeFirst() method
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testRemoveFirst(){
-    return false;
+    try{
+      ListQuizzer quizzer = new ListQuizzer();
+      quizzer.removeFirst();
+      System.out.println("FAILED - testRemoveFirst() - no exception thrown");
+      return false;
+    } catch (NoSuchElementException e){
+      System.out.println("PASSED - testRemoveFirst() - NoSuchElementException thrown");
+      return true;
+    } catch (Exception e){
+      System.out.println("FAILED - testRemoveFirst() - unexpected exception thrown");
+      return false;
+    }
   }
   /**
    * Tester for ListQuizzer.remove() method
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testRemove(){
-    return false;
+    try{
+      ListQuizzer quizzer = new ListQuizzer();
+      quizzer.remove(0);
+      System.out.println("FAILED - testRemove() - no exception thrown");
+      return false;
+    } catch (IndexOutOfBoundsException e){
+      System.out.println("PASSED - testRemove() - IndexOutOfBoundsException thrown");
+      return true;
+    } catch (Exception e){
+      System.out.println("FAILED - testRemove() - unexpected exception thrown");
+      return false;
+    }
   }
   /**
    * Tester for ListQuizzer.add() method
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testAdd(){
-    return false;
+    try{
+      ListQuizzer quizzer = new ListQuizzer();
+      quizzer.add(0, null);
+      System.out.println("FAILED - testAdd() - no exception thrown");
+      return false;
+    } catch (IndexOutOfBoundsException e){
+      System.out.println("PASSED - testAdd() - IndexOutOfBoundsException thrown");
+      return true;
+    } catch (Exception e){
+      System.out.println("FAILED - testAdd() - unexpected exception thrown");
+      return false;
+    }
   }
   /**
    * Tester for ListQuizzer.addFirst() method
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testAddFirst(){
-    return false;
+    try{
+      ListQuizzer quizzer = new ListQuizzer();
+      quizzer.addFirst(null);
+      System.out.println("FAILED - testAddFirst() - no exception thrown");
+      return false;
+    } catch (NullPointerException e){
+      System.out.println("PASSED - testAddFirst() - NullPointerException thrown");
+      return true;
+    } catch (Exception e){
+      System.out.println("FAILED - testAddFirst() - unexpected exception thrown");
+      return false;
+    }
   }
 }
