@@ -39,9 +39,9 @@ public class QuizzerTester {
     } else {
       testsPassed = false;
     }
-    testResult = testIncorrectQuestionsIterator();
+    testResult = testInCorrectQuestionsIterator();
     if (testResult) {
-      System.out.println("PASSED - testIncorrectQuestionsIterator()");
+      System.out.println("PASSED - testInCorrectQuestionsIterator()");
     } else {
       testsPassed = false;
     }
@@ -92,6 +92,7 @@ public class QuizzerTester {
     } else {
       System.out.println("----------- SOME TESTS FAILED ----------");
     }
+    return testsPassed;
   }
   /**
    * Tests the MultipleChoiceQuestion class
