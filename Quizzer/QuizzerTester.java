@@ -1,12 +1,40 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Quizzer
+// Course:   CS 300 Fall 2022
+//
+// Author:   Aarav Gupta
+// Email:    agupta297@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Reed Lokken
+// Partner Email: rlokken@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons: NONE        
+// Online Sources: Github Copilot 
+///////////////////////////////////////////////////////////////////////////////
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+/**
+ * This class tests the classes in the Quizzer Project 
+ */
 public class QuizzerTester {
   /**
-   * 
+   * executes run all tests to ensure methods are working properly
    * @param args  list of input arguments if any
    */
   public static void main(String[] args){
