@@ -1,4 +1,10 @@
-public class CorrectQuestionsIterator {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+public class CorrectQuestionsIterator implements Iterator<MultipleChoiceQuestion> {
   private LinkedNode<MultipleChoiceQuestion> next;
 
   CorrectQuestionsIterator(LinkedNode<MultipleChoiceQuestion> startNode) {

@@ -1,4 +1,11 @@
-public class LinkedNode {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class LinkedNode<T> {
   private T data;
   private LinkedNode<T> next;
 
@@ -24,7 +31,10 @@ public class LinkedNode {
    * @throws NullPointerException if data is null
    */
   public LinkedNode(T data) {
-    this(data, null);
+    if (data == null) {
+      throw new NullPointerException();
+    }
+    this.data = data;
   }
 
   /**
@@ -65,5 +75,6 @@ public class LinkedNode {
   @Override
   public String toString() {
     // TODO: implement this method
+    return null;
   }
 }

@@ -18,14 +18,16 @@ public class ListQuizzer implements Iterable {
   }
 
   /**
-   * Adds a question to the end of the list of questions
+   * Checks to see if the list is empty
    * 
-   * @param question the question to be added
    * @throws NullPointerException if question is null
-   * @return true if the question was added, and false otherwise
+   * @return true if this list is empty and false otherwise
    */
-  public boolean isEmpty() {
-
+  public boolean isEmpty() throws NullPointerException{
+    if(head==null&&tail==null) {
+      throw new NullPointerException("The list is empty");
+    }
+    return size!=0;
   }
 
   /**
@@ -34,7 +36,7 @@ public class ListQuizzer implements Iterable {
    * @return the size of this list
    */
   public int size() {
-
+    return size;
   }
 
   /**
@@ -43,7 +45,7 @@ public class ListQuizzer implements Iterable {
    * @param listingMode listing mode to set
    */
   public void switchMode(ListingMode listingMode) {
-
+    this.listingMode = listingMode;
   }
 
   /**
@@ -57,7 +59,33 @@ public class ListQuizzer implements Iterable {
    *                                   is out of bounds
    */
   public void add(int index, MultipleChoiceQuestion question) throws NullPointerException, IndexOutOfBoundsException {
-
+    if(question==null) {
+      throw new NullPointerException("The question is null");
+    }
+    if(index<0||index>size) {
+      throw new IndexOutOfBoundsException("The index is out of bounds");
+    }
+    LinkedNode<MultipleChoiceQuestion> newNode = new LinkedNode<MultipleChoiceQuestion>(question);
+    if(index==0) {
+      newNode.setNext(head);
+      head = newNode;
+      if(size==0) {
+        tail = newNode;
+      }
+    }
+    else if(index==size) {
+      tail.setNext(newNode);
+      tail = newNode;
+    }
+    else {
+      LinkedNode<MultipleChoiceQuestion> current = head;
+      for(int i=0;i<index-1;i++) {
+        current = current.getNext();
+      }
+      newNode.setNext(current.getNext());
+      current.setNext(newNode);
+    }
+    size++;
   }
 
   /**
@@ -67,7 +95,16 @@ public class ListQuizzer implements Iterable {
    * @throws NullPointerException throws NullPointerException if question is null
    */
   public void addFirst(MultipleChoiceQuestion question) throws NullPointerException {
-
+    if(question==null) {
+      throw new NullPointerException("The question is null");
+    }
+    LinkedNode<MultipleChoiceQuestion> newNode = new LinkedNode<MultipleChoiceQuestion>(question);
+    newNode.setNext(head);
+    head = newNode;
+    if(size==0) {
+      tail = newNode;
+    }
+    size++;
   }
 
   /**
@@ -77,7 +114,18 @@ public class ListQuizzer implements Iterable {
    * @throws NullPointerException throws NullPointerException if question is null
    */
   public void addLast(MultipleChoiceQuestion question) throws NullPointerException {
-
+    if(question==null) {
+      throw new NullPointerException("The question is null");
+    }
+    LinkedNode<MultipleChoiceQuestion> newNode = new LinkedNode<MultipleChoiceQuestion>(question);
+    if(size==0) {
+      head = newNode;
+    }
+    else {
+      tail.setNext(newNode);
+    }
+    tail = newNode;
+    size++;
   }
 
   /**
@@ -85,7 +133,9 @@ public class ListQuizzer implements Iterable {
    * method is called
    */
   public void clear() {
-
+    head=null;
+    tail=null;
+    size=0;
   }
 
   /**
@@ -96,7 +146,14 @@ public class ListQuizzer implements Iterable {
    *         otherwise
    */
   public boolean contains(MultipleChoiceQuestion someQuestion) {
-
+    LinkedNode<MultipleChoiceQuestion> current = head;
+    while(current!=null) {
+      if(current.getData().equals(someQuestion)) {
+        return true;
+      }
+      current=current.getNext();
+    }
+    return false;
   }
 
   /**
@@ -108,7 +165,14 @@ public class ListQuizzer implements Iterable {
    *                                   is out of bounds
    */
   public MultipleChoiceQuestion get(int index) throws IndexOutOfBoundsException {
-
+    if(index<0||index>=size) {
+      throw new IndexOutOfBoundsException("The index is out of bounds");
+    }
+    LinkedNode<MultipleChoiceQuestion> current = head;
+    for(int i=0;i<index;i++) {
+      current = current.getNext();
+    }
+    return current.getData();
   }
 
   /**
@@ -119,7 +183,10 @@ public class ListQuizzer implements Iterable {
    *                                empty
    */
   public MultipleChoiceQuestion getFirst() throws NoSuchElementException {
-
+    if(size==0) {
+      throw new NoSuchElementException("The list is empty");
+    }
+    return head.getData();
   }
 
   /**
@@ -130,7 +197,10 @@ public class ListQuizzer implements Iterable {
    *                                empty
    */
   public MultipleChoiceQuestion getLast() throws NoSuchElementException {
-
+    if(size==0) {
+      throw new NoSuchElementException("The list is empty");
+    }
+    return tail.getData();
   }
 
   /**
@@ -142,7 +212,30 @@ public class ListQuizzer implements Iterable {
    *                                   is out of bounds
    */
   public MultipleChoiceQuestion remove(int index) throws IndexOutOfBoundsException {
-
+    if(index<0||index>=size) {
+      throw new IndexOutOfBoundsException("The index is out of bounds");
+    }
+    MultipleChoiceQuestion removedQuestion;
+    if(index==0) {
+      removedQuestion = head.getData();
+      head = head.getNext();
+      if(size==1) {
+        tail = null;
+      }
+    }
+    else {
+      LinkedNode<MultipleChoiceQuestion> current = head;
+      for(int i=0;i<index-1;i++) {
+        current = current.getNext();
+      }
+      removedQuestion = current.getNext().getData();
+      current.setNext(current.getNext().getNext());
+      if(index==size-1) {
+        tail = current;
+      }
+    }
+    size--;
+    return removedQuestion;
   }
 
   /**
@@ -153,7 +246,16 @@ public class ListQuizzer implements Iterable {
    *                                empty
    */
   public MultipleChoiceQuestion removeFirst() throws NoSuchElementException {
-
+    if(size==0) {
+      throw new NoSuchElementException("The list is empty");
+    }
+    MultipleChoiceQuestion removedQuestion = head.getData();
+    head = head.getNext();
+    if(size==1) {
+      tail = null;
+    }
+    size--;
+    return removedQuestion;
   }
 
   /**
@@ -164,7 +266,24 @@ public class ListQuizzer implements Iterable {
    *                                empty
    */
   public MultipleChoiceQuestion removeLast() throws NoSuchElementException {
-
+    if(size==0) {
+      throw new NoSuchElementException("The list is empty");
+    }
+    MultipleChoiceQuestion removedQuestion = tail.getData();
+    if(size==1) {
+      head = null;
+      tail = null;
+    }
+    else {
+      LinkedNode<MultipleChoiceQuestion> current = head;
+      while(current.getNext()!=tail) {
+        current = current.getNext();
+      }
+      current.setNext(null);
+      tail = current;
+    }
+    size--;
+    return removedQuestion;
   }
 
   /**
@@ -175,7 +294,8 @@ public class ListQuizzer implements Iterable {
    *         listingMode of this list.
    */
   public Iterator<MultipleChoiceQuestion> iterator() {
-
+    //TODO: implement this method
+    return null;
   }
 
   /**
@@ -185,7 +305,7 @@ public class ListQuizzer implements Iterable {
    * @return the score of this ListQuizzer
    */
   public int calculateScore() {
-
+    return 0;
   }
 
   /**
@@ -194,7 +314,7 @@ public class ListQuizzer implements Iterable {
    * @return the score of this ListQuizzer
    */
   public int calculateTotalPoints() {
-
+    return 0;
   }
 
   /**
@@ -203,7 +323,7 @@ public class ListQuizzer implements Iterable {
    * @return a deep copy of this list
    */
   public ListQuizzer copy() {
-
+   return null;
   }
 
  /**
@@ -320,26 +440,7 @@ public int loadQuestions(File file) throws FileNotFoundException {
    *         include the user's responses.
    */
   public ListQuizzer takeQuiz() {
-    ListQuizzer copy = this.copy();
-    copy.switchMode(ListingMode.ALL);
-    Scanner input = new Scanner(System.in);
-    for (MultipleChoiceQuestion question : copy) {
-    System.out.println(question);
-    System.out.print("Enter your answer: ");
-    int entry = input.nextInt();
-    question.setStudentAnswerIndex(entry - 1);
-    if (question.isCorrect()) {
-    System.out.println("Correct!");
-    } else {
-    System.out.println("Incorrect!");
-    }
-    }
-    int correctPoints = copy.calculateScore();
-    int totalPoints = copy.calculateTotalPoints();
-    System.out.println("Your Score: " + correctPoints);
-    System.out.println("Percentage: " + correctPoints / totalPoints);
-    input.close();
-    return copy;
+    return null;
     }
 
   /**

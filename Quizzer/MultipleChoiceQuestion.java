@@ -1,4 +1,9 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * This class models a Multiple Choice Question in a Quiz. A

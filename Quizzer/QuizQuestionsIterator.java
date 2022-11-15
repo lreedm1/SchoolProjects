@@ -1,25 +1,38 @@
-public class QuizQuestionsIterator {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class QuizQuestionsIterator implements Iterator<MultipleChoiceQuestion> {
   private LinkedNode<MultipleChoiceQuestion> next;
+
   /**
    * Creates a new QuizQuestionsIterator
+   * 
    * @param startNode the first node in the list of questions
    */
-  QuizQuestionsIterator(LinkedNode<MultipleChoiceQuestion> startNode){
+  QuizQuestionsIterator(LinkedNode<MultipleChoiceQuestion> startNode) {
     next = startNode;
   }
+
   /**
    * Returns true if this iteration has more MultipleChoiceQuestion(s).
+   * 
    * @return true if there is another question to be answered, and false otherwise
    */
-  public boolean hasNext(){
+  public boolean hasNext() {
     return next != null;
   }
+
   /**
    * Returns the next MultipleChoiceQuestion in the iteration.
+   * 
    * @return the next question to be answered
    * @throws NoSuchElementException if there is no next question
    */
-  public MultipleChoiceQuestion next() throws NoSuchElementException{
+  public MultipleChoiceQuestion next() throws NoSuchElementException {
     if (next == null) {
       throw new NoSuchElementException();
     }
