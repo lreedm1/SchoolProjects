@@ -294,7 +294,6 @@ public class ListQuizzer implements Iterable {
    *         listingMode of this list.
    */
   public Iterator<MultipleChoiceQuestion> iterator() {
-    //TODO: implement this method
     return null;
   }
 
@@ -315,8 +314,14 @@ public class ListQuizzer implements Iterable {
    * @return the score of this ListQuizzer
    */
   public int calculateTotalPoints() {
-    //TODO: implement this method
-    return 0;
+   int totalPossiblePoints = 0;
+   LinkedNode<MultipleChoiceQuestion> current = head;
+    while(current!=null) {
+      totalPossiblePoints+=current.getData().getPointsPossible();
+      current=current.getNext();
+    }
+    return totalPossiblePoints;
+
   }
 
   /**
