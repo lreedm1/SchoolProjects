@@ -294,6 +294,7 @@ public class ListQuizzer implements Iterable {
    *         listingMode of this list.
    */
   public Iterator<MultipleChoiceQuestion> iterator() {
+    //TODO: implement this method
     return null;
   }
 
@@ -304,7 +305,8 @@ public class ListQuizzer implements Iterable {
    * @return the score of this ListQuizzer
    */
   public int calculateScore() {
-    return 0;
+    //TODO: implement this method
+   return 0;
   }
 
   /**
@@ -313,6 +315,7 @@ public class ListQuizzer implements Iterable {
    * @return the score of this ListQuizzer
    */
   public int calculateTotalPoints() {
+    //TODO: implement this method
     return 0;
   }
 
@@ -322,7 +325,8 @@ public class ListQuizzer implements Iterable {
    * @return a deep copy of this list
    */
   public ListQuizzer copy(){
-   return null;
+    //TODO: implement this method
+    return null;
   }
 
  /**
@@ -439,6 +443,7 @@ public int loadQuestions(File file) throws FileNotFoundException {
    *         include the user's responses.
    */
   public ListQuizzer takeQuiz() {
+    //TODO: implement this method
     return null;
     }
 

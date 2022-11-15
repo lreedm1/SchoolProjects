@@ -14,10 +14,19 @@ public class CorrectQuestionsIterator implements Iterator<MultipleChoiceQuestion
   /**
    * Returns true if this iteration has more MultipleChoiceQuestion(s) answered correctly.
    * 
-   * @return true if there are more correct MultipleChoiceQuestion(s) in this iteration
+   * @return true if there are more correct MultipleChoiceQuestion(s) in this iteration, and false otherwise
    */
   public boolean hasNext() {
-    return next != null;
+    if(next == null) {
+      return false;
+    }
+    else if(next.getData().isCorrect()) {
+      return true;
+    }
+    else {
+      next = next.getNext();
+      return hasNext();
+    }
   }
 
   /**
@@ -30,8 +39,14 @@ public class CorrectQuestionsIterator implements Iterator<MultipleChoiceQuestion
     if (next == null) {
       throw new NoSuchElementException("No more questions");
     }
-    MultipleChoiceQuestion result = next.getData();
-    next = next.getNext();
-    return result;
+    if(next.getData().isCorrect()) {
+      MultipleChoiceQuestion result = next.getData();
+      next = next.getNext();
+      return result;
+    }
+    else {
+      next = next.getNext();
+      return next();
+    }
   }
 }

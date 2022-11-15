@@ -31,8 +31,14 @@ public class IncorrectQuestionsIterator implements Iterator<MultipleChoiceQuesti
     if (next == null) {
       throw new NoSuchElementException("No more questions");
     }
-    MultipleChoiceQuestion result = next.getData();
-    next = next.getNext();
-    return result;
+    if(next.getData().isCorrect()) {
+      next = next.getNext();
+      return next();
+    }
+    else {
+      MultipleChoiceQuestion result = next.getData();
+      next = next.getNext();
+      return result;
+    }
   }
 }
