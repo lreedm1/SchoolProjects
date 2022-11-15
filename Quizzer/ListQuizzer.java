@@ -464,7 +464,7 @@ public int loadQuestions(File file) throws FileNotFoundException {
     // System.out.println("Percentage: " + correctPoints / totalPoints);
     // input.close();
     // return copy;
-    
+    return null;
     }
 
   /**
