@@ -443,8 +443,27 @@ public int loadQuestions(File file) throws FileNotFoundException {
    *         include the user's responses.
    */
   public ListQuizzer takeQuiz() {
-    //TODO: implement this method
-    return null;
+    ListQuizzer copy = this.copy();
+    copy.switchMode(ListingMode.ALL);
+    Scanner input = new Scanner(System.in);
+    for (MultipleChoiceQuestion question : copy) {
+    System.out.println(question);
+    System.out.print("Enter your answer: ");
+    int entry = input.nextInt();
+    question.setStudentAnswerIndex(entry - 1);
+    if (question.isCorrect()) {
+    System.out.println("Correct!");
+    } else {
+    System.out.println("Incorrect!");
+    }
+    }
+    int correctPoints = copy.calculateScore();
+    int totalPoints = copy.calculateTotalPoints();
+    System.out.println("Your Score: " + correctPoints);
+    System.out.println("Percentage: " + correctPoints / totalPoints);
+    input.close();
+    return copy;
+    
     }
 
   /**
