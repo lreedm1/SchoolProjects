@@ -12,24 +12,23 @@ public class CorrectQuestionsIterator implements Iterator<MultipleChoiceQuestion
   }
 
   /**
-   * Returns true if there is another question to be answered correctly
+   * Returns true if this iteration has more MultipleChoiceQuestion(s) answered correctly.
    * 
-   * @return true if there is another question to be answered correctly, and false
-   *         otherwise
+   * @return true if there are more correct MultipleChoiceQuestion(s) in this iteration
    */
   public boolean hasNext() {
     return next != null;
   }
 
   /**
-   * Returns the next question to be answered correctly
+   * Returns the next correct MultipleChoiceQuestion in this iteration
    * 
-   * @return the next question to be answered correctly
+   * @return the next correct MultipleChoiceQuestion in this iteration
    * @throws NoSuchElementException if there is no next question
    */
   public MultipleChoiceQuestion next() throws NoSuchElementException {
     if (next == null) {
-      throw new NoSuchElementException();
+      throw new NoSuchElementException("No more questions");
     }
     MultipleChoiceQuestion result = next.getData();
     next = next.getNext();

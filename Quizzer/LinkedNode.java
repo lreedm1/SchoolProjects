@@ -74,7 +74,10 @@ public class LinkedNode<T> {
    */
   @Override
   public String toString() {
-    // TODO: implement this method
-    return null;
+    if (next == null) {
+      return data.toString();
+    } else {
+      return data.toString() + "->";
+    }
   }
 }

@@ -294,7 +294,6 @@ public class ListQuizzer implements Iterable {
    *         listingMode of this list.
    */
   public Iterator<MultipleChoiceQuestion> iterator() {
-    //TODO: implement this method
     return null;
   }
 
@@ -322,7 +321,7 @@ public class ListQuizzer implements Iterable {
    * 
    * @return a deep copy of this list
    */
-  public ListQuizzer copy() {
+  public ListQuizzer copy(){
    return null;
   }
 

@@ -34,7 +34,7 @@ public class QuizQuestionsIterator implements Iterator<MultipleChoiceQuestion> {
    */
   public MultipleChoiceQuestion next() throws NoSuchElementException {
     if (next == null) {
-      throw new NoSuchElementException();
+      throw new NoSuchElementException("No more questions");
     }
     MultipleChoiceQuestion result = next.getData();
     next = next.getNext();
