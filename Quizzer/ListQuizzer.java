@@ -327,29 +327,14 @@ public class ListQuizzer implements Iterable<MultipleChoiceQuestion>{
    *         listingMode of this list.
    */
   public Iterator<MultipleChoiceQuestion> iterator() {
-    QuizQuestionsIterator iterator = new QuizQuestionsIterator(head);
     // find the first correctly answered question
     if(listingMode == ListingMode.CORRECT) {
-      while(iterator.hasNext()){
-        if(iterator.next().isCorrect()){
-          return iterator;
-        }
-      }
-      // if there is no correctly answered question, return an empty iterator
-      return null;
-    // find the first incorrectly answered question
-    } else if(listingMode == ListingMode.INCORRECT) {
-      while(iterator.hasNext()){
-        if(!iterator.next().isCorrect()){
-          return iterator;
-        }
-      }
-      // if there is no incorrectly answered question, return an empty iterator
-      
+      return new CorrectQuestionsIterator(head);
     }
-    // do nothing if listingMode is ALL
-    // the iterator is already initialized to the head of this list
-    return iterator;
+    if(listingMode == ListingMode.INCORRECT) {
+      return new IncorrectQuestionsIterator(head);
+    }
+    return new QuizQuestionsIterator(head);
    }
    
   /**
