@@ -237,7 +237,37 @@ public class QuizzerTester {
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testLinkedNode(){
-    return false;
+    // tests the new node constructor and getData method
+    LinkedNode<String> node1 = new LinkedNode<String>("Hello");
+    if (!node1.getData().equals("Hello")) {
+      System.out.println("LinkedNode constructor or getData method failed");
+      return false;
+    }
+    // tests the connect node constructor and the getNext method
+    LinkedNode<String> node2 = new LinkedNode<String>("World", node1);
+    if (!node2.getNext().equals(node1)) {
+      System.out.println("LinkedNode constructor or getNext method failed");
+      return false;
+    }
+    
+    //test the toString method which prints data.toString() by default
+    // and data.toString() + " -> " + next.toString() if next is not null
+    if (!node1.toString().equals("Hello")) {
+      System.out.println("LinkedNode toString method failed when next is null");
+      return false;
+    }
+    if (!node2.toString().equals("World->")) {
+      System.out.println("LinkedNode toString method failed when next is not null");
+      return false;
+    }
+
+    // test the setNext method
+    node1.setNext(node2);
+    if (!node1.getNext().equals(node2)) {
+      System.out.println("LinkedNode setNext method failed");
+      return false;
+    }
+    return true;
   }
   /**
    * Tests the CorrectQuestionsIterator class
