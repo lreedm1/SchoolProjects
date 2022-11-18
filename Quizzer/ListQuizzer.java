@@ -32,7 +32,7 @@ import java.util.Scanner;
 /**
  * This class models an iterable singly-linked list data structure which stores elements of type MultipleChoiceQuestion.
  */
-public class ListQuizzer implements Iterable {
+public class ListQuizzer implements Iterable<MultipleChoiceQuestion>{
   private LinkedNode<MultipleChoiceQuestion> head;
   private LinkedNode<MultipleChoiceQuestion> tail;
   private int size;
@@ -315,16 +315,39 @@ public class ListQuizzer implements Iterable {
   }
 
   /**
-   * Returns an iterator to iterate through this list with respect to the
-   * listingMode
+   * Returns an iterator to iterate through this list with respect to 
+   * the listingMode. If the listingMode is ALL, 
+   * the returned iterator is initialized to the head of this list. 
+   * If the listingMode is CORRECT, the returned iterator is initialized 
+   * to the node carrying first correctly answered question 
+   * If the listingMode is INCORRECT, the returned iterator is 
+   * initialized to the node carrying first incorrectly answered question
    * 
    * @return an iterator to iterate through this list with respect to the
    *         listingMode of this list.
    */
   public Iterator<MultipleChoiceQuestion> iterator() {
-    return null;
-  }
-
+    QuizQuestionsIterator iterator = new QuizQuestionsIterator(head);
+    // find the first correctly answered question
+    if(listingMode == ListingMode.CORRECT) {
+      while(iterator.hasNext()){
+        if(iterator.next().isCorrect()){
+          break;
+        }
+      }
+    // find the first incorrectly answered question
+    } else if(listingMode == ListingMode.INCORRECT) {
+      while(iterator.hasNext()){
+        if(!iterator.next().isCorrect()){
+          break;
+        }
+      }
+    }
+    // do nothing if listingMode is ALL
+    // the iterator is already initialized to the head of this list
+    return iterator;
+   }
+   
   /**
    * Calculates the total points of the correctly answered questions of this
    * ListQuizzer
@@ -332,8 +355,13 @@ public class ListQuizzer implements Iterable {
    * @return the score of this ListQuizzer
    */
   public int calculateScore() {
-    //TODO: implement this method
-   return 0;
+    int score = 0;
+    for(MultipleChoiceQuestion question : this) {
+      if(question.isCorrect()) {
+        score += question.getPointsPossible();
+      }
+    }
+    return score;
   }
 
   /**
@@ -357,8 +385,14 @@ public class ListQuizzer implements Iterable {
    * @return a deep copy of this list
    */
   public ListQuizzer copy(){
-    //TODO: implement this method
-    return null;
+    
+    ListQuizzer dupList = new ListQuizzer();
+    LinkedNode<MultipleChoiceQuestion> currentNode = head;
+    while(currentNode!=null) {
+      dupList.addLast(currentNode.getData().copy());
+      currentNode = currentNode.getNext();
+    }
+    return dupList;
   }
 
  /**
@@ -475,28 +509,26 @@ public int loadQuestions(File file) throws FileNotFoundException {
    *         include the user's responses.
    */
   public ListQuizzer takeQuiz() {
-    //TODO: implement this method when done with the copy methods
-    // ListQuizzer copy = this.copy();
-    // copy.switchMode(ListingMode.ALL);
-    // Scanner input = new Scanner(System.in);
-    // for (MultipleChoiceQuestion question : copy) {
-    // System.out.println(question);
-    // System.out.print("Enter your answer: ");
-    // int entry = input.nextInt();
-    // question.setStudentAnswerIndex(entry - 1);
-    // if (question.isCorrect()) {
-    // System.out.println("Correct!");
-    // } else {
-    // System.out.println("Incorrect!");
-    // }
-    // }
-    // int correctPoints = copy.calculateScore();
-    // int totalPoints = copy.calculateTotalPoints();
-    // System.out.println("Your Score: " + correctPoints);
-    // System.out.println("Percentage: " + correctPoints / totalPoints);
-    // input.close();
-    // return copy;
-    return null;
+    ListQuizzer copy = this.copy();
+    copy.switchMode(ListingMode.ALL);
+    Scanner input = new Scanner(System.in);
+    for (MultipleChoiceQuestion question : copy) {
+    System.out.println(question);
+    System.out.print("Enter your answer: ");
+    int entry = input.nextInt();
+    question.setStudentAnswerIndex(entry - 1);
+    if (question.isCorrect()) {
+    System.out.println("Correct!");
+    } else {
+    System.out.println("Incorrect!");
+    }
+    }
+    int correctPoints = copy.calculateScore();
+    int totalPoints = copy.calculateTotalPoints();
+    System.out.println("Your Score: " + correctPoints);
+    System.out.println("Percentage: " + correctPoints / totalPoints);
+    input.close();
+    return copy;
     }
 
   /**

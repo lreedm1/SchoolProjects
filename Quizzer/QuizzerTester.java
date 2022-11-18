@@ -228,8 +228,8 @@ public class QuizzerTester {
       quizzer.add(0, null);
       System.out.println("FAILED - testAdd() - no exception thrown");
       return false;
-    } catch (IndexOutOfBoundsException e){
-      System.out.println("PASSED - testAdd() - IndexOutOfBoundsException thrown");
+    } catch (NullPointerException e){
+      System.out.println("PASSED - testAdd() - NullPointerException thrown");
       return true;
     } catch (Exception e){
       System.out.println("FAILED - testAdd() - unexpected exception thrown");
