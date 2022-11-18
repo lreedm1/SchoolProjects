@@ -122,12 +122,115 @@ public class QuizzerTester {
     }
     return testsPassed;
   }
+  /** creates a MultipeChoiceQuestion for testing
+   * @return a MultipleChoiceQuestion object
+   */
+  private static MultipleChoiceQuestion createMultipleChoiceQuestion(int length, int CorrectAnswer) {
+    String question = "What is the capital of Wisconsin?";
+    String[] allChoices = {"Madison", "Milwaukee", "Green Bay", "Eau Claire"};
+    String[] choices = new String[length];
+    for(int i = 0; i < length; i++) {
+      choices[i] = allChoices[i];
+    }
+    String title = "Wisconsin";
+    MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(title, question, choices, CorrectAnswer,2);
+    return mcq;
+  }
+
   /**
    * Tests the MultipleChoiceQuestion class
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testMultipleChoiceQuestion(){
-    return false;
+    MultipleChoiceQuestion question1 = createMultipleChoiceQuestion(4, 0);
+
+    // test the constructor through the get methods
+    // test the equals method
+    MultipleChoiceQuestion question2 = createMultipleChoiceQuestion(4, 0);
+    if (!question1.equals(question2)) {
+      System.out.println("MultipleChoiceQuestion equals method failed");
+      return false;
+    }
+    // test the copy method
+    MultipleChoiceQuestion question3 = question1.copy();
+    if (!question1.equals(question3)) {
+      System.out.println("MultipleChoiceQuestion copy method failed");
+      return false;
+    }
+    // test the getAnswers method
+    if (!question1.getAnswers().equals("1. Madison\n2. Milwaukee\n3. Green Bay\n4. Eau Claire")) {
+      System.out.println("MultipleChoiceQuestion getAnswers method failed");
+      return false;
+    }
+    // test the getCorrectAnswerIndex method
+    if (question1.getCorrectAnswerIndex() != 0) {
+      System.out.println("MultipleChoiceQuestion getCorrectAnswerIndex method failed");
+      return false;
+    }
+    // test the getPointsPossible method
+    if (question1.getPointsPossible() != 2) {
+      System.out.println("MultipleChoiceQuestion getPointsPossible method failed");
+      return false;
+    }
+    // test the getQuestion method
+    if (!question1.getQuestion().equals("What is the capital of Wisconsin?")) {
+      System.out.println("MultipleChoiceQuestion getQuestion method failed");
+      return false;
+    }
+    // test the getStudentAnswerIndex method
+    if(question1.getStudentAnswerIndex() != -1) {
+      System.out.println("MultipleChoiceQuestion getStudentAnswerIndex method failed");
+      return false;
+    }
+    // test the setStudentAnswerIndex method
+    question1.setStudentAnswerIndex(2);
+    if(question1.getStudentAnswerIndex() != 2) {
+      System.out.println("MultipleChoiceQuestion setStudentAnswerIndex method failed");
+      return false;
+    }
+    // test the isCorrect method by setting the current index to the correct answer
+    question1.setStudentAnswerIndex(1);
+    question1.setCorrectAnswerIndex(1);
+    if(!question1.isCorrect()) {
+      System.out.println("MultipleChoiceQuestion isCorrect method failed");
+      return false;
+    }
+
+    // test setCorrectAnswerIndex method
+    question1.setCorrectAnswerIndex(2);
+    if (question1.getCorrectAnswerIndex() != 2) {
+      System.out.println("MultipleChoiceQuestion setCorrectAnswerIndex method failed");
+      return false;
+    }
+    // test the setPointsPossible method
+    question1.setPointsPossible(3);
+    if (question1.getPointsPossible() != 3) {
+      System.out.println("MultipleChoiceQuestion setPointsPossible method failed");
+      return false;
+    }
+    // test the setQuestion method
+    question1.setQuestion("What is the capital of Minnesota?");
+    if (!question1.getQuestion().equals("What is the capital of Minnesota?")) {
+      System.out.println("MultipleChoiceQuestion setQuestion method failed");
+      return false;
+    }
+    // test the setTtile method
+    question1.setTitle("Minnesota");
+    if (!question1.getTitle().equals("Minnesota")) {
+      System.out.println("MultipleChoiceQuestion setTitle method failed");
+      return false;
+    }
+    // test the toString method
+    MultipleChoiceQuestion question4 = createMultipleChoiceQuestion(4, 0);
+    if(!question4.toString().equals("QUESTION TITLE: " + "\"" + question4.getTitle() + "\"" + "\n"
+                                     + "Question:\n" + question4.getQuestion() + "\n" + 
+                                     "Available Answers:\n" + question4.getAnswers())) 
+                                     {
+      System.out.println("MultipleChoiceQuestion toString method failed");
+      return false;
+    }
+
+    return true;
   }
   /**
    * Tests the LinkedNode class

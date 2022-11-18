@@ -332,16 +332,20 @@ public class ListQuizzer implements Iterable<MultipleChoiceQuestion>{
     if(listingMode == ListingMode.CORRECT) {
       while(iterator.hasNext()){
         if(iterator.next().isCorrect()){
-          break;
+          return iterator;
         }
       }
+      // if there is no correctly answered question, return an empty iterator
+      return null;
     // find the first incorrectly answered question
     } else if(listingMode == ListingMode.INCORRECT) {
       while(iterator.hasNext()){
         if(!iterator.next().isCorrect()){
-          break;
+          return iterator;
         }
       }
+      // if there is no incorrectly answered question, return an empty iterator
+      
     }
     // do nothing if listingMode is ALL
     // the iterator is already initialized to the head of this list
