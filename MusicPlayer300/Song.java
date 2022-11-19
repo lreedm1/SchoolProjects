@@ -1,3 +1,4 @@
+
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:    Music Player 300
@@ -25,9 +26,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 import java.io.File;
 import java.util.Scanner;
+
 /**
- * A representation of a single Song. Interfaces with the provided AudioUtility class, which uses
- * the javax.sound.sampled package to play audio to your computer's audio output device
+ * A representation of a single Song. Interfaces with the provided AudioUtility
+ * class, which uses
+ * the javax.sound.sampled package to play audio to your computer's audio output
+ * device
  */
 public class Song {
 
@@ -46,7 +50,12 @@ public class Song {
    * @throws IllegalArgumentException if the song file cannot be read
    */
   public Song(String title, String artist, String filepath) throws IllegalArgumentException {
-    // TODO: Implement this method
+    if(filepath.canRead()!=true) {
+      throw new IllegalArgumentException("Song file cannot be read");
+    }
+    this.title = title;
+    this.artist = artist;
+    this.audioClip = new AudioUtility(filepath);
   }
 
   /**
@@ -55,7 +64,7 @@ public class Song {
    * @return true if the song is playing, false otherwise
    */
   public boolean isPlaying() {
-    // TODO: Implement this method
+    return audioClip.isRunning();
   }
 
   /**
@@ -64,7 +73,7 @@ public class Song {
    * @return the title of this song
    */
   public String getTitle() {
-    // TODO: Implement this method
+    return this.title;
   }
 
   /**
@@ -73,7 +82,7 @@ public class Song {
    * @return the artist of this song
    */
   public String getArtist() {
-    // TODO: Implement this method
+    return this.artist;
   }
 
   /**
@@ -81,22 +90,28 @@ public class Song {
    * playback if necessary
    */
   public void play() {
-    // TODO: Implement this method
+    if (!this.audioClip.isPlaying()) {
+      this.audioClip.startClip();
+    }
   }
 
   /**
    * Uses the AudioUtility to stop playback of this song
    */
   public void stop() {
-    // TODO: Implement this method
+    if (this.audioClip.isPlaying()) {
+      this.audioClip.stopClip();
+    }
   }
 
   /**
-   * Creates and returns a string representation of this Song
+   * Creates and returns a string representation of this Song. 
+   * 
    * @return a formatted string representation of this Song
    */
   @Override
   public String toString() {
-    // TODO: Implement this method
+    return "\"" + this.title + "\" by " + this.artist + " (" + this.duration / 60 + ":"
+        + this.duration % 60 + ")";
   }
 }
