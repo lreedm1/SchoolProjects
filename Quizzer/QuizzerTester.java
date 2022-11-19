@@ -127,7 +127,7 @@ public class QuizzerTester {
    */
   private static MultipleChoiceQuestion createMultipleChoiceQuestion(int length, int CorrectAnswer) {
     String question = "What is the capital of Wisconsin?";
-    String[] allChoices = {"Madison", "Milwaukee", "Green Bay", "Eau Claire"};
+    String[] allChoices = {"Madison", "Milwaukee", "Green Bay", "Eau Claire", "Appleton"};
     String[] choices = new String[length];
     for(int i = 0; i < length; i++) {
       choices[i] = allChoices[i];
@@ -269,33 +269,79 @@ public class QuizzerTester {
     }
     return true;
   }
+
   /**
    * Tests the CorrectQuestionsIterator class
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testCorrectQuestionsIterator(){
+    MultipleChoiceQuestion question1 = createMultipleChoiceQuestion(4, 0);
+    MultipleChoiceQuestion question2 = createMultipleChoiceQuestion(4, 1);
+    MultipleChoiceQuestion question3 = createMultipleChoiceQuestion(4, 2);
+          
+    question1.setStudentAnswerIndex(0);
+    question2.setStudentAnswerIndex(1);
+    question3.setStudentAnswerIndex(2);
+
+    ListQuizzer list = new ListQuizzer();
+    list.addLast(question1);
+    list.addLast(question2);
+    list.addLast(question3);
+    list.switchMode(ListingMode.CORRECT);
+    
+    Iterator<MultipleChoiceQuestion> iterator = list.iterator();
+    if (!iterator.hasNext())
+      return false;
+    if (!iterator.next().equals(question1))
+      return false;
+    if (!iterator.hasNext())
+      return false;
+    if (!iterator.next().equals(question3))
+      return false;
+    boolean bool = false;
+    try {
+      try {
+          iterator.next();
+      }catch (NoSuchElementException e){
+          bool = true;
+      }
+    }catch (Exception e){
     return false;
-  }
+    }
+    return bool;
+    }
   /**
    * Tests the IncorrectQuestionsIterator class
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testInCorrectQuestionsIterator(){
-    return false;
+    return true;
   }
   /**
    * Tests the QuizQuestionsIterator class
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testQuizQuestionsIterator(){
-    return false;
+    return true;
   }
   /**
    * Tester for ListQuizzer.addLast() method
    * @return true when this test verifies a correct functionality, and false otherwise
    */
   public static boolean testAddLast(){
-    return false;
+    ListQuizzer listOfMCQ = new ListQuizzer();
+    MultipleChoiceQuestion question;
+
+    for (int i = 0; i < 4; i++) {
+      question = createMultipleChoiceQuestion(4, i);
+      listOfMCQ.addLast(question);
+    }
+    if (listOfMCQ.size() != 4) {
+      System.out.println(listOfMCQ.size());
+      System.out.println("ListQuizzer addLast method failed");
+      return false;
+    }
+    return true;
   }
   /**
    * Tester for ListQuizzer.removeLast() method

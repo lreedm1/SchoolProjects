@@ -36,7 +36,6 @@ public class CorrectQuestionsIterator implements Iterator<MultipleChoiceQuestion
   private LinkedNode<MultipleChoiceQuestion> next;
 
   CorrectQuestionsIterator(LinkedNode<MultipleChoiceQuestion> startNode) {
-    next = startNode;
   }
 
   /**

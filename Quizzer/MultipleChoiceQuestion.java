@@ -86,7 +86,8 @@ public class MultipleChoiceQuestion {
   public MultipleChoiceQuestion(String title, String question, String[] answers,
       int correctAnswerIndex, int pointsPossible) {
     if (correctAnswerIndex < 0 || correctAnswerIndex >= answers.length)
-      throw new IndexOutOfBoundsException("Invalid index");
+      System.out.println("IndexOutOfBoundsException, attempted to acccess"+ 
+          "index " + correctAnswerIndex + " in array of length " + answers.length);
     if (pointsPossible <= 0)
       throw new IllegalArgumentException("Invalid possible points");
     this.title = title;
