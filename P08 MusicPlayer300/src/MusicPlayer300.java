@@ -23,3 +23,9 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
+import java.io.File;
+import java.util.Scanner;
+
+/** NOTES
+ * All methods longer than 3 lines should have an inline comment
+ */
