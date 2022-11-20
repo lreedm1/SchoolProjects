@@ -36,42 +36,57 @@ public class Playlist {
    * Constructs a new, empty playlist queue
    */
   public Playlist(){
-      //TODO: Implement this method
+      first = null;
+      last = null;
+      numSongs = 0;
   }
   /**
    * Adds a new song to the end of the queue
    * @param element  the song to add to the Playlist
    */
   public void enqueue(Song element){
-      //TODO: Implement this method
+      SongNode newNode = new SongNode(element);
+      if (this.isEmpty()) {
+          this.first = newNode;
+          this.last = newNode;
+      } else {
+          this.last.setNext(newNode);
+          this.last = newNode;
+      }
   }
   /**
    * Removes the song from the beginning of the queue
    * @return the song that was removed from the queue, or null if the queue is empty
    */
   public Song dequeue(){
-      //TODO: Implement this method
+      if(this.isEmpty()){
+          return null;
+      }
+      SongNode temp = this.first;
+      this.first = this.first.getNext();
+      this.numSongs--;
+      return temp.getSong();
   }
   /**
    * Returns the song at the front of the queue without removing it
    * @return the song that is at the front of the queue, or null if the queue is empty
    */
   public Song peek(){
-      //TODO: Implement this method
+      return this.first.getSong();
   }
   /**
    * Returns true if and only if there are no songs in this queue
    * @return true if this queue is empty, false otherwise
    */
   public boolean isEmpty(){
-      //TODO: Implement this method
+      return this.numSongs == 0;
   }
   /**
    * Returns the number of songs in this queue
    * @return the number of songs in this queue
    */
   public int size(){
-      //TODO: Implement this method
+      return this.numSongs;
   }
   /**
    * Creates and returns a formatted string representation of this playlist
@@ -79,7 +94,7 @@ public class Playlist {
    */
   @Override
   public String toString(){
-      //TODO: Implement this method
+      return "\""+this.song.getTitle()+"\" ("+this.song.getDuration()+") by "+this.song.getArtist();
   }
 
 }

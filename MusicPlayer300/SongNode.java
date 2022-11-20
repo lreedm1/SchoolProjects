@@ -53,7 +53,7 @@ public class SongNode {
    * @return the Song in this node
    */
   public Song getSong(){
-      //TODO: Implement this method
+      return this.song;
   }
   /**
    * Accessor method for the next node in the queue
