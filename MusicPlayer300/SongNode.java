@@ -37,7 +37,10 @@ public class SongNode {
    * @throws IllegalArgumentException if data is null
    */
   public SongNode(Song data) throws IllegalArgumentException{
-      //TODO: Implement this method
+      if(data == null) {
+          throw new IllegalArgumentException("Song cannot be null");
+      }
+      this.song = data;
   }
   /**
    * Constructs a single SongNode containing the given data, linked to the specified SongNode
@@ -46,7 +49,11 @@ public class SongNode {
    * @throws IllegalArgumentException if data is null
    */
   public SongNode(Song data, SongNode next) throws IllegalArgumentException{
-      //TODO: Implement this method
+      if(data == null) {
+          throw new IllegalArgumentException("Song cannot be null");
+      }
+      this.song = data;
+      this.next = next;
   }
   /**
    * Accessor method for this node's data
@@ -60,13 +67,13 @@ public class SongNode {
    * @return the SongNode following this one, if any
    */
   public SongNode getNext(){
-      //TODO: Implement this method
+      return this.next;
   }
   /**
    * Changes the value of this SongNode's next data field to the given value
    * @param next the SongNode to follow this one; may be null
    */
   public void setNext(SongNode next){
-      //TODO: Implement this method
+      this.next = next;
   }
 }
