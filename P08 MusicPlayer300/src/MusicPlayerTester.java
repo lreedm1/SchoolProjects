@@ -47,7 +47,7 @@ public class MusicPlayerTester{
     public static boolean testSongConstructor(){
         // test the constructor with an invalid file
         try {
-            Song song = new Song("someTitle", "someArtist", "someFilepath");
+            new Song("someTitle", "someArtist", "someFilepath");
             // the constructor does not throw an exception
             System.out.println("Song constructor did not throw an IllegalArgumentException when passed an invalid file");
             return false;
