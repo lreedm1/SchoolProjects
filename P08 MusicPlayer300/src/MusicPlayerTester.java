@@ -99,7 +99,7 @@ public class MusicPlayerTester{
             // test the play method
             song.play();
             Thread.sleep(1000);
-            if (song.isPlaying()){
+            if (!song.isPlaying()){
                 System.out.println("Song.play() did not start the song");
                 return false;
             }
@@ -127,9 +127,9 @@ public class MusicPlayerTester{
      */
     public static void evalTestResult(Boolean result, String testName){
         if (result){
-            System.out.println("PASSED — " + testName);
+            System.out.println("PASSED     " + testName);
         } else {
-            System.out.println("*FAILED* — " + testName + " - See above for details\n");
+            System.out.println("FAILED     " + testName + " (See above for details)\n");
         }
     }
 
@@ -138,8 +138,8 @@ public class MusicPlayerTester{
      */
     public static void runAllTests(){
         System.out.println("\n-----------------Running Tests-----------------\n");
-        evalTestResult(testSongConstructor(), "SongConstructor");
-        evalTestResult(testSongPlayback(), "SongPlayback");
+        evalTestResult(testSongConstructor(), "Song.java Constructor");
+        evalTestResult(testSongPlayback(), "Song.java Playback");
 
         System.out.println("\n-----------------End of Tests-----------------\n");
     }
