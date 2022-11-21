@@ -100,6 +100,7 @@ public class Song{
             this.audioClip.reopenClip();
         }
         this.audioClip.startClip();
+        System.out.println("Playing..." + this.toString());
     }
 
     /*
