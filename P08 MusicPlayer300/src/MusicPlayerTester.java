@@ -57,23 +57,30 @@ public class MusicPlayerTester{
             System.out.println("Song constructor returned " + e + " when it should have returned IllegalArgumentException");
             return false;
         }
-        // test a valid file with toString, getTitle, and getArtist
-        Song song = new Song("someTitle", "someArtist", "audio/1.mid");
-        if (!(song.toString() == "\"someTitle\" (0:6) by someArtist)")){
-            System.out.println("Song.java's toString returned |" + song.toString() + "| when it should have returned |\"someTitle\" (0:6) by someArtist|");
-            return false;
-        }
-        // test the getTitle method
-        String title = song.getTitle();
-        if (!title.equals("someTitle")){
-            System.out.println("Song.getTitle() returned " + title + " when it should have returned someTitle");
-            return false;
-        }
 
-        // test the getArtist method
-        String artist = song.getArtist();
-        if (!artist.equals("someArtist")){
-            System.out.println("Song.getArtist() returned " + artist + " when it should have returned someArtist");
+        try{
+            // test a valid file with toString, getTitle, and getArtist
+            Song song = new Song("someTitle", "someArtist", "audio/1.mid");
+            if (!(song.toString() == "\"someTitle\" (0:6) by someArtist)")){
+                System.out.println("Song.java's toString returned |" + song.toString() + "| when it should have returned |\"someTitle\" (0:6) by someArtist|");
+                return false;
+            }
+            // test the getTitle method
+            String title = song.getTitle();
+            if (!title.equals("someTitle")){
+                System.out.println("Song.getTitle() returned " + title + " when it should have returned someTitle");
+                return false;
+            }
+
+            // test the getArtist method
+            String artist = song.getArtist();
+            if (!artist.equals("someArtist")){
+                System.out.println("Song.getArtist() returned " + artist + " when it should have returned someArtist");
+                return false;
+            }
+
+        } catch (Exception e){
+            System.out.println("Song constructor threw the unexpected exception " + e );
             return false;
         }
 
@@ -86,7 +93,30 @@ public class MusicPlayerTester{
      * @return true if the playback methods work as expected, false otherwise
      */
     public static boolean testSongPlayback(){
-        return false;
+        try {
+            Song song = new Song("someTitle", "someArtist", "audio/1.mid");
+            
+            // test the play method
+            song.play();
+            Thread.sleep(1000);
+            if (song.isPlaying()){
+                System.out.println("Song.play() did not start the song");
+                return false;
+            }
+
+            // test the pause method
+            song.pause();
+            if(song.isPlaying()){
+                System.out.println("Song.pause() did not pause the song");
+                return false;
+            }
+            
+        } catch (Exception e){
+            System.out.println("Song.java threw the unexpected exception " + e +
+                              " when testing .play() and .pause()");
+            return false;
+        }
+        return true;
     }
 
     /* 
@@ -99,7 +129,7 @@ public class MusicPlayerTester{
         if (result){
             System.out.println("PASSED — " + testName);
         } else {
-            System.out.println("*FAILED* — " + testName + " - See above for details");
+            System.out.println("*FAILED* — " + testName + " - See above for details\n");
         }
     }
 
