@@ -26,98 +26,94 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.util.Scanner;
 
-/** NOTES
- * All methods longer than 3 lines should have an inline comment
+/**
+ * A representation of a single Song. Interfaces with the provided AudioUtility
+ * class, which uses
+ * the javax.sound.sampled package to play audio to your computer's audio output
+ * device
  */
+public class Song {
 
- /*
-  * This class is a representation of a song
-  * and interfaces with the AudioUtility class
-  * which uses javax.sound.sampled to play audio
-  */
-public class Song{
+  private String title; // The title of this song
+  private String artist; // The artist of this song
+  private int duration; // The duration of this song in number of seconds
+  private AudioUtility audioClip; // This song's AudioUtility interface to javax.sound.sampled
 
-    private String title;           // title of the song
-    private String artist;          // artist of the song
-    private int duration;           // duration of the song in seconds
-    private AudioUtility audioClip; // audio clip of the song
-
-    /*
-    * Constructs the song object
-    * 
-    * @param title the song title
-    * @param artist the song artist
-    * @param filepath the song filepath
-    * 
-    * @throws IllegalArgumentException if the filepath is invalid
-    */
-    public Song(String title, String artist, String filepath) throws IllegalArgumentException{
-        this.title = title;
-        this.artist = artist;
-
-        // checks if the file exists
-        try{
-            this.audioClip = new AudioUtility(filepath);
-            this.duration = audioClip.getClipLength();
-
-        } catch (IOException e){
-            throw new IllegalArgumentException("Filepath is invalid");
-        }
+  /**
+   * Initializes all instance data fields according to the provided values
+   * 
+   * @param title    the title of the song, set to empty string if null
+   * @param artist   the artist of this song, set to empty string if null
+   * @param filepath the full relative path to the song file, begins with the
+   *                 "audio" directory for P08
+   * @throws IllegalArgumentException if the song file cannot be read
+   */
+  public Song(String title, String artist, String filepath) throws IllegalArgumentException {
+    if(filepath.canRead()!=true) {
+      throw new IllegalArgumentException("Song file cannot be read");
     }
-    
-    /*
-     * Returns the song artist
-     * @return the song artist
-     */
-    public String getArtist(){
-        return this.artist;
-    }
+    this.title = title;
+    this.artist = artist;
+    this.audioClip = new AudioUtility(filepath);
+  }
 
-    /*
-     * Returns the song titles
-     * @return the song title
-     */
-    public String getTitle(){
-        return this.title;
-    }
+  /**
+   * Tests whether this song is currently playing using the AudioUtility
+   * 
+   * @return true if the song is playing, false otherwise
+   */
+  public boolean isPlaying() {
+    return audioClip.isRunning();
+  }
 
-    /*
-     * Checks if the song is playing
-     * @return true if the song is playing, false otherwise
-     */
-    public boolean isPlaying(){
-        return this.audioClip.isRunning();
-    }
+  /**
+   * Accessor method for the song's title
+   * 
+   * @return the title of this song
+   */
+  public String getTitle() {
+    return this.title;
+  }
 
-    /*
-     * Plays the song
-     */
-    public void play(){
-        // if the song is not ready to play, reopen the audio clip
-        // else play the song
-        while (!this.audioClip.isReadyToPlay()){
-            this.audioClip.reopenClip();
-        }
-        this.audioClip.startClip();
-        System.out.println("Playing..." + this.toString());
-    }
+  /**
+   * Accessor method for the song's artist
+   * 
+   * @return the artist of this song
+   */
+  public String getArtist() {
+    return this.artist;
+  }
 
-    /*
-     * Pauses the song
-     */
-    public void pause(){
-        this.audioClip.stopClip();
+  /**
+   * Uses the AudioUtility to start playback of this song, reopening the clip for
+   * playback if necessary
+   */
+  public void play() {
+    if (!this.audioClip.isPlaying()) {
+      this.audioClip.startClip();
     }
+  }
 
-    /*
-     * Returns the song title, duration in minutes, duration in seconds, and artist
-     * 
-     * @return the song information in the format in the format |"someTitle" (minutes:seconds) by someArtist)|
-     */
-    @Override
-    public String toString(){
-        return "\"" + this.title + "\" (" + this.duration / 60 + ":" + this.duration % 60 + ") by " + this.artist;
+  /**
+   * Uses the AudioUtility to stop playback of this song
+   */
+  public void stop() {
+    if (this.audioClip.isPlaying()) {
+      this.audioClip.stopClip();
     }
+  }
 
-    }
+  /**
+   * Creates and returns a string representation of this Song. 
+   * 
+   * @return a formatted string representation of this Song
+   */
+  @Override
+  public String toString() {
+    return "\"" + this.title + "\" by " + this.artist + " (" + this.duration / 60 + ":"
+        + this.duration % 60 + ")";
+  }
+}
