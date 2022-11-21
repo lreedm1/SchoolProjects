@@ -29,7 +29,7 @@ import java.util.Scanner;
 /*
  * This class tests Song.java, SongNode.java, Playlist.java, and MusicPlayer300.java
  */
-public class MusicPlayerTester {
+public class MusicPlayerTester{
     /*
     * Invokes the tester method that tests the functionality of each file
     *
@@ -40,18 +40,18 @@ public class MusicPlayerTester {
     }
     
     /*
-     * Tests the functionality of Song.java's constructor
+     * Tests the functionality of Song.java's constructor and accessor methods
      * 
      * @return true if the constructor works as expected, false otherwise
      */
-    public static boolean testSongConstructor() {
+    public static boolean testSongConstructor(){
         // test the constructor with an invalid file
         try {
             Song song = new Song("someTitle", "someArtist", "someFilepath");
             // the constructor does not throw an exception
             System.out.println("Song constructor did not throw an IllegalArgumentException when passed an invalid file");
             return false;
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e){
             // the constructor throws an exception as expected
         } catch(Exception e) {
             System.out.println("Song constructor returned " + e + " when it should have returned IllegalArgumentException");
@@ -59,25 +59,34 @@ public class MusicPlayerTester {
         }
         // test a valid file with toString, getTitle, and getArtist
         Song song = new Song("someTitle", "someArtist", "audio/1.mid");
-        String toString = song.toString();
-        System.out.println(toString);
-        //TODO: implement the toString method when .toString is written
-
+        if (!(song.toString() == "\"someTitle\" (0:6) by someArtist)")){
+            System.out.println("Song.java's toString returned |" + song.toString() + "| when it should have returned |\"someTitle\" (0:6) by someArtist|");
+            return false;
+        }
         // test the getTitle method
         String title = song.getTitle();
-        if (!title.equals("someTitle")) {
+        if (!title.equals("someTitle")){
             System.out.println("Song.getTitle() returned " + title + " when it should have returned someTitle");
             return false;
         }
 
         // test the getArtist method
         String artist = song.getArtist();
-        if (!artist.equals("someArtist")) {
+        if (!artist.equals("someArtist")){
             System.out.println("Song.getArtist() returned " + artist + " when it should have returned someArtist");
             return false;
         }
 
      return true;   
+    }
+
+    /*
+     * Tests the functionality of Song.java's playback methods
+     * 
+     * @return true if the playback methods work as expected, false otherwise
+     */
+    public static boolean testSongPlayback(){
+        return false;
     }
 
     /* 
@@ -100,6 +109,7 @@ public class MusicPlayerTester {
     public static void runAllTests(){
         System.out.println("\n-----------------Running Tests-----------------\n");
         evalTestResult(testSongConstructor(), "SongConstructor");
+        evalTestResult(testSongPlayback(), "SongPlayback");
 
         System.out.println("\n-----------------End of Tests-----------------\n");
     }

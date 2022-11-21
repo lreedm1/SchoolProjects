@@ -114,6 +114,7 @@ public class Song{
      * 
      * @return the song information in the format in the format |"someTitle" (minutes:seconds) by someArtist)|
      */
+    @Override
     public String toString(){
         return "\"" + this.title + "\" (" + this.duration / 60 + ":" + this.duration % 60 + ") by " + this.artist;
     }
