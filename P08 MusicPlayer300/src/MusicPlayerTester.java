@@ -61,7 +61,7 @@ public class MusicPlayerTester{
         try{
             // test a valid file with toString, getTitle, and getArtist
             Song song = new Song("someTitle", "someArtist", "audio/1.mid");
-            if (!(song.toString() == "\"someTitle\" (0:6) by someArtist)")){
+            if (!(song.toString().equals( "\"" + song.getTitle() + "\" (0:6) by someArtist"))){
                 System.out.println("Song.java's toString returned |" + song.toString() + "| when it should have returned |\"someTitle\" (0:6) by someArtist|");
                 return false;
             }
