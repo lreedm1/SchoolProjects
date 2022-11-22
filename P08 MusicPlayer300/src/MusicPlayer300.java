@@ -24,6 +24,7 @@
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 /**
  *
@@ -82,6 +83,7 @@ public class MusicPlayer300 {
    */
   public String printPlaylist() {
       //TODO: Implement this method
+        return null;
   }
 
   /**
@@ -91,6 +93,7 @@ public class MusicPlayer300 {
    */
   public String getMenu() {
       //TODO: Implement this method
+        return null;
   }
 
   /**
