@@ -53,6 +53,7 @@ public class Playlist {
           this.last.setNext(newNode);
           this.last = newNode;
       }
+        this.numSongs++;
   }
   /**
    * Removes the song from the beginning of the queue
@@ -72,6 +73,9 @@ public class Playlist {
    * @return the song that is at the front of the queue, or null if the queue is empty
    */
   public Song peek(){
+    if(this.isEmpty()){
+        return null;
+    }
       return this.first.getSong();
   }
   /**
@@ -94,7 +98,13 @@ public class Playlist {
    */
   @Override
   public String toString(){
-      return "\""+this.song.getTitle()+"\" ("+this.song.getDuration()+") by "+this.song.getArtist();
+        String result = "";
+        SongNode current = this.first;
+        while (current != null && current.getSong() != null) {
+            result += current.getSong().toString() + "\n";
+            current = current.getNext();
+        }
+        return result;
   }
 
 }
