@@ -104,9 +104,9 @@ public class Song{
     }
 
     /*
-     * Pauses the song
+     * Stops the song
      */
-    public void pause(){
+    public void stop(){
         this.audioClip.stopClip();
     }
 

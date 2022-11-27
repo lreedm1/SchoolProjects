@@ -105,16 +105,16 @@ public class MusicPlayerTester{
                 return false;
             }
 
-            // test the pause method
-            song.pause();
+            // test the stop method
+            song.stop();
             if(song.isPlaying()){
-                System.out.println("Song.pause() did not pause the song");
+                System.out.println("Song.stop() did not stop the song");
                 return false;
             }
             
         } catch (Exception e){
             System.out.println("Song.java threw the unexpected exception |" + e +
-                              "| when testing .play() and .pause()");
+                              "| when testing .play() and .stop()");
             return false;
         }
         return true;

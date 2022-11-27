@@ -26,94 +26,32 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-/**
- *
+/*
  * A linked-queue based music player which plays Actual Music Files based on
  * keyboard input in an interactive console method.
  */
 public class MusicPlayer300 {
-  private Playlist playlist; // The current playlist of Songs
-  private boolean filterPlay; // Whether the current playback mode should be filtered by artist 
-  private String filterArtist; // The artist to play if filterPlay is true; should be null otherwise
+    private String filterArtist; // The artist to play if filterPlay is true, null otherwise
+    private boolean filterPlay; // Whether or not to filter by artist, false by default
+    private Playlist playlist; // The current playlist of songs
+    /*
+     * Creates a new MusicPlayer300 object with an empty playlist
+     */
+    public MusicPlayer300() {
+        this.playlist = new Playlist();
+    }
 
-  /**
-   * Creates a new MusicPlayer300 with an empty playlist
-   */
-  public MusicPlayer300(){
-      //TODO: Implement this method
-      filterPlay =false;
-  }
-
-  /**
-   * Stops any song that is playing and clears out the playlist
-   */
-  public void clear() {
-      //TODO: Implement this method
-  }
-
-  /**
-   * Loads a playlist from a provided file, skipping any individual songs which
-   * cannot be loaded
-   * 
-   * @param file the File object to load
-   * @throws FileNotFoundException if the playlist file cannot be loaded
-   */
-  public void loadPlaylist(File file) throws FileNotFoundException {
-      //TODO: Implement this method
-  }
-
-  /**
-   * Loads a single song to the end of the playlist given the title, artist, and
-   * filepath
-   * 
-   * @param title    the title of the song
-   * @param artist   the artist of this song
-   * @param filepath the full relative path to the song file, begins with the
-   *                 "audio" directory for P08
-   * @throws IllegalArgumentException if the song file cannot be read
-   */
-  public void loadOneSong(String title, String artist, String filepath) throws IllegalArgumentException {
-      //TODO: Implement this method
-  }
-
-  /**
-   * Provides a string representation of all songs in the current playlist
-   * 
-   * @return a string representation of all songs in the current playlist
-   */
-  public String printPlaylist() {
-      //TODO: Implement this method
-        return null;
-  }
-
-  /**
-   * Creates and returns the menu of options for the interactive console program.
-   * 
-   * @return the formatted menu String
-   */
-  public String getMenu() {
-      //TODO: Implement this method
-        return null;
-  }
-
-  /**
-   * Stops playback of the current song (if one is playing) and advances to the
-   * next song in the playlist.
-   * 
-   * @throws IllegalStateException if the playlist is null or empty, or becomes
-   *                               empty at any time during this method
-   */
-  public void playNextSong() throws IllegalStateException {
-      //TODO: Implement this method
-  }
-
-  /**
-   * Interactive method to display the MusicPlayer300 menu and get keyboard input
-   * from the user
-   * 
-   * @param in Music File that is being scanned
-   */
-  public void runMusicPlayer300(Scanner in) {
-      //TODO: Implement this method
-  }
+    /*
+     * Stops the current song if it exists and clears the current playlist 
+     */
+    public void clear() {
+        // Stop the current song
+        if (playlist.peek() != null) {
+            playlist.peek().stop();
+        }
+        // Clear the current playlist
+        while (!playlist.isEmpty()) {
+            playlist.dequeue();
+        }
+    }
 }
