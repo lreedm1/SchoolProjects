@@ -34,6 +34,7 @@ public class MusicPlayer300 {
     private String filterArtist; // The artist to play if filterPlay is true, null otherwise
     private boolean filterPlay; // Whether or not to filter by artist, false by default
     private Playlist playlist; // The current playlist of songs
+    
     /*
      * Creates a new MusicPlayer300 object with an empty playlist
      */
