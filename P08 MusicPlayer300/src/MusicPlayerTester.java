@@ -199,7 +199,6 @@ public class MusicPlayerTester{
                 return false;
             }
             
-
             // test the size accessor with an empty playlist
             if(playlist.size() != 0){
                 System.out.println("Playlist.size() returned |" + playlist.size() + 
@@ -248,7 +247,7 @@ public class MusicPlayerTester{
      * 
      * @return true if the dequeue mutator works as expected, false otherwise
      */
-    public static Boolean testDeque(){
+    public static Boolean testDequeue(){
         try{
             // test the dequeue mutator with a single node playlist
             Playlist playlist = new Playlist();
@@ -313,7 +312,7 @@ public class MusicPlayerTester{
         evalTestResult(testSongPlayback(), "Song.java Playback");
         evalTestResult(testSongNode(), "SongNode.java");
         evalTestResult(testEnqueue(), "Playlist.java enquee method");
-        evalTestResult(testDeque(), "Playlist.java deque method");
+        evalTestResult(testDequeue(), "Playlist.java deque method");
         System.out.println("\n-----------------End of Tests-----------------\n");
     }
     
