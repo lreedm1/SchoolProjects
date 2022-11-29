@@ -56,7 +56,7 @@ public class MusicPlayer300 {
 		}
 	}
 	
-	/* TODO: test with the provided test files
+	/*
 	 * loads the playlist of songs in the provided file, skipping any songs that do not load
 	 * @throws FileNotFoundException if the file does not exist
 	 */
@@ -66,6 +66,7 @@ public class MusicPlayer300 {
 		
 		while (fileScanner.hasNextLine()) {
 			String line = fileScanner.nextLine();
+			System.out.println(line);
 
 			// split the line into the song title, artist, and filename
 			String[] splitLine = line.split(",");
@@ -148,8 +149,12 @@ public class MusicPlayer300 {
 
 		checkPlaylistState(); 
 
-		// removes the current song and selects the next song
+		// removes the current song and selects the next valid song to play
+		// if filterPlay is true, the next valid song is the next song by filterArtist
 		playlist.dequeue();
+		while(!playlist.isEmpty() && filterPlay && !playlist.peek().getArtist().equals(filterArtist)){
+			playlist.dequeue();
+		}
 
 		checkPlaylistState(); 
 
@@ -177,15 +182,77 @@ public class MusicPlayer300 {
 			throw new IllegalStateException("the playlist is empty");
 		}
 	}
+	/*
+	 * pulls the next user input line and returns the input as a list of strings split by whitespace
+	 */
+	private String[] getUserInput(Scanner in){
+		// wait for user input
+		String input = in.nextLine();
+		// parse the user input
+		String[] inputSplit = input.split(" ");
+		return inputSplit;
+	}
 
 	/*
-	 * displays the MusicPlayer300 menu, takes user input, and verifies the user input
+	 * processes the user input and calls the appropriate methods
+	 * @throws IllegalArgumentException if the user input is invalid
+	 * @return true if the user input is valid else false
+	 */
+	private Boolean playModified(String[] inputSplit){
+		// verify that the user input is of the correct length
+		if (inputSplit.length == 1){
+		// play all the songs in the playlist
+			 try{
+					playNextSong();
+				} catch (IllegalStateException e){
+					System.out.println("No songs left :(");
+				}
+				return true;
+
+		} else if (inputSplit.length == 3){
+
+		// check if the user input is -t or -a
+			if (inputSplit[1].equals("-t")){
+				try{
+					// dequeue songs until the song title matches the user input
+					while(!playlist.peek().getTitle().equals(inputSplit[2])){
+						playlist.dequeue();
+					}
+					playNextSong();
+				} catch (IllegalStateException e){
+					System.out.println("No songs left :(");
+				}
+		
+			} else if (inputSplit[1].equals("-a")){
+				// play the first song by the given artist
+				try{
+					filterPlay = true;
+					filterArtist = inputSplit[2];
+					playNextSong();
+				} catch (IllegalStateException e){
+					System.out.println("No songs left :(");
+				}
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * if filterPlay is true, deques songs until the song artist matches the filterArtist
+	 * else plays the next song in the playlist
+	 */
+
+	
+	/*
+	 * displays the MusicPlayer300 menu, takes user input, verifies the user input, and executes the user input
 	 */
 	public void runMusicPlayer300(Scanner in){
-		String userInput;
-		String[] userInputSplit;
-		Integer commandLength; // the length of the user input
 		Boolean invalidInput;
+		String artist;
+		String title;
+		String[] userInputs;
+		File file;
+		
 
 		while(true){
 			// prompt the user for input
@@ -195,36 +262,87 @@ public class MusicPlayer300 {
 			String menu = getMenu();
 			System.out.println(menu);
 
-			// wait for user input
-			userInput = in.nextLine();
-
-			// parse the user input
-			userInputSplit = userInput.split(" ");
-			commandLength = userInputSplit.length;
+			// get the user input
+			userInputs = getUserInput(in);
 			
 			invalidInput = false; // assume the user input is valid
 
 			// evaluate the user input using a switch statement
-			switch (userInputSplit[0]){
+			switch (userInputs[0]){
 				
 				case "A": // enqueue a new song file to the end of this playlist
-					if (commandLength != 2) {
+					// verify that the user input is of the correct length
+					if (userInputs.length != 2) {
 						invalidInput = true;
 						break;
-					
 					}
+					// ask the user for a song title and verify that the user input is of the correct length
+					System.out.println("Title:");
+					title = in.nextLine();
+					if (title.strip().equals("") || title == null || title.length() != 1){
+						invalidInput = true;
+						break;
+					}
+
+					// ask the user for a song artist and verify that the user input is of the correct length
+					System.out.println("Artist:");
+					artist = in.nextLine();
+					if (artist.strip().equals("") || artist == null || artist.length() != 1){
+						invalidInput = true;
+						break;
+					}
+					// load the song
+					try {
+						loadOneSong(title, artist, userInputs[1]);
+					} catch (IllegalArgumentException e){
+						invalidInput = true;
+						break;
+					}
+					break;
 				case "F": // load a new playlist from the given file
-
+					// verify that the user input is of the correct length
+					if (userInputs.length != 2) {
+						invalidInput = true;
+						break;
+					}
+					// load the playlist
+					try {
+						System.out.println(userInputs[1]);
+						file = new File(userInputs[1]);
+						loadPlaylist(file);
+					} catch (FileNotFoundException e){
+						invalidInput = true;
+						break;
+					}
+					break;
 				case "L": // list all songs in the current playlist
-
+					// verify that the user input is of the correct length
+					if (userInputs.length != 1) {
+						invalidInput = true;
+						break;
+					}
+					// list the songs in the playlist
+					printPlaylist();
+					
 				case "P": // start playing ALL songs in the playlist from the beginning
-
-				case "N": // play the next song
-
+					invalidInput = playModified(userInputs);
+					break;
+				case "N": // play the next valid song in the playlist
+					try{
+						playNextSong();
+					} catch (IllegalStateException e){
+						System.out.println("No songs left :(");
+					}
+					break;
 				case "Q": // stop playing music and quit the program
+				  clear();
+					System.out.println("Goodbye!");
+					System.exit(0);
+					break;
 
 				default: // the user input is incorrect, ask the user to enter a valid input
 					invalidInput = true;
+					break;
 				}
 				
 				if (invalidInput){

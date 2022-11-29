@@ -183,6 +183,7 @@ public class MusicPlayerTester{
 	*/
 	public static Boolean testEnqueue(){
 		try{
+			
 			// test the constructor and isEmpty method
 			Playlist playlist = new Playlist();
 			
@@ -205,7 +206,7 @@ public class MusicPlayerTester{
 				"| when it should have returned 0 the size accessor is broken");
 				return false;
 			}
-			
+	
 			// test the enqueue mutator and peek accessor with a single node playlist
 			Song song = new Song("someTitle", "someArtist", "audio/1.mid");
 			playlist.enqueue(song);
@@ -227,17 +228,18 @@ public class MusicPlayerTester{
 			Song song2 = new Song("someTitle2", "someArtist2", "audio/2.mid");
 			playlist.enqueue(song2);
 			
-			if(!playlist.toString().equals("\"" + song.getTitle() + "\" (0:6) by " + song.getArtist() + "\n\"" +
-			song2.getTitle() + "\" (0:6) by " + song2.getArtist() + "\n")){
+			//#TODO fix this test. It fails on a 'valid implementation' of playlist
+			if(!playlist.toString().equals("\"" + "someTitle" + "\" (0:6) by " + "someArtist" + "\n\"" +
+			"someTitle2" + "\" (0:6) by " + "someArtist2" + "\n")){
 				System.out.println("Playlist.toString() returned |" + playlist.toString() + 
 				"| when it should have returned |\"someTitle\" (0:6) by someArtist\n\"someTitle2\" (0:6) by someArtist2|" + 
 				"the enqueue modifier or the toString accessor is broken");
 				return false;
 			}
-			
-			
+				
 		}catch(Exception e){
 			System.out.println("Playlist.java threw the unexpected exception |" + e + "| when testing all methods except dequeue");
+			return false;
 		}
 		return true;
 	}
@@ -285,6 +287,7 @@ public class MusicPlayerTester{
 			
 		}catch(Exception e){
 			System.out.println("Playlist.java threw the unexpected exception |" + e + "| when testing dequeue");
+			return false;
 		}
 		return true;
 	}
