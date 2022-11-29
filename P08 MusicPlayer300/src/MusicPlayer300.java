@@ -27,32 +27,224 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 /*
- * A linked-queue based music player which plays Actual Music Files based on
- * keyboard input in an interactive console method.
- */
+* A linked-queue based music player which plays Actual Music Files based on
+* keyboard input in an interactive console method.
+*/
 public class MusicPlayer300 {
-    private String filterArtist; // The artist to play if filterPlay is true, null otherwise
-    private boolean filterPlay; // Whether or not to filter by artist, false by default
-    private Playlist playlist; // The current playlist of songs
-    
-    /*
-     * Creates a new MusicPlayer300 object with an empty playlist
-     */
-    public MusicPlayer300() {
-        this.playlist = new Playlist();
-    }
+	private String filterArtist; // The artist to play if filterPlay is true, null otherwise
+	private boolean filterPlay; // Whether or not to filter by artist, false by default
+	private Playlist playlist; // The current playlist of songs
+	
+	/*
+	* Creates a new MusicPlayer300 object with an empty playlist
+	*/
+	public MusicPlayer300() {
+		this.playlist = new Playlist();
+	}
+	
+	/*
+	* Stops the current song if it exists and clears the current playlist 
+	*/
+	public void clear() {
+		// Stop the current song
+		if (playlist.peek() != null) {
+			playlist.peek().stop();
+		}
+		// Clear the current playlist
+		while (!playlist.isEmpty()) {
+			playlist.dequeue();
+		}
+	}
+	
+	/* TODO: test with the provided test files
+	 * loads the playlist of songs in the provided file, skipping any songs that do not load
+	 * @throws FileNotFoundException if the file does not exist
+	 */
+	public void loadPlaylist(File file) throws FileNotFoundException {
+		// load the contents of the file into a scanner which throws FileNotFoundException 
+		Scanner fileScanner = new Scanner(file);
+		
+		while (fileScanner.hasNextLine()) {
+			String line = fileScanner.nextLine();
 
-    /*
-     * Stops the current song if it exists and clears the current playlist 
-     */
-    public void clear() {
-        // Stop the current song
-        if (playlist.peek() != null) {
-            playlist.peek().stop();
-        }
-        // Clear the current playlist
-        while (!playlist.isEmpty()) {
-            playlist.dequeue();
-        }
-    }
+			// split the line into the song title, artist, and filename
+			String[] splitLine = line.split(",");
+			String title = splitLine[0];
+			String artist = splitLine[1];
+			String filepath = "audio/" + splitLine[2]; 
+
+			// declare the song title being loaded            
+			System.out.println("Loading" + '"' + title + '"');
+			
+			// load the song to the playlist or print X if it fails to load
+			try{
+				loadOneSong(title,artist,filepath);
+			} catch (IllegalArgumentException e) {
+				System.out.println("X");
+			}
+		}
+		fileScanner.close();
+	}
+	
+	/*
+	 * loads a single song to the end of the playlist
+	 * @throws IllegalArgumentException if the filepath does not exist or does not begin with "audio/"
+	 */
+	public void loadOneSong(String title, String artist, String filepath) throws IllegalArgumentException {
+		// verify that Filepath begins with "audio/"
+		if (!filepath.startsWith("audio/")){
+			throw new IllegalArgumentException("the provided filepath does not begin with 'audio/'");
+		}
+
+		// create a new song object & add it to the end of the playlist
+		Song song = new Song(title, artist, filepath);
+		playlist.enqueue(song);
+	}
+
+	/*
+	 * prints the playlist line by line in the format |"title" (minutes:seconds) by artist|
+	 */
+	public void printPlaylist(){
+		String playlistPrinted = playlist.toString();
+		System.out.println(playlistPrinted);
+	}
+
+	/*
+	 * creates a menu string describing the user-accessible features of MusicPlayer300 and 
+	 * how to interact with the MusicPlayer300 user-accessible features
+	 * 
+	 * @return the menu string
+	 */
+	public String getMenu(){
+		// create the menu string
+		String menu = new String(
+			"Enter one of the following options:\n" + 
+			"[A <filename>] to enqueue a new song file to the end of this playlist\n" + 
+			"[F <filename>] to load a new playlist from the given file\n" +
+			"[L] to list all songs in the current playlist\n" + 
+			"[P] to start playing ALL songs in the playlist from the beginning\n" + 
+			"[P -t <Title>] to play all songs in the playlist starting from <Title>\n" + 
+			"[P -a <Artist>] to start playing only the songs in the playlist by Artist\n" + 
+			"[N] to play the next song\n" + 
+			"[Q] to stop playing music and quit the program"
+			);
+
+		return menu;
+		}
+
+	/*
+	 * if a song is playing, pauses the currently plaing song, then plays the next song in the playlist
+	 * 
+	 * @throws IllegalStateException if the playlist is null or empty or becomes empty during this method call
+	 */
+	public void playNextSong(){
+		checkPlaylistState(); // throws IllegalStateException if the playlist is empty, null, or has a null current song
+
+		// pauses the currently playing song if a song is currently playing
+		Song currentSong = playlist.peek();
+		if (currentSong.isPlaying()){
+			currentSong.stop();
+		}
+
+		checkPlaylistState(); 
+
+		// removes the current song and selects the next song
+		playlist.dequeue();
+
+		checkPlaylistState(); 
+
+		// plays the next song in the playlist
+		currentSong = playlist.peek();
+		currentSong.play();
+
+		checkPlaylistState(); 
+	}
+
+	/*
+	 * checks if the playlist is currently empty, null, or the playlist at the front of playlist is null
+	 * @return true if the playlist is in an invalid state
+	 * @throws IllegalStateException if the playlist is in an invalid state
+	 */
+	private void checkPlaylistState() throws IllegalStateException{
+		// throws IllegalStateException if the playlist is null or empty 
+		if (playlist.isEmpty() || playlist.equals(null)){
+			throw new IllegalStateException("the playlist is empty or null");
+		}
+
+		// throws IllegalStateException if the playlist is empty
+		Song currentSong = playlist.peek();
+		if (currentSong == null){
+			throw new IllegalStateException("the playlist is empty");
+		}
+	}
+
+	/*
+	 * displays the MusicPlayer300 menu, takes user input, and verifies the user input
+	 */
+	public void runMusicPlayer300(Scanner in){
+		String userInput;
+		String[] userInputSplit;
+		Integer commandLength; // the length of the user input
+		Boolean invalidInput;
+
+		while(true){
+			// prompt the user for input
+			System.out.println("Enter one of the following options:");
+			
+			// display the menu
+			String menu = getMenu();
+			System.out.println(menu);
+
+			// wait for user input
+			userInput = in.nextLine();
+
+			// parse the user input
+			userInputSplit = userInput.split(" ");
+			commandLength = userInputSplit.length;
+			
+			invalidInput = false; // assume the user input is valid
+
+			// evaluate the user input using a switch statement
+			switch (userInputSplit[0]){
+				
+				case "A": // enqueue a new song file to the end of this playlist
+					if (commandLength != 2) {
+						invalidInput = true;
+						break;
+					
+					}
+				case "F": // load a new playlist from the given file
+
+				case "L": // list all songs in the current playlist
+
+				case "P": // start playing ALL songs in the playlist from the beginning
+
+				case "N": // play the next song
+
+				case "Q": // stop playing music and quit the program
+
+				default: // the user input is incorrect, ask the user to enter a valid input
+					invalidInput = true;
+				}
+				
+				if (invalidInput){
+					System.out.println("Invalid input. Please enter a valid input.");
+				}
+		}
+	}
+
+	/*
+	 * calls runMusicPlayer300
+	 */
+	public static void main(String[] args){
+		// I understand that the writeup calls for a 1 line main method that calles runMusicPlayer300.
+		// MusicPlayer300 is instantiable and must be instantiated before runMusicPlayer300 can be called
+		// So, while my code can be written on one line like this:
+		// new MusicPlayer300().runMusicPlayer300(new Scanner(System.in));
+		// I have chosen to write it as follows because Hobbes has specifically asked us to avoid multiple actions in one line
+		MusicPlayer300 musicPlayer300 = new MusicPlayer300();
+		Scanner in = new Scanner(System.in);
+		musicPlayer300.runMusicPlayer300(in);
+		in.close();
+	}
 }
