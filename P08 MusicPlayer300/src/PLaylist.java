@@ -28,7 +28,7 @@ import java.util.Scanner;
 /**
 * A FIFO linked queue of SongNodes, conforming to our QueueADT interface.
 */
-public class Playlist {
+public class Playlist{
 	private SongNode first; // The current first song in the queue; the next one up to play (front of the queue)
 	private SongNode last; // The current last song in the queue; the most-recently added one (back of the queue)
 	private int numSongs; // The number of songs currently in the queue
@@ -103,6 +103,10 @@ public class Playlist {
 		while (current != null && current.getSong() != null) {
 			result += current.getSong().toString() + "\n";
 			current = current.getNext();
+		}
+		// remove the last newline character
+		if (result.length() > 0) {
+			result = result.substring(0, result.length() - 1);
 		}
 		return result;
 	}
