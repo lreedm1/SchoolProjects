@@ -1,4 +1,28 @@
-
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Chugimon.java
+// Course:   CS 300 Fall 2022
+//
+// Author:   Aarav Gupta
+// Email:    agupta297@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Reed Lokken
+// Partner Email: rlokken@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons: NONE        
+// Online Sources: Github Copilot 
+///////////////////////////////////////////////////////////////////////////////
 public class Chugimon {
   public static final int MIN_ID;
   public static final int MAX_ID;
@@ -45,7 +69,31 @@ public class Chugimon {
    * @return a negative int if this Chuigmon is less than other, a positive int if this Chugi is greater than other, and 0 if they are equal.
    */
 	public int compareTo(Chugimon otherChugi) {
-    //TODO: implement this method
+    if(NAME.equals(otherChugi.getName())){
+      if(FIRST_ID==otherChugi.getFirstID()){
+        if(SECOND_ID==otherChugi.getSecondID()){
+          return 0;
+        }
+        else if(SECOND_ID<otherChugi.getSecondID()){
+          return -1;
+        }
+        else{
+          return 1;
+        }
+      }
+      else if(FIRST_ID<otherChugi.getFirstID()){
+        return -1;
+      }
+      else{
+        return 1;
+      }
+    }
+    else if(NAME.compareTo(otherChugi.getName())<0){
+      return -1;
+    }
+    else{
+      return 1;
+    }
 	}
   /**
    * A Chugimon's String representation is its name followed by "#FIRST_ID.SECOND_ID" -- Example: "Zapchu#145.25"
