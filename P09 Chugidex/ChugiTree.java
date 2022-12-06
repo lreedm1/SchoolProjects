@@ -41,12 +41,13 @@ public class ChugiTree implements ChugidexStorage {
   /**
    * The size of this ChugiTree (total number of Chugimon stored in this BST)
    */
-  private int size;
+  private static int size;
   /**
    * Constructor for Chugitree. Should set size to 0 and root to null.
    */
   public ChugiTree() {
-    // TODO implement the constructor
+    size=0;
+    root=null;
   }
   /**
    * Getter method for the Chugimon at the root of this BST.
@@ -54,8 +55,7 @@ public class ChugiTree implements ChugidexStorage {
    * @return the root of the BST.
    */
   public Chugimon getRoot() {
-    // TODO implement this method
-    return null; // default return statement
+    return root.getData(); 
   }
   /**
    * A method for determining whether this ChugiTree is a valid BST. In
@@ -80,9 +80,31 @@ public class ChugiTree implements ChugidexStorage {
    * @return true if the binary tree rooted at node is a BST, false otherwise
    */
   public static boolean isValidBSTHelper(BSTNode<Chugimon> node) {
-    // TODO Implement this method.
-    return false;
-  }
+    if(node==null) {
+      return true;
+    }
+    if(node.getLeft()!=null && getMax(node.getLeft()).compareTo(node.getData())>0) {
+      return false;
+    }
+    if(node.getRight()!=null && getMin(node.getRight()).compareTo(node.getData())<0) {
+      return false;
+    }
+    boolean leftChugimon = isValidBSTHelper(node.getLeft());
+    boolean rightChugimon = isValidBSTHelper(node.getRight());
+    return leftChugimon && rightChugimon;
+    }
+    private static Chugimon getMax(BSTNode<Chugimon> node) {
+      if(node.getRight()==null) {
+        return node.getData();
+      }
+      return getMax(node.getRight());
+    }
+    private static Chugimon getMin(BSTNode<Chugimon> node) {
+      if(node.getLeft()==null) {
+        return node.getData();
+      }
+      return getMin(node.getLeft());
+    }
   /**
    * Checks whether this ChugiTree is empty or not
    * 
@@ -90,8 +112,7 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public boolean isEmpty() {
-    // TODO implement this method
-    return false; // default return statement
+    return(size==0);
   }
   /**
    * Gets the size of this ChugiTree
@@ -100,8 +121,7 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public int size() {
-    // TODO implement this method
-    return -1; // default return statement
+    return size; 
   }
   /**
    * Returns a String representation of all the Chugimons stored within this
@@ -136,8 +156,21 @@ public class ChugiTree implements ChugidexStorage {
    *         increasing order. Returns an empty String "" if current is null.
    */
   protected static String toStringHelper(BSTNode<Chugimon> node) {
-    // TODO Implement this method
-    return ""; // Default return statement added to resolve compiler errors
+    if(node==null) {
+      return "";
+    }
+    String left = toStringHelper(node.getLeft());
+    String right = toStringHelper(node.getRight());
+    if(left.equals("") && right.equals("")) {
+      return node.getData().toString();
+    }
+    if(left.equals("")) {
+      return node.getData().toString()+","+right;
+    }
+    if(right.equals("")) {
+      return left+","+node.getData().toString();
+    }
+    return left+","+node.getData().toString()+","+right;
   }
   /**
    * Adds a new Chugimon to this ChugiTree. Duplicate Chugimons are NOT allowed.
@@ -150,8 +183,15 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public boolean add(Chugimon newChugimon) {
-    // TODO implement this method
-    return false; // default return statement
+    if(newChugimon==null) {
+      throw new IllegalArgumentException("Chugimon cannot be null");
+    }
+    if(root==null) {
+      root=new BSTNode<Chugimon>(newChugimon);
+      size++;
+      return true;
+    }
+    return addHelper(newChugimon,root);
   }
   /**
    * Recursive helper method to insert a new Chugimon to a Pokedex rooted at node.
@@ -166,8 +206,26 @@ public class ChugiTree implements ChugidexStorage {
    */
   protected static boolean addHelper(Chugimon newChugimon, BSTNode<Chugimon> node) 
 {
-    // TODO implement this method
-    return false; // default return statement
+    if(newChugimon.compareTo(node.getData())==0) {
+      return false;
+    }
+    if(newChugimon.compareTo(node.getData())<0) {
+      if(node.getLeft()==null) {
+        node.setLeft(new BSTNode<Chugimon>(newChugimon));
+        size++;
+        return true;
+      }
+      return addHelper(newChugimon,node.getLeft());
+    }
+    if(newChugimon.compareTo(node.getData())>0) {
+      if(node.getRight()==null) {
+        node.setRight(new BSTNode<Chugimon>(newChugimon));
+        size++;
+        return true;
+      }
+      return addHelper(newChugimon,node.getRight());
+    }
+    return false;
   }
   /**
    * Searches a Chugimon given its first and second identifiers.
@@ -178,8 +236,7 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public Chugimon lookup(int firstId, int secondId) {
-    // TODO Implement this method.
-    return null; // default return statement
+    return lookupHelper(new Chugimon(firstId,secondId),root);
   }
   /**
    * Recursive helper method to search and return a match with a given Chugimon in
@@ -192,7 +249,18 @@ public class ChugiTree implements ChugidexStorage {
    * @return a reference to the matching Chugimon if found, null otherwise.
    */
   protected static Chugimon lookupHelper(Chugimon toFind, BSTNode<Chugimon> node) {
-    // TODO Implement this method.
+    if(node==null) {
+      return null;
+    }
+    if(toFind.compareTo(node.getData())==0) {
+      return node.getData();
+    }
+    if(toFind.compareTo(node.getData())<0) {
+      return lookupHelper(toFind,node.getLeft());
+    }
+    if(toFind.compareTo(node.getData())>0) {
+      return lookupHelper(toFind,node.getRight());
+    }
     return null;
   }
   /**
@@ -202,8 +270,7 @@ public class ChugiTree implements ChugidexStorage {
    * @return the height of this Binary Search Tree
    */
   public int height() {
-    // TODO Implement this method.
-    return -1; // Default return statement
+    return heightHelper(root);
   }
   /**
    * Recursive helper method that computes the height of the subtree rooted at
@@ -214,8 +281,15 @@ public class ChugiTree implements ChugidexStorage {
    * @return height of the subtree rooted at node
    */
   protected static int heightHelper(BSTNode<Chugimon> node) {
-    // TODO Implement this method.
-    return -1; // Default return statement
+    if(node==null) {
+      return 0;
+    }
+    int left=heightHelper(node.getLeft());
+    int right=heightHelper(node.getRight());
+    if(left>right) {
+      return left+1;
+    }
+    return right+1;
   }
   /**
    * Recursive method to find and return the first Chugimon, in the increasing
@@ -227,9 +301,7 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public Chugimon getFirst() {
-    // TODO Implement this method.
-    // HINT: The smallest element in a non-empty BST is the left most element
-    return null; // default return statement
+    return getFirstHelper(root);
   }
   /**
    * Recursive helper method for getFirst().
@@ -238,9 +310,13 @@ public class ChugiTree implements ChugidexStorage {
    * @return the minimum element in the increasing order from the node <b>root</b>
    */
   protected static Chugimon getFirstHelper(BSTNode<Chugimon> root) {
-    // TODO Implement this method.
-    // HINT: The smallest element in a non-empty BST is the left most element
-    return null; // default return statement
+    if(root==null) {
+      return null;
+    }
+    if(root.getLeft()==null) {
+      return root.getData();
+    }
+    return getFirstHelper(root.getLeft());
   }
   /**
    * Recursive method to find and return the last Chugimon, in the increasing
@@ -252,9 +328,7 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public Chugimon getLast() {
-    // TODO Implement this method.
-    // HINT: The greatest element in a non-empty BST is the right most element
-    return null; // default return statement
+    return getLastHelper(root);
   }
   /**
    * Recursive helper method for getLast().
@@ -263,9 +337,13 @@ public class ChugiTree implements ChugidexStorage {
    * @return the maximum element in the increasing order from the node <b>root</b>
    */
   protected static Chugimon getLastHelper(BSTNode<Chugimon> root) {
-    // TODO Implement this method.
-    // HINT: The smallest element in a non-empty BST is the right most element
-    return null; // default return statement
+    if(root==null) {
+      return null;
+    }
+    if(root.getRight()==null) {
+      return root.getData();
+    }
+    return getLastHelper(root.getRight());
   }
   /**
    * Recursive method to get the number of Chugimon with a primary or secondary
@@ -278,8 +356,17 @@ public class ChugiTree implements ChugidexStorage {
    *         specified type stored in this ChugiTree.
    */
   public int countType(ChugiType chugiType) {
-    // TODO(student): Implement method.
-    return 0;
+    return countTypeHelper(chugiType,root);
+  }
+  private static int countTypeHelper(ChugiType chugiType, BSTNode<Chugimon> node) {
+    if(node==null) {
+      return 0;
+    }
+    int count=0;
+    if(node.getData().getPrimaryType()==chugiType||node.getData().getSecondaryType()==chugiType) {
+      count++;
+    }
+    return count+countTypeHelper(chugiType,node.getLeft())+countTypeHelper(chugiType,node.getRight());
   }
   /**
    * Finds and returns the in-order successor of a specified Chugimon in this
@@ -296,8 +383,13 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public Chugimon next(Chugimon chugi) {
-    // TODO: Implement this method.
-    return null;
+    if(chugi==null) {
+      throw new IllegalArgumentException("Chugimon is null");
+    }
+    if(lookup(chugi.getFirstID(),chugi.getSecondID())==null) {
+      throw new NoSuchElementException("Chugimon is not in the tree");
+    }
+    return nextHelper(chugi,root,null);
   }
   /**
    * Recursive helper method to find and return the next Chugimon in the tree
@@ -315,19 +407,24 @@ public class ChugiTree implements ChugidexStorage {
    *                                rooted at node.
    */
   protected static Chugimon nextHelper(Chugimon chugi, BSTNode<Chugimon> node, BSTNode next) {
-    // TODO: Implement this method.
-    // Hint: you will need to use getFirstHelper in this method. Below are
-    // additional hints.
-    // base case: node is null
-    // recursive cases:
-    // (1) if chugi is found and if the right child is not null, use getFirstHelper
-    // to find and
-    // return the next chugimon. It should be the left most child of the right
-    // subtree
-    // (2) if chugi is less than the Chugimon at node, set next as the root node and
-    // search
-    // recursively into the left subtree
-    return null;
+    if(node==null) {
+      throw new NoSuchElementException("Chugimon is not in the tree");
+    }
+    if(chugi.compareTo(node.getData())==0) {
+      if(node.getRight()!=null) {
+        return getFirstHelper(node.getRight());
+      }
+      else {
+        if(next==null) {
+          throw new NoSuchElementException("Chugimon is not in the tree");
+        }
+        return chugi;
+      }
+    }
+    if(chugi.compareTo(node.getData())<0) {
+      return nextHelper(chugi,node.getLeft(),node);
+    }
+    return nextHelper(chugi,node.getRight(),next);
   }
   /**
    * Finds and returns the in-order predecessor of a specified Chugimon in this
@@ -360,7 +457,6 @@ public class ChugiTree implements ChugidexStorage {
    *                                predecessor in the subtree rooted at node.
    */
   protected static Chugimon previousHelper(Chugimon chugi, BSTNode<Chugimon> node,BSTNode<Chugimon> prev) {
-    // TODO Implement this method.
     // Hint: you will need to use getLastHelper in this method. Below are more
     // hints.
     // base case: node is null
@@ -371,7 +467,24 @@ public class ChugiTree implements ChugidexStorage {
     // (2) if chugi is greater than the Chugimon at node, set prev as the root node
     // and search
     // recursively into the right subtree
-    return null;
+    if(node==null) {
+      throw new NoSuchElementException("Chugimon is not in the tree");
+    }
+    if(chugi.compareTo(node.getData())==0) {
+      if(node.getLeft()!=null) {
+        return getLastHelper(node.getLeft());
+      }
+      else {
+        if(prev==null) {
+          throw new NoSuchElementException("Chugimon is not in the tree");
+        }
+        return prev.getData();
+      }
+    }
+    if(chugi.compareTo(node.getData())<0) {
+      return previousHelper(chugi,node.getLeft(),prev);
+    }
+    return previousHelper(chugi,node.getRight(),node);
   }
   /**
    * Deletes a specific Chugimon from this ChugiTree.
@@ -385,8 +498,14 @@ public class ChugiTree implements ChugidexStorage {
    */
   @Override
   public boolean delete(Chugimon chugi) {
-    // TODO Implement this method.
-    return false; // default return statement
+    if(chugi==null) {
+      throw new IllegalArgumentException("Chugimon is null");
+    }
+    if(lookup(chugi.getFirstID(),chugi.getSecondID())==null) {
+      return false;
+    }
+    root=deleteChugimonHelper(chugi,root);
+    return true;
   }
   /**
    * Recursive helper method to search and delete a specific Chugimon from the BST
@@ -428,6 +547,6 @@ public class ChugiTree implements ChugidexStorage {
     // to one child.
     // Make sure to return node (the new root to this subtree) at the end of each
     // case or at the end of the method.
-    return null; // Default return statement added to resolve compiler errors
+    return null;
   }
 }

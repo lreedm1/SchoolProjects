@@ -23,9 +23,10 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
-public class Chugimon {
-  public static final int MIN_ID;
-  public static final int MAX_ID;
+import java.util.NoSuchElementException;
+public class Chugimon extends Object implements Comparable<Chugimon>{
+  public static final int MIN_ID = 1;
+  public static final int MAX_ID = 151;
   private final String NAME;
   private final int FIRST_ID;
   private final int SECOND_ID;
@@ -38,8 +39,14 @@ public class Chugimon {
 		if(firstID<1||firstID>151||secondID<1||secondID>151) {
       throw new IllegalArgumentException("Invalid ID");
     }
-    this.FIRST_ID = firstID;
-    this.SECOND_ID = secondID;
+
+    FIRST_ID = firstID;
+    SECOND_ID = secondID;
+    NAME=ChugidexUtility.getChugimonName(firstID, secondID);
+    PRIMARY_TYPE=ChugidexUtility.getChugimonTypes(firstID, secondID)[0];
+    SECONDARY_TYPE=ChugidexUtility.getChugimonTypes(firstID, secondID)[1];
+    HEIGHT=ChugidexUtility.getChugimonHeight(firstID, secondID);
+    WEIGHT=ChugidexUtility.getChugimonWeight(firstID, secondID);
 
 	}
 	public String getName() {
@@ -110,7 +117,7 @@ public class Chugimon {
 	public boolean equals(Object other) {
 		if (other instanceof Chugimon) {
 			Chugimon otherItem = (Chugimon) other;
-			if (otherItem.getID() == (this.ID)) {
+			if (otherItem.getName().equals(this.NAME)&&otherItem.getFirstID()==this.FIRST_ID&&otherItem.getSecondID()==this.SECOND_ID) {
 				return true;
 			}
 		}
