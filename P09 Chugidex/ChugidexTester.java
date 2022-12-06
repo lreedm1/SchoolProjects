@@ -42,8 +42,80 @@ methods defined
 otherwise
    */
   public static boolean testChugimonCompareToEquals() {
-    // TODO complete the implementation of this method
-    return false; // Default return statement added to resolve compiler errors
+    //checks to see that two chugimons are not equal if their name and first ids are the same but their second id's are different
+    //checks to see compareTo returns -1
+    {
+      Chugimon chugi1 = new Chugimon(5, 22);
+      Chugimon chugi2 = new Chugimon(5, 21);
+      if(!chugi1.getName().equals(chugi2.getName())){
+    	System.out.println(chugi1.getName());
+    	System.out.println(chugi2.getName());
+        System.out.println("ERROR: Chugimon.equals() method failed because the names were not the same when they should have been");
+        return false;
+      }
+      if (chugi1.equals(chugi2)) {
+        System.out.println("ERROR: Chugimon.equals() method failed when second ids are different");
+        return false;
+      }
+      if(chugi1.compareTo(chugi2) != 1) {
+        System.out.println("ERROR: Chugimon.compareTo() method failed when second ids are different");
+        return false;
+      }
+    }
+    //checks to see that two chugimons are not equal if their name and second ids are the same but their first id's are different
+    //checks to see compareTo returns 1
+    {
+      Chugimon chugi1 = new Chugimon(4, 22);
+      Chugimon chugi2 = new Chugimon(5, 22);
+      if(!chugi1.getName().equals(chugi2.getName())){
+    	System.out.println(chugi1.getName());
+        System.out.println(chugi2.getName());
+        System.out.println("ERROR: Chugimon.equals() method failed because the names were not the same when they should have been");
+        return false;
+      }
+      if (chugi1.equals(chugi2)) {
+        System.out.println("ERROR: Chugimon.equals() method failed when first ids are different");
+        return false;
+      }
+      if(chugi1.compareTo(chugi2) != -1) {
+        System.out.println("ERROR: Chugimon.compareTo() method failed when first ids are different");
+        return false;
+      }
+    
+    }
+    //checks to see that two chugimons are equal if their first and second ids are the same 
+    //checks to see compareTo returns 0
+    {
+      Chugimon chugi1 = new Chugimon(4, 26);
+      Chugimon chugi2 = new Chugimon(4, 26);
+      if (!chugi1.equals(chugi2)) {
+        System.out.println("ERROR: Chugimon.equals() method failed when names are different");
+        return false;
+      }
+      if(chugi1.compareTo(chugi2) != 0) {
+        System.out.println("ERROR: Chugimon.compareTo() method failed when names are different");
+        return false;
+      }
+    }
+    //checks to see that two chugimons are not equal if their names are different
+    {
+      Chugimon chugi1 = new Chugimon(3, 1);
+      Chugimon chugi2 = new Chugimon(5, 22);
+      if(chugi1.getName()==(chugi2.getName())){
+        System.out.println("ERROR: Chugimon.equals() method failed because the names were the same when they should have been different");
+        return false;
+      }
+      if (chugi1.equals(chugi2)) {
+        System.out.println("ERROR: Chugimon.equals() method failed when names are different");
+        return false;
+      }
+      if(chugi1.compareTo(chugi2) != 1) {
+        System.out.println("ERROR: Chugimon.compareTo() method failed when names are different");
+        return false;
+      }
+     
+    }
+    return true;
   }
   /**
    * Checks the correctness of the implementation of Chugimon.toString() method.
@@ -52,8 +124,14 @@ otherwise
 otherwise
    */
   public static boolean testChugimonToString() {
-    // TODO complete the implementation of this method
-    return false; // Default return statement added to resolve compiler errors
+	  {
+	      Chugimon sample = new Chugimon(3, 1);;
+	      if(!sample.toString().equals("Venuasaur#3.1")){
+	        System.out.println("ERROR: Chugimon.toString() method failed the correct toString should return:"+sample.toString() );
+	        return false;
+	      }
+	    }
+	    return true;
   }
   /**
    * Checks the correctness of the implementation of ChugiTree.isValidBSTHelper() 
@@ -131,9 +209,96 @@ every method
 otherwise
    */
   public static boolean testLookup() {
-    // TODO complete the implementation of this method
-    return false; // Default return statement added to resolve compiler errors
-  }
+	   // Create a new ChugiTree. Then, check that calling the lookup() method on an empty ChugiTree returns false.
+	   {
+	      ChugiTree tree = new ChugiTree();
+	      Chugimon one =new Chugimon(1,1);
+	      if(tree.lookup(1, 1)==one){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned true when the tree was empty");
+	        return false;
+	      }
+	   }
+	   //Consider a ChugiTree of height 3 which contains at least 5 Chugimons. Then, try to call 
+	   //lookup() method to search for a Chugimon having a match at the root of the tree.
+	   {
+	      ChugiTree tree = new ChugiTree();
+	      Chugimon one =new Chugimon(1,1);
+	      Chugimon two =new Chugimon(2,2);
+	      Chugimon three =new Chugimon(3,3);
+	      Chugimon four =new Chugimon(4,4);
+	      Chugimon five =new Chugimon(5,5);
+	      tree.add(one);
+	      tree.add(two);
+	      tree.add(three);
+	      tree.add(four);
+	      tree.add(five);
+	      if(tree.lookup(1, 1)!=one){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned false when the tree was not empty");
+	        return false;
+	      }
+	   }
+	   //Search for a Chugimon at the right and left subtrees at different levels considering successful and
+	   //unsuccessful search
+	   {
+	      ChugiTree tree = new ChugiTree();
+	      Chugimon one =new Chugimon(1,1);
+	      Chugimon two =new Chugimon(2,2);
+	      Chugimon three =new Chugimon(3,3);
+	      Chugimon four =new Chugimon(4,4);
+	      Chugimon five =new Chugimon(5,5);
+	      Chugimon six =new Chugimon(6,6);
+	      Chugimon seven =new Chugimon(7,7);
+	      Chugimon eight =new Chugimon(8,8);
+	      Chugimon nine =new Chugimon(9,9);
+	      Chugimon ten =new Chugimon(10,10);
+	      tree.add(one);
+	      tree.add(two);
+	      tree.add(three);
+	      tree.add(four);
+	      tree.add(five);
+	      if(tree.lookup(1, 1)!=one){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned false when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(2, 2)!=two){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned false when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(3, 3)!=three){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned false when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(4, 4)!=four){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned false when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(5, 5)!=five){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned false when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(6, 6)==six){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned true when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(7, 7)==seven){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned true when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(8, 8)==eight){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned true when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(9, 9)==nine){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned true when the tree was not empty");
+	        return false;
+	      }
+	      if(tree.lookup(10, 10)==ten){
+	        System.out.println("ERROR: ChugiTree.lookup() method failed because it returned true when the tree was not empty");
+	        return false;
+	      }
+	   }
+	   return true;
+	  }
   /**
    * Checks for the correctness of ChugiTree.countType() method.
    * 
@@ -158,8 +323,41 @@ that the height of
 otherwise
    */
   public static boolean testHeight() {
-    // TODO complete the implementation of this method
-    return false; // Default return statement added to resolve compiler errors
+    //ensures that the height of an empty Chugimon tree is zero.
+    {
+      ChugiTree tree = new ChugiTree();
+      if(tree.height()!=0){
+        System.out.println("ERROR: ChugiTree.height() method failed because it returned false when the tree was not empty");
+        return false;
+      }
+    }
+    //ensures that the height of a tree which consists of only one node is 1.
+    {
+      ChugiTree tree = new ChugiTree();
+      Chugimon one =new Chugimon(1,1);
+      tree.add(one);
+      if(tree.height()!=1){
+        System.out.println("ERROR: ChugiTree.height() method failed because it returned false when the tree was not empty");
+        return false;
+      }
+    }
+    //ensures that the height of a ChugiTree with four levels for instance, is 4.
+    {
+      ChugiTree tree = new ChugiTree();
+      Chugimon one =new Chugimon(9,2);
+      Chugimon two =new Chugimon(4,3);
+      Chugimon three =new Chugimon(23,4);
+      Chugimon four =new Chugimon(14,5);
+      tree.add(one);
+      tree.add(two);
+      tree.add(three);
+      tree.add(four);
+      if(tree.height()!=4){
+        System.out.println("ERROR: ChugiTree.height() method failed because it returned false when the tree was not empty");
+        return false;
+      }
+    }
+    return true; 
   }
   /**
    * Checks for the correctness of ChugiTree.getFirst() method.
@@ -168,8 +366,31 @@ otherwise
 otherwise
    */
   public static boolean testGetFirst() {
-    // TODO complete the implementation of this method
-    return false; // Default return statement added to resolve compiler errors
+    {
+      ChugiTree tree = new ChugiTree();
+      Chugimon one =new Chugimon(1,1);
+      Chugimon two =new Chugimon(2,2);
+      Chugimon three =new Chugimon(3,3);
+      Chugimon four =new Chugimon(4,4);
+      Chugimon five =new Chugimon(5,5);
+      tree.add(one);
+      tree.add(two);
+      tree.add(three);
+      tree.add(four);
+      tree.add(five);
+      if(tree.getFirst()!=one){
+        System.out.println("ERROR: ChugiTree.getFirst() method failed because it returned the wrong chugimon that wasn't the first one");
+        return false;
+      }
+    }
+    {
+      ChugiTree tree = new ChugiTree();
+      if(tree.getFirst()!=null){
+        System.out.println("ERROR: ChugiTree.getFirst() method failed because it returned a chugimon when the tree was empty");
+        return false;
+      }
+    }
+    return true;
   }
   /**
    * Checks for the correctness of ChugiTree.getLast() method.
@@ -178,8 +399,31 @@ otherwise
 otherwise
    */
   public static boolean testGetLast() {
-    // TODO complete the implementation of this method
-    return false; // Default return statement added to resolve compiler errors
+    {
+      ChugiTree tree = new ChugiTree();
+      Chugimon one =new Chugimon(1,1);
+      Chugimon two =new Chugimon(2,2);
+      Chugimon three =new Chugimon(3,3);
+      Chugimon four =new Chugimon(4,4);
+      Chugimon five =new Chugimon(5,5);
+      tree.add(one);
+      tree.add(two);
+      tree.add(three);
+      tree.add(four);
+      tree.add(five);
+      if(tree.getLast()!=five){
+        System.out.println("ERROR: ChugiTree.getLast() method failed because it returned the wrong chugimon that wasn't the last one");
+        return false;
+      }
+    }
+    {
+      ChugiTree tree = new ChugiTree();
+      if(tree.getLast()!=null){
+        System.out.println("ERROR: ChugiTree.getLast() method failed because it returned a chugimon when the tree was empty");
+        return false;
+      }
+    }
+    return true;
   }
   /**
    * Checks for the correctness of ChugiTree.delete() method. This test must 
