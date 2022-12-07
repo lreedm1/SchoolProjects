@@ -29,7 +29,7 @@ import java.util.NoSuchElementException;
 in the Chugimon
  * and ChugiTree classes.
  * 
- * @author TODO add your name(s)
+ * @author Aarav Gupta and Reed Lokken
  *
  */
 public class ChugidexTester {
@@ -366,8 +366,13 @@ otherwise
 otherwise
    */
   public static boolean testGetFirst() {
+	try{  
     {
       ChugiTree tree = new ChugiTree();
+      if(tree.getFirst()!=null){
+        System.out.println("ERROR: ChugiTree.getFirst() method failed because it returned a chugimon when the tree was empty");
+        return false;
+      }
       Chugimon one =new Chugimon(1,1);
       Chugimon two =new Chugimon(2,2);
       Chugimon three =new Chugimon(3,3);
@@ -382,15 +387,12 @@ otherwise
         System.out.println("ERROR: ChugiTree.getFirst() method failed because it returned the wrong chugimon that wasn't the first one");
         return false;
       }
+      return true;
     }
-    {
-      ChugiTree tree = new ChugiTree();
-      if(tree.getFirst()!=null){
-        System.out.println("ERROR: ChugiTree.getFirst() method failed because it returned a chugimon when the tree was empty");
-        return false;
-      }
-    }
-    return true;
+	}catch(Exception e) {
+		System.out.println("Your tester failed because it encountered an unexpected exception");
+		return false;
+	}
   }
   /**
    * Checks for the correctness of ChugiTree.getLast() method.

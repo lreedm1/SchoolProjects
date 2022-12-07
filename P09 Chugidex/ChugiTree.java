@@ -386,10 +386,12 @@ public class ChugiTree implements ChugidexStorage {
     if(chugi==null) {
       throw new IllegalArgumentException("Chugimon is null");
     }
-    if(lookup(chugi.getFirstID(),chugi.getSecondID())==null) {
+    BSTNode Nodenull = new BSTNode("");
+    Chugimon chugimonster = nextHelper(chugi, root, Nodenull);
+    if(chugimonster==null) {
       throw new NoSuchElementException("Chugimon is not in the tree");
     }
-    return nextHelper(chugi,root,null);
+    return chugimonster;
   }
   /**
    * Recursive helper method to find and return the next Chugimon in the tree
@@ -410,21 +412,36 @@ public class ChugiTree implements ChugidexStorage {
     if(node==null) {
       throw new NoSuchElementException("Chugimon is not in the tree");
     }
-    if(chugi.compareTo(node.getData())==0) {
+    if(node==null) {
+      return null;
+    }
+    if(chugi.equals(node.getData())){
       if(node.getRight()!=null) {
         return getFirstHelper(node.getRight());
       }
       else {
-        if(next==null) {
-          throw new NoSuchElementException("Chugimon is not in the tree");
-        }
-        return chugi;
+        return null;
       }
     }
     if(chugi.compareTo(node.getData())<0) {
-      return nextHelper(chugi,node.getLeft(),node);
+      next=node;
+      Chugimon chugimonster = nextHelper(chugi,node.getLeft(),next);
+      if(chugimonster==null) {
+        return (Chugimon) node.getData();
+      }else{
+        return chugimonster;
+      }
     }
-    return nextHelper(chugi,node.getRight(),next);
+    if(chugi.compareTo(node.getData())>0) {
+      next=node;
+      Chugimon chugimonster = nextHelper(chugi,node.getLeft(),next);
+      if(chugimonster==null) {
+        return (Chugimon) next.getData();
+      }else{
+        return chugimonster;
+      }
+    }
+    return null;
   }
   /**
    * Finds and returns the in-order predecessor of a specified Chugimon in this
