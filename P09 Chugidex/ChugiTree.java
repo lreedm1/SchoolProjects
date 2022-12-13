@@ -412,9 +412,6 @@ public class ChugiTree implements ChugidexStorage {
     if(node==null) {
       throw new NoSuchElementException("Chugimon is not in the tree");
     }
-    if(node==null) {
-      return null;
-    }
     if(chugi.equals(node.getData())){
       if(node.getRight()!=null) {
         return getFirstHelper(node.getRight());
@@ -518,52 +515,86 @@ public class ChugiTree implements ChugidexStorage {
     if(chugi==null) {
       throw new IllegalArgumentException("Chugimon is null");
     }
-    if(lookup(chugi.getFirstID(),chugi.getSecondID())==null) {
+    try{
+      root = deleteChugimonHelper(chugi,root);
+    }catch(NoSuchElementException e) {
       return false;
     }
-    root=deleteChugimonHelper(chugi,root);
     return true;
   }
   /**
-   * Recursive helper method to search and delete a specific Chugimon from the BST
-   * rooted at node
+   * Recursive helper method. Locates the Chugimon matching the target Chugimon in the binary search tree,
+   * then recursively deletes it.
    * 
    * @param target a reference to a Chugimon to delete from the BST rooted at
-   *               node. We assume that target is NOT null.
+   *               node. Target is NOT null.
+   * 
    * @param node   "root" of the subtree we are checking whether it contains a
-   *               match with the target Chugimon.
+   *               match with the target Chugimon
    * 
    * 
-   * @return the new "root" of the subtree we are checking after trying to remove
-   *         target
-   * @throws NoSuchElementException with a descriptive error message if there is
-   *                                no Chugimon matching target in the BST rooted
-   *                                at <b>node</b>
+   * @return the Chugimon which replaces the deleted Chugimon in the Binary Search Tree
+   * 
+   * @throws NoSuchElementException if there is no Chugimon matching target in the BST rooted
+   *                                at <b>node</b> with a descriptive error message 
    */
-  protected static BSTNode<Chugimon> deleteChugimonHelper(Chugimon target, BSTNode<Chugimon> node) {
-    // TODO complete the implementation of this method. Problem decomposition and
-    // hints are provided in the comments below
-    // if node == null (empty subtree rooted at node), no match found, throw an
-    // exception
-    // Compare the target to the data at node and proceed accordingly
-    // Recurse on the left or right subtree with respect to the comparison result
-    // Make sure to use the output of the recursive call to appropriately set the
-    // left or the right child of node accordingly
-    // if match with target found, three cases should be considered. Feel free to
-    // organize the order of these cases at your choice.
-    // Case 1: node may be a leaf (has no children), set node to null.
-    // Case 2: node may have only one child, set node to that child (whether left or
-    // right child)
-    // Case 3: node may have two children,
-    // Replace node with a new BSTNode whose data field value is the successor of
-    // target in the tree, and having the same left and right children as node.
-    // Notice carefully that you cannot set the data of a BSTNode. Hint: The
-    // successor is the smallest element at the right subtree of node
-    //
-    // Then, remove the successor from the right subtree. The successor must have up
-    // to one child.
-    // Make sure to return node (the new root to this subtree) at the end of each
-    // case or at the end of the method.
+  private BSTNode<Chugimon> deleteChugimonHelper(Chugimon target, BSTNode<Chugimon> node) {
+    // base case: node is null, throw a NoSuchElementException
+    // recursive cases:
+    // (1) if target is found, use the helper method deleteNode to delete the node
+    // (2) if target is less than the Chugimon at node, search recursively into the
+    // left subtree
+    // (3) if target is greater than the Chugimon at node, search recursively into
+    // the right subtree
+    if(node==null) {
+      throw new NoSuchElementException("Chugimon is not in the tree");
+    } else if(target.compareTo(node.getData())==0) {
+      return deleteNode(node);
+    } else if(target.compareTo(node.getData())<0) {
+      node.setLeft(deleteChugimonHelper(target, node.getLeft()));
+      return node;
+    } else {
+      node.setRight(deleteChugimonHelper(target, node.getRight()));
+      return node;
+    }
+  }
+  /**
+   * Helper method to delete a node from a BST and recursively fix the BST
+   * The root is updated in the delete method 
+   * 
+   * @param node the node to be deleted
+   * @return the node that should replace the deleted node in the BST
+   */
+  private BSTNode<Chugimon> deleteNode(BSTNode<Chugimon> node) {
+    // base case: node is a leaf, return null
+    // recursive cases:
+    // (0) if node has two children, set node to right node, 
+    // recursively delete the node, return the node
+    // (1) if node has a right child, set the node to the right child, 
+    // set root to the node, recursively delete the node, return the node
+    // (2) if node has a left child, set the node to the left child,
+    // set root to the node, recursively delete the node, return the node 
+    // (3) if node has no children, return null
+    if(node.getLeft()!=null && node.getRight()!=null) {
+      BSTNode<Chugimon> successor = new BSTNode<Chugimon>( getFirstHelper(node.getRight()));
+      deleteChugimonHelper(successor.getData(),node);
+      successor.setLeft(node.getLeft());
+      successor.setRight(node.getRight());
+      node = successor;
+      return node;
+    }
+    if(node.getRight()!=null) {
+      node = node.getRight();
+      return node;
+    }
+    if(node.getLeft()!=null) {
+      node = node.getLeft();
+      return node;
+    }
+    node = null;
     return null;
   }
+
+
+
 }
