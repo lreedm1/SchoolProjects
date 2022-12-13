@@ -1,3 +1,4 @@
+/*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:   CourseRegTester.java
@@ -23,7 +24,7 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
-
+*/
 
 /**
  * This class implements unit test methods to check the correctness of Course,  CourseIterator, 

@@ -1,3 +1,4 @@
+/*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:   CourseReg.java
@@ -23,7 +24,7 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
-
+ */
 
 /**
  * A application handler for course registration using a priority queue.

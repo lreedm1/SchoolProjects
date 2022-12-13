@@ -1,3 +1,4 @@
+/*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:   CourseQueue.java
@@ -23,7 +24,7 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
-
+ */
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

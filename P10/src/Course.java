@@ -1,3 +1,4 @@
+/*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
 // Title:   Course.java
@@ -23,6 +24,7 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
+*/
 
 /**
  * This class models a university-level course. It contains all relevant information for displaying

@@ -1,6 +1,7 @@
+/*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
-// Title:   CourseIterator.java
+// Title:   CourseIterator
 // Course:   CS 300 Fall 2022
 //
 // Author:   Reed Lokken
@@ -23,6 +24,7 @@
 // Persons: NONE        
 // Online Sources: Github Copilot 
 ///////////////////////////////////////////////////////////////////////////////
+ */
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
