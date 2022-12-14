@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
@@ -42,7 +44,14 @@ public class CourseReg {
    * @throws IllegalArgumentException if either capacity or creditLoad are not a positive integer
    */
   public CourseReg(int capacity, int creditLoad) throws IllegalArgumentException {
-    // TODO complete this constructor, initializing all data fields
+    // throw IllegalArgumentException if either capacity or creditLoad are not a positive integer
+    if (capacity > 0 && creditLoad > 0) {
+      throw new IllegalArgumentException("Capacity and creditLoad must be positive integers");
+    }
+
+    // construct a new CourseQueue with the given capacity and assign creditLoad
+    this.courses = new CourseQueue(capacity);
+    this.creditLoad = creditLoad;
   }
   
   /**
@@ -58,7 +67,31 @@ public class CourseReg {
    *   represented is less than or equal to the current creditLoad value
    */
   public String getRecommendedCourses() {
-    return null;
+    CourseIterator iterableClasses = new CourseIterator(courses);
+    Course currentCourse;
+    String result = "";
+    int currentCredits = 0;
+    int nextCredits;
+
+    // while more classes exist
+    while (iterableClasses.hasNext()) {
+      // get the next class
+      currentCourse = iterableClasses.next();
+      // calculate the number of credits if we add this class
+      nextCredits = currentCredits + currentCourse.getNumCredits();
+
+      // if adding this class would put us over the credit limit, stop
+      if (nextCredits >= creditLoad) {
+        break;
+      }
+
+      // else, add the class to the result string
+      result += currentCourse.toString() + "\n";
+      currentCredits = nextCredits; 
+    }
+    // remove the last newline character
+    result = result.substring(0, result.length() - 1);
+    return result;
   }
   
   /**
@@ -68,7 +101,13 @@ public class CourseReg {
    * @return true if the course was successfully added to the queue
    */
   public boolean add(Course toAdd) {
-    return false; // TODO complete this method
+    // try to add the course to the queue
+    try {
+      courses.enqueue(toAdd);
+      return true;
+    // if the queue is full, return false
+    } catch (IllegalStateException e) {}
+    return false;
   }
   
   /**
@@ -77,6 +116,11 @@ public class CourseReg {
    * @throws IllegalArgumentException if creditLoad is not a positive integer
    */
   public void setCreditLoad(int creditLoad) throws IllegalArgumentException {
-    // TODO complete this method
+    // throw IllegalArgumentException if creditLoad is not a positive integer
+    if (creditLoad <= 0) {
+      throw new IllegalArgumentException("CreditLoad must be a positive integer");
+    }
+    // update the creditLoad data field
+    this.creditLoad = creditLoad;
   }
 }

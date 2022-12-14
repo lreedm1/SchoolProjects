@@ -36,12 +36,12 @@ import java.util.NoSuchElementException;
  * 
  * The root of a non-empty queue is always at index 0 of this array-heap.
  */
-public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueADT<Course> once Course is Comparable*/ {
+public class CourseQueue implements Iterable<Course>, PriorityQueueADT<Course>  {
   
   // data fields
-  private Course[] queue; // array max-heap of courses representing this priority queue
-  private int size;       // number of courses currently in this priority queue
-  
+  private Course[] queue;        // array max-heap of courses representing this priority queue
+  private int size;              // number of courses currently in this priority queue
+  private CourseQueue deepCopy;  // deep copy of this priority queue
   /**
    * Creates a new, empty CourseQueue with the given capacity
    * 
@@ -49,7 +49,8 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @throws IllegalArgumentException if the capacity is not a positive integer
    */
   public CourseQueue(int capacity) {
-    // TODO complete this constructor, initializing ALL data fields
+    size = 0;
+    queue = new Course[capacity];
   }
   
   /**
@@ -60,8 +61,13 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @return a deep copy of this CourseQueue, which has the same capacity and size as this queue.
    */
   public CourseQueue deepCopy() {
-    // TODO complete this method according to its description
-    return null;
+    deepCopy = new CourseQueue(queue.length);
+    deepCopy.size = size;
+    // iterate through the queue and copy each element into the deep copy
+    for (int i = 0; i < size; i++) {
+      deepCopy.queue[i] = queue[i];
+    }
+    return deepCopy;
   }
   
   /**
@@ -74,8 +80,7 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    */
   @Override
   public Iterator<Course> iterator() {
-    // TODO complete this method according to its description
-    return null;
+    return new CourseIterator(deepCopy());
   }
   
   ///////////////////////////// TODO: PRIORITY QUEUE METHODS //////////////////////////////////
@@ -86,8 +91,9 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * 
    * @return {@code true} if this CourseQueue is empty
    */
+  @Override
   public boolean isEmpty() {
-    return false; // TODO complete this method
+   return (size == 0);
   }
   
   /**
@@ -95,8 +101,9 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * 
    * @return the size of this CourseQueue
    */
+  @Override
   public int size() {
-    return -1; // TODO complete this method
+    return size;
   }
   
   /**
@@ -109,8 +116,22 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @throws NullPointerException if the given Course is null
    * @throws IllegalStateException with a descriptive error message if this CourseQueue is full
    */
+  @Override
   public void enqueue(Course toAdd) throws NullPointerException, IllegalStateException {
-    // TODO complete this method
+    // check if the course to add is null
+    if (toAdd == null) {
+      throw new NullPointerException("The course to add is null");
+    }
+
+    // check if the queue is full
+    if (size == queue.length) {
+      throw new IllegalStateException("The queue is full");
+    }
+
+    // add the course to the queue and percolate up
+    this.size += 1;
+    queue[size - 1] = toAdd;
+    percolateUp(size - 1);
   }
   
   /**
@@ -122,8 +143,20 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @throws NoSuchElementException with a descriptive error message if this CourseQueue is
    *                                empty
    */
+  @Override
   public Course dequeue() throws NoSuchElementException {
-    return null; // TODO complete this method
+    // check if the queue is empty
+    if (size == 0) {
+      throw new NoSuchElementException("The queue is empty");
+    }
+
+    // remove the root and percolate down
+    Course root = queue[0];
+    queue[0] = queue[size - 1];
+    queue[size - 1] = null;
+    size -= 1;
+    percolateDown(0);
+    return root;
   }
   
   /**
@@ -133,8 +166,9 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @return the Course in this CourseQueue with the highest priority
    * @throws NoSuchElementException if this CourseQueue is empty
    */
+  @Override
   public Course peek() throws NoSuchElementException {
-    return null; // TODO complete this method
+    return queue[0];
   }
   
   ///////////////////////////// TODO: QUEUE HELPER METHODS //////////////////////////////////
@@ -153,7 +187,25 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @throws IndexOutOfBoundsException if index is out of bounds - do not catch the exception
    */
   protected void percolateDown(int index) throws IndexOutOfBoundsException {
-    // TODO complete this method
+    int child = 2 * index + 1;
+
+    // base case | if the child is out of bounds, return
+    if (child >= size) {
+      return;
+    }
+
+    // if the right child is greater than the left child, increment the child
+    if (child + 1 < size && queue[child].compareTo(queue[child + 1]) < 0) {
+      child++;
+    }
+
+    // if the parent is less than the child, swap the parent and child
+    if (queue[index].compareTo(queue[child]) < 0) {
+      Course temp = queue[index];
+      queue[index] = queue[child];
+      queue[child] = temp;
+      percolateDown(child);
+    }
   }
   
   /**
@@ -170,10 +222,21 @@ public class CourseQueue implements Iterable<Course> /* TODO: add PriorityQueueA
    * @throws IndexOutOfBoundsException if index is out of bounds - do not catch the exception
    */
   protected void percolateUp(int index) throws IndexOutOfBoundsException {
-    // TODO complete this method
+    // base case | if the index is 0, then it is the root
+    if (index == 0) {
+      return;
+    }
+    // get the parent index
+    int parent = (index - 1) / 2;
+
+    // if the current index is greater than the parent, swap them
+    if (queue[index].compareTo(queue[parent]) > 0) {
+      Course temp = queue[index];
+      queue[index] = queue[parent];
+      queue[parent] = temp;
+      percolateUp(parent);
+    }
   }
-  
-  ////////////////////////////// PROVIDED: TO STRING ////////////////////////////////////
   
   /**
    * Returns a String representing this CourseQueue, where each element (course) of the queue is 

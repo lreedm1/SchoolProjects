@@ -30,7 +30,7 @@
  * This class models a university-level course. It contains all relevant information for displaying
  * and ranking courses by their enrollment priority.
  */
-public class Course /* TODO: this must implement an interface */ {
+public class Course implements Comparable<Course>{
   
   // This field is used to help determine priority of courses in the compareTo method below, as
   // courses within your major department are considered higher priority.
@@ -56,10 +56,11 @@ public class Course /* TODO: this must implement an interface */ {
    * @throws IllegalArgumentException if any of the arguments do not fulfill their requirements
    */
   public Course(String deptName, int courseNum, int numCredits, int seats) {
-    // TODO: update these and complete the constructor according to the description above
-    this.DEPT_NAME = null;
-    this.COURSE_NUM = -1;
-    this.NUM_CREDITS = -1;
+
+    this.DEPT_NAME = deptName;
+    this.COURSE_NUM = courseNum;
+    this.NUM_CREDITS = numCredits;
+    setSeatsAvailable(seats);
   }
   
   ////////////////////////////// PROVIDED: ACCESSOR METHODS ////////////////////////////////////
@@ -118,8 +119,6 @@ public class Course /* TODO: this must implement an interface */ {
     return retval;
   }
   
-  //////////////////////////////// TODO: MUTATOR METHODS ////////////////////////////////////
-  
   /**
    * Sets the name and RateMyProfessor rating of the professor for this class. If profName is
    * not null, rating must be between 0-5. If profName is null, profRating is ignored.
@@ -130,7 +129,15 @@ public class Course /* TODO: this must implement an interface */ {
    *     professor is null, no exception is thrown
    */
   public void setProfessor(String profName, double rating) throws IllegalArgumentException {
-    // TODO: complete this
+    // throws IllegalArgumentException if the professor name isnull and the rating is invalid
+    if (profName != null && (rating < 0 || rating > 5)) {
+      throw new IllegalArgumentException("Professor name is null and rating is provided");
+    
+    // sets the professor name and rating if the professor name is not null
+    } else if (profName != null) {
+      this.profName = profName;
+      this.profRating = rating;
+    }
   }
   
   /**
@@ -141,10 +148,13 @@ public class Course /* TODO: this must implement an interface */ {
    * @throws IllegalArgumentException if the number of seats is negative
    */
   public void setSeatsAvailable(int numSeatsAvailable) {
-    // TODO: complete this
+    // throws IllegalArgumentException if the number of seats is negative
+    if (numSeatsAvailable < 0) {
+      throw new IllegalArgumentException("Number of seats is negative");
+    } else {
+      this.numSeatsAvailable = numSeatsAvailable;
+    }
   }
-  
-  //////////////////////////////// TODO: INHERITED METHOD ////////////////////////////////////
   
   /**
    * Compares this course to another course to calculate its PRIORITY. Note that two completely
@@ -168,8 +178,42 @@ public class Course /* TODO: this must implement an interface */ {
    * @return negative if this is less than otherCourse, positive if this is greater than otherCourse,
    *   0 if this is equal to otherCourse
    */
+  @Override
   public int compareTo(Course otherCourse) {
-    return 0; // TODO complete this method. Be sure to add an @Override annotation as appropriate.
+    // if this course is in another department & other course is in the department | return -1
+    if (otherCourse.DEPT_NAME.equals(MAJOR_DEPT) && !this.DEPT_NAME.equals(MAJOR_DEPT)) {
+      return -1;
+    }
+
+    // if this course is in the department & other course is in another department | return 1
+    else if (!otherCourse.DEPT_NAME.equals(MAJOR_DEPT) && this.DEPT_NAME.equals(MAJOR_DEPT)) {
+      return 1;
+    }
+   
+    // if this course does not have seats & other course does | return -1
+    else if (this.numSeatsAvailable == 0 && otherCourse.numSeatsAvailable != 0) {
+      return -1;
+    }
+
+    // if this course has seats & other course does not | return 1
+    else if (this.numSeatsAvailable != 0 && otherCourse.numSeatsAvailable == 0) {
+      return 1;
+    }
+
+    // if this course has a null professor name & other course has a non-null professor name | return -1
+    else if (this.profName == null && otherCourse.profName != null) {
+      return -1;
+    }
+
+    // if this course has a non-null professor name & other course has a null professor name | return 1
+    else if (this.profName != null && otherCourse.profName == null) {
+      return 1;
+    }
+
+    // return the difference between the ratings of the professors
+    else {
+      return (int) (this.profRating - otherCourse.profRating);
+    }
   }
   
 }

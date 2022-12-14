@@ -45,7 +45,7 @@ public class CourseIterator implements Iterator<Course> {
    * @param queue a DEEP COPY of the queue to iterate over
    */
   public CourseIterator(CourseQueue queue) {
-    
+    this.queue = queue.deepCopy();
   }
 
   /**
@@ -55,8 +55,7 @@ public class CourseIterator implements Iterator<Course> {
    */
   @Override
   public boolean hasNext() {
-    // TODO Auto-generated method stub
-    return false;
+    return !queue.isEmpty();
   }
 
   /**
@@ -68,8 +67,12 @@ public class CourseIterator implements Iterator<Course> {
    */
   @Override
   public Course next() throws NoSuchElementException {
-    // TODO Auto-generated method stub
-    return null;
+    // if there are more elements in the queue, return the next element
+    if (hasNext()){
+      return queue.dequeue();
+    }
+    // otherwise, throw a NoSuchElementException
+    throw new NoSuchElementException("No more elements in the iteration");
   }
 
 }
