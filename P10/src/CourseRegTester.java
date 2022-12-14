@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /*
 /////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
@@ -154,6 +156,26 @@ public class CourseRegTester {
         return false;
       }
 
+    } catch (Exception e){
+      System.out.println("Unexpected exception" + e.getMessage());
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+   * This method must test the Course compareTo() implementation. Be sure to test ALL FOUR levels
+   * of the comparison here!
+   * 
+   * Once you complete this test, finish the Course implementation if you have not done so already,
+   * then move to testCourseQueue() and testEnqueueDequeue().
+   * 
+   * @see Course#compareTo(Course)
+   * @return true if the compareTo() implementation is correct; false otherwise
+   */
+  public static boolean testCompareTo() {
+    try {
+      // #TODO currently returns true when called on compare to that only checks if this is greater than other
       // test compareTo when the courses are equal
       Course c5 = new Course("CS", 300, 3, 1);
       c5.setProfessor("Hobbes", 5);
@@ -163,7 +185,7 @@ public class CourseRegTester {
         System.out.println("compareTo() failed when the courses are equal");
         return false;
       }
-
+      
       // test compareTo when the first course has deptName CS and the second course has deptName ECE
       Course c7 = new Course("ECE", 300, 3, 1);
       if (c5.compareTo(c7) <= 0){
@@ -206,20 +228,6 @@ public class CourseRegTester {
   }
   
   /**
-   * This method must test the Course compareTo() implementation. Be sure to test ALL FOUR levels
-   * of the comparison here!
-   * 
-   * Once you complete this test, finish the Course implementation if you have not done so already,
-   * then move to testCourseQueue() and testEnqueueDequeue().
-   * 
-   * @see Course#compareTo(Course)
-   * @return true if the compareTo() implementation is correct; false otherwise
-   */
-  public static boolean testCompareTo() {
-    return false; // TODO: complete this test
-  }
-  
-  /**
    * This method must test the other methods in CourseQueue (isEmpty, size, peek). Verify normal 
    * cases and error cases, as well as a filled and re-emptied queue.
    * 
@@ -230,7 +238,76 @@ public class CourseRegTester {
    * @return true if CourseQueue's other methods are implemented correctly; false otherwise
    */
   public static boolean testCourseQueue() {
-    return false; // TODO: complete this test
+  try {
+    // test isEmpty() when the queue is empty | expected: true
+    CourseQueue queue = new CourseQueue(1);
+    if (queue.isEmpty() == false){
+      System.out.println("isEmpty() failed when the queue is empty");
+      return false;
+    }
+    // test isEmpty() when the queue is not empty | expected: false
+    Course c1 = new Course("CS", 300, 3, 1);
+    queue.enqueue(c1);
+    if (queue.isEmpty() == true){
+      System.out.println("isEmpty() failed when the queue is not empty");
+      return false;
+    }
+    // test isEmpty() when the queue is empty after dequeue | expected: true
+    queue.dequeue();
+    if (queue.isEmpty() == false){
+      System.out.println("isEmpty() failed when the queue is empty after dequeue");
+      return false;
+    }
+
+    // test size() when the queue is empty | expected: 0
+    if (queue.size() != 0){
+      System.out.println("size() failed when the queue is empty");
+      return false;
+    }
+    // test size() when the queue is not empty | expected: 1
+    queue.enqueue(c1);
+    if (queue.size() != 1){
+      System.out.println("size() failed when the queue is not empty");
+      return false;
+    }
+    // test size() when the queue is empty after dequeue | expected: 0
+    queue.dequeue();
+    if (queue.size() != 0){
+      System.out.println("size() failed when the queue is empty after dequeue");
+      return false;
+    }
+
+    // test peek() when the queue is empty | expected: NoSuchElementException
+    try {
+      queue.peek();
+      System.out.println("peek() failed when the queue is empty" );
+      return false;
+    } catch (NoSuchElementException e){
+      // expected
+    }
+
+    // test peek() when the queue is not empty | expected: c1
+    queue.enqueue(c1);
+    if (!queue.peek().equals(c1)){
+      System.out.println("peek() failed when the queue is not empty");
+      return false;
+    }
+
+    // test peek() when the queue is empty after dequeue | expected: NoSuchElementException
+    queue.dequeue();
+    try {
+      queue.peek();
+      System.out.println("peek() failed when the queue is empty after dequeue");
+      return false;
+    } catch (NoSuchElementException e){
+      // expected
+    }
+
+  } catch (Exception e){
+    System.out.println("Unexpected exception" + e.getMessage());
+    return false;
+  }
+  return true;
   }
   
   /**
@@ -247,7 +324,13 @@ public class CourseRegTester {
    * @return true if the CourseQueue enqueue/dequeue implementations are correct; false otherwise
    */
   public static boolean testEnqueueDequeue() {
-    return false; // TODO: complete this test
+    try {
+      // TODO fix this
+    } catch (Exception e){
+      System.out.println("Unexpected exception" + e.getMessage());
+      return false;
+    }
+    return true;
   }
   
   /**
@@ -262,7 +345,13 @@ public class CourseRegTester {
    * @return true if the CourseIterator implementation is correct; false otherwise
    */
   public static boolean testCourseIterator() {
-    return false; // TODO: complete this test
+    try {
+      // TODO fix this
+    } catch (Exception e){
+      System.out.println("Unexpected exception" + e.getMessage());
+      return false;
+    }
+    return true;
   }
   
   /**
@@ -277,7 +366,13 @@ public class CourseRegTester {
    * @return true if CourseReg has been implemented correctly; false otherwise
    */
   public static boolean testCourseReg() {
-    return false; // TODO: complete this test
+    try {
+      // TODO fix this
+    } catch (Exception e){
+      System.out.println("Unexpected exception" + e.getMessage());
+      return false;
+    }
+    return true;
   }
   
   /**

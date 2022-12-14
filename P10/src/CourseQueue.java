@@ -83,9 +83,6 @@ public class CourseQueue implements Iterable<Course>, PriorityQueueADT<Course>  
     return new CourseIterator(deepCopy());
   }
   
-  ///////////////////////////// TODO: PRIORITY QUEUE METHODS //////////////////////////////////
-  // Add the @Override annotation to these methods once this class implements PriorityQueueADT!
-  
   /**
    * Checks whether this CourseQueue is empty
    * 
@@ -168,10 +165,12 @@ public class CourseQueue implements Iterable<Course>, PriorityQueueADT<Course>  
    */
   @Override
   public Course peek() throws NoSuchElementException {
+    // check if the queue is empty
+    if (size == 0) {
+      throw new NoSuchElementException("The queue is empty");
+    }
     return queue[0];
   }
-  
-  ///////////////////////////// TODO: QUEUE HELPER METHODS //////////////////////////////////
   
   /**
    * Restores the max-heap invariant of a given subtree by percolating its root down the tree. If 
