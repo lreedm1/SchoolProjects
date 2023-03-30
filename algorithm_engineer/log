@@ -1,0 +1,63 @@
+Script started on Thu Mar 30 01:33:22 2023
+Restored session: Thu Mar 30 01:33:20 CDT 2023
+[1m[7m%[27m[1m[0m                                                                                                                       ]7;file://Nuclear-guidance-system.local/Users/reed/Documents/CS%20Projects/CS%20400/P2/W3/Project2_AE_red/algorithm_engineer[0m[27m[24m[Jreed@Nuclear-guidance-system algorithm_engineer % [K[?2004hggit status[?2004l
+On branch AlgorithmEngineer
+Your branch is up to date with 'origin/AlgorithmEngineer'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31m../.DS_Store[m
+	[31m./[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+[1m[7m%[27m[1m[0m                                                                                                                       ]7;file://Nuclear-guidance-system.local/Users/reed/Documents/CS%20Projects/CS%20400/P2/W3/Project2_AE_red/algorithm_engineer[0m[27m[24m[Jreed@Nuclear-guidance-system algorithm_engineer % [K[?2004hggit log -1[?2004l
+[?1h=[33mcommit d2fdb01cd6b136834904f03ce5cfefdfd54d7166[m[33m ([m[1;36mHEAD -> [m[1;32mAlgorithmEngineer[m[33m, [m[1;31morigin/AlgorithmEngineer[m[33m)[m[m
+Author: tumpowsky <rtumpowsky@wisc.edu>[m
+Date:   Thu Mar 30 02:29:05 2023 +0000[m
+[m
+    adding log file[m
+[K[?1l>[1m[7m%[27m[1m[0m                                                                                                                       ]7;file://Nuclear-guidance-system.local/Users/reed/Documents/CS%20Projects/CS%20400/P2/W3/Project2_AE_red/algorithm_engineer[0m[27m[24m[Jreed@Nuclear-guidance-system algorithm_engineer % [K[?2004hmmake clean[?2004l
+rm -f *.class
+[1m[7m%[27m[1m[0m                                                                                                                       ]7;file://Nuclear-guidance-system.local/Users/reed/Documents/CS%20Projects/CS%20400/P2/W3/Project2_AE_red/algorithm_engineer[0m[27m[24m[Jreed@Nuclear-guidance-system algorithm_engineer % [K[?2004hlls[?2004l
+AlgorithmEngineerTests.java	README.md			SortedCollectionInterface.java
+Makefile			RedBlackTree.java		junit5.jar
+Node.java			RedBlackTreeInterface.java	log
+[1m[7m%[27m[1m[0m                                                                                                                       ]7;file://Nuclear-guidance-system.local/Users/reed/Documents/CS%20Projects/CS%20400/P2/W3/Project2_AE_red/algorithm_engineer[0m[27m[24m[Jreed@Nuclear-guidance-system algorithm_engineer % [K[?2004hmmake runTests[?2004l
+javac -cp .:junit5.jar AlgorithmEngineerTests.java RedBlackTree.java RedBlackTreeInterface.java SortedCollectionInterface.java
+java -cp .:junit5.jar org.junit.platform.console.ConsoleLauncher --scan-class-path
+
+Thanks for using JUnit! Support its development at https://junit.org/sponsoring
+
+[36m╷[0m
+[36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
+[36m│  └─[0m [36mAlgorithmEngineerTests[0m [32m✔[0m
+[36m│     ├─[0m [34mtest1()[0m [32m✔[0m
+[36m│     ├─[0m [34mtest2()[0m [32m✔[0m
+[36m│     ├─[0m [34mtest3()[0m [32m✔[0m
+[36m│     ├─[0m [34mtest4()[0m [32m✔[0m
+[36m│     ├─[0m [34mtest5()[0m [32m✔[0m
+[36m│     └─[0m [34mtest6()[0m [32m✔[0m
+[36m├─[0m [36mJUnit Vintage[0m [32m✔[0m
+[36m└─[0m [36mJUnit Platform Suite[0m [32m✔[0m
+
+Test run finished after 41 ms
+[         4 containers found      ]
+[         0 containers skipped    ]
+[         4 containers started    ]
+[         0 containers aborted    ]
+[         4 containers successful ]
+[         0 containers failed     ]
+[         6 tests found           ]
+[         0 tests skipped         ]
+[         6 tests started         ]
+[         0 tests aborted         ]
+[         6 tests successful      ]
+[         0 tests failed          ]
+
+[1m[7m%[27m[1m[0m                                                                                                                       ]7;file://Nuclear-guidance-system.local/Users/reed/Documents/CS%20Projects/CS%20400/P2/W3/Project2_AE_red/algorithm_engineer[0m[27m[24m[Jreed@Nuclear-guidance-system algorithm_engineer % [K[?2004heexit[?2004l
+
+Saving session...
+...saving history...truncating history files...
+...completed.
+
+Script done on Thu Mar 30 01:33:46 2023
