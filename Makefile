@@ -1,7 +1,7 @@
 runTests: compile
 	java -jar junit5.jar -cp . -c AlgorithmEngineerTests
 
-compile:
+compile: 
 	javac AE_Car.java
 	javac RedBlackTree.java
 	javac RedBlackTreeInterface.java
