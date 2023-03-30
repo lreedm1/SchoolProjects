@@ -12,4 +12,3 @@ compile:
 
 clean:
 	rm *.class
-	rm *.jar
