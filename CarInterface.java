@@ -1,10 +1,10 @@
-public interface CarInterface extends Comparable<AE_Car>{
-	//public CarInterface(String location, String brand, String color, double price);
-	public String getColor();
-	public double getPrice();
-	public String getBrand();
-	public String getLocation();
-
+public interface CarInterface extends Comparable<CarInterface>{
+    String getColor();
+    double getPrice();
+    String getBrand();
+    String getLocation();
+    @Override
+    int compareTo(CarInterface otherCar);
 }
 
 
