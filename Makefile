@@ -1,7 +1,7 @@
-runTests: compile
+runDataWranglerTests: run
 	java -jar junit5.jar -cp . -c DataWranglerTests
 
-compile: 
+run: 
 	javac Car.java
 	javac CarInterface.java
 	javac CarReaderInterface.java
