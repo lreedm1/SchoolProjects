@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+runTests: runFrontendDeveloperTests
+
+runFrontendDeveloperTests: FrontendDeveloperTests.java 
+	javac -cp .:junit5.jar FrontendDeveloperTests.java
+	java -jar junit5.jar --class-path=. --include-classname=.* --select-class=FrontendDeveloperTests    
+=======
+runTests: compile
+	java -jar junit5.jar -cp . -c AlgorithmEngineerTests
+
+compile: 
+	javac AE_Car.java
+	javac RedBlackTree.java
+	javac RedBlackTreeInterface.java
+	javac SortedCollectionInterface.java
+	javac CarInterface.java
+	javac -cp .:junit5.jar AlgorithmEngineerTests.java
+	
+>>>>>>> c639a76d618d2e3303a9ddce65b823109a452835
+
+clean:
+	rm *.class
+
