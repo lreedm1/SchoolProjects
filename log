@@ -1,67 +1,0 @@
-Script started on 2023-03-30 20:12:45+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
-[?2004h]0;jbminton@begreat: ~/Project2_AE_red[01;32mjbminton@begreat[00m:[01;34m~/Project2_AE_red[00m$ git status
-[?2004lOn branch DataWrangler
-Your branch is ahead of 'origin/DataWrangler' by 1 commit.
-  (use "git push" to publish your local commits)
-
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	[31mdeleted:    Car.class[m
-	[31mdeleted:    CarInterface.class[m
-	[31mdeleted:    CarReaderInterface.class[m
-	[31mdeleted:    DataWranglerTests.class[m
-	[31mmodified:   log[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-[?2004h]0;jbminton@begreat: ~/Project2_AE_red[01;32mjbminton@begreat[00m:[01;34m~/Project2_AE_red[00m$ git log -1
-[?2004l[?1h=[33mcommit a0438ded88ca22c7e012d3bd45bb3dcbba7dde73[m[33m ([m[1;36mHEAD -> [m[1;32mDataWrangler[m[33m)[m[m
-Author: Jack Minton <jbminton@wisc.edu>[m
-Date:   Thu Mar 30 20:10:52 2023 +0000[m
-[m
-    added test classes back with comments[m
-[K[?1l>[?2004h]0;jbminton@begreat: ~/Project2_AE_red[01;32mjbminton@begreat[00m:[01;34m~/Project2_AE_red[00m$ make clean
-[?2004lrm *.class
-rm: cannot remove '*.class': No such file or directory
-make: *** [Makefile:12: clean] Error 1
-[?2004h]0;jbminton@begreat: ~/Project2_AE_red[01;32mjbminton@begreat[00m:[01;34m~/Project2_AE_red[00m$ ls
-[?2004lCar.java           CarReaderInterface.java  Makefile               [0m[01;31mjunit5.jar[0m
-CarInterface.java  DataWranglerTests.java   USA_cars_datasets.csv  log
-[?2004h]0;jbminton@begreat: ~/Project2_AE_red[01;32mjbminton@begreat[00m:[01;34m~/Project2_AE_red[00m$ d[Kmake runTests
-[?2004ljavac Car.java
-javac CarInterface.java
-javac CarReaderInterface.java
-javac -cp .:junit5.jar DataWranglerTests.java
-java -jar junit5.jar -cp . -c DataWranglerTests
-
-Thanks for using JUnit! Support its development at https://junit.org/sponsoring
-
-[36m╷[0m
-[36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
-[36m│  └─[0m [36mDataWranglerTests[0m [32m✔[0m
-[36m│     ├─[0m [34mtestReadCarsFromFileAndCompareTo()[0m [32m✔[0m
-[36m│     ├─[0m [34mtestReadCarsFromFileAndGetBrand()[0m [32m✔[0m
-[36m│     ├─[0m [34mtestReadCarsFromFileAndGetColor()[0m [32m✔[0m
-[36m│     ├─[0m [34mtestReadCarsFromFileAndGetPrice()[0m [32m✔[0m
-[36m│     └─[0m [34mtestReadCarsFromFileAndGetLocation()[0m [32m✔[0m
-[36m├─[0m [36mJUnit Vintage[0m [32m✔[0m
-[36m└─[0m [36mJUnit Platform Suite[0m [32m✔[0m
-
-Test run finished after 459 ms
-[         4 containers found      ]
-[         0 containers skipped    ]
-[         4 containers started    ]
-[         0 containers aborted    ]
-[         4 containers successful ]
-[         0 containers failed     ]
-[         5 tests found           ]
-[         0 tests skipped         ]
-[         5 tests started         ]
-[         0 tests aborted         ]
-[         5 tests successful      ]
-[         0 tests failed          ]
-
-[?2004h]0;jbminton@begreat: ~/Project2_AE_red[01;32mjbminton@begreat[00m:[01;34m~/Project2_AE_red[00m$ exit
-[?2004lexit
-
-Script done on 2023-03-30 20:13:45+00:00 [COMMAND_EXIT_CODE="0"]
