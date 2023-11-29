@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta author="Reed Lokken">
+    <title>Binary Search</title>
+  </head>
+  <body>
+     <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--7HtJ-as8--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/5hsod7t93v85b23rk671.png" alt="Image description">
+    <h1>Recursive</h1>
+        <ol>
+            <li>Compare the middle element of the array with the target value.</li>
+            <li>If the middle element is equal to the target value, return the index of the middle element.</li>
+            <li>If the middle element is greater than the target value, recursively search the left half of the array.</li>
+            <li>If the middle element is less than the target value, recursively search the right half of the array.</li>
+            <li>If the target value is not found in the array, return -1.</li>
+      </ol>
+    <h1>Iterative</h1>
+    <p>Here are the steps to perform an iterative binary search:</p>
+        <ol>
+        <li>Initialize low and high variables to the start and end of the array, respectively.</li>
+        <li>Repeat the following steps until low is greater than high:
+            <ol type="a">
+            <li>Compute the middle index as the average of low and high.</li>
+            <li>Compare the middle element of the array with the target value.</li>
+            <li>If the middle element is equal to the target value, return the index of the middle element.</li>
+            <li>If the middle element is greater than the target value, update the high index to be the index before the middle index.</li>
+            <li>If the middle element is less than the target value, update the low index to be the index after the middle index.</li>
+            </ol>
+        </li>
+        <li>If the target value is not found in the array, return -1.</li>
+        </ol>
+     <p>For more information on binary search, see <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Wikipedia's page on binary search</a>.</p>
+  </body>
+</html>

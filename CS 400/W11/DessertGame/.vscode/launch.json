@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "DessertGame",
+            "request": "launch",
+            "mainClass": "DessertGame",
+            "projectName": "DessertGame_450b7bd8",
+            "vmArgs": "--module-path /Users/reed/Documents/CS Projects/CS 400/W11/DessertGame/lib --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}

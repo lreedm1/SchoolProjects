@@ -1,0 +1,108 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 Monaco;
+}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red34\green45\blue53;
+\red230\green233\blue234;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c17647\c23137\c27059;
+\cssrgb\c92157\c92941\c93333;}
+\margl1440\margr1440\vieww16600\viewh19880\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+WRONG\
+0    0101 001 001 1 00000   # AND R1, R1, 0\
+1    1010 010  000001000      # LD R2 +7\
+2    0110 011 010 000000      # LDR R3, R2, 0      \
+3    0000 101  00000001      # BR  NP 1\
+4    1111 0000 00100101      # TRAP x25\
+5    0001 000 010 000 001 # ADD  R2, R1, R0\
+6    1111 0000 00100001      # TRAP x21\
+7    0001 001 1 00001          # ADD R1, R1, 1\
+8    0000 111 10000111        # BRnzp -8\
+9    0011 0000 0000 0000    # x3000 in binary\
+\
+STILL WRONG BUT CLOSER\
+0011 0000 0000 0000\
+0000 0000 0100 0011\
+0000 0000 0101 0010\
+0000 0000 0000 0000\
+0101 0010 0110 0000  #
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+AND R1, R1, #0
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+0010 0100 0000 1000  # L
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+D R2, +8
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+0110 0110 1000 0000  # 
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+LDR R3, R2, #0
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+0000 1010 0000 0001  # 
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+BRnp +1
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+1111 0000 0010 0101   # HALT\
+0001 0000 1100 0001  # 
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+ADD R0, R3, R1
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+1111 0000 0010 0001   # OUT \
+0001 0010 0110 0001   # 
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+ADD R1, R1, #1\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 0001 0100 1010 0001  # 
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+ADD R2, R2, #1
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 0000 1111 1111 1000   # BRnzp -8 \
+0011 0000 0000 0000  # x3000\
+\
+WORKING\
+0011 0000 0000 0000\
+0000 0000 0100 0011\
+0000 0000 0101 0010\
+0000 0000 0000 0000\
+0101 0010 0110 0000  \
+0010 0100 0000 1000  \
+0110 0110 1000 0000  \
+0000 1010 0000 0001  \
+1111 0000 0010 0101   \
+0001 0000 1100 0001 \
+1111 0000 0010 0001   \
+0001 0010 0110 0001\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 0001 0100 1010 0001  \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 0000 1111 1111 1000  \
+0011 0000 0000 0000\
+\
+WORKING?\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf4 \cb5 \expnd0\expndtw0\kerning0
+0011 0000 0000 0000\
+0000 0000 0100 0011\
+0000 0000 0111 0100\
+0000 0000 0111 0000\
+0000 0000 0110 0001\
+0000 0000 0110 1111\
+0000 0000 0001 1100\
+0000 0000 0001 1011\
+0000 0000 0000 0000\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0 \cf0 \cb1 \kerning1\expnd0\expndtw0 0101 0010 0110 0000  \
+0010 0100 0000 1000  \
+0110 0110 1000 0000  \
+0000 1010 0000 0001  \
+1111 0000 0010 0101   \
+0001 0000 1100 0001 \
+1111 0000 0010 0001   \
+0001 0010 0110 0001\
+0001 0100 1010 0001  \
+0000 1111 1111 1000  \
+0011 0000 0000 0000}
