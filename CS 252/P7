@@ -1,14 +1,14 @@
-; Your Name:
-; Partner's Name (if any):
-; (Both partner's must also submit a partners.txt file.)
-; Date:
+; Reed Lokken:
+; Hopes and Prayers:
+; 
+; 09/29/2023:
 
 
 ; >>>>> TO RECEIVE CREDIT YOU MUST CERTIFY YOUR WORK
 ; >>>>> AND MARK WHICH SUBROUTINES YOU'VE SUCCESSFULLY COMPLETED:
-; Mark the boxes below [ ] by replacing the space with an X as in [X].
+; Mark the boxes below [X] by replacing the space with an X as in [X].
 ;
-; [ ] I/we certify that the code added herein is my/our own authorship -
+; [X] I/we certify that the code added herein is my/our own authorship -
 ;     I/we have not used anyone else's code (in whole or in part) for
 ;     my/our modifications, and I/we have not shared my/our code in any
 ;     form with anyone else.
@@ -32,6 +32,7 @@
 ;
 ; argument:     in R0 is A
 ; return value: in R1 will be the result of (A * 3) + 1
+
 ;
 MUL3ADD1
 ; ************************* Start your code here *************************
